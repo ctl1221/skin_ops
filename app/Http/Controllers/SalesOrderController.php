@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\SalesOrder;
+use App\SalesOrderLine;
+use App\Sellable;
+use App\PricelistSellable;
+use App\Client;
+
+use Illuminate\Support\Facades\DB;
+
+class SalesOrderController extends Controller
+{
+    public function index()
+  	{
+  		$sales_orders = SalesOrder::all();
+
+  		return view('sales_orders.index', compact('sales_orders'));
+  	}
+
+  	public function create(Client $client)
+  	{
+
+  		$sellables = PricelistSellable::where('pricelist_id',$client->pricelist_id)
+            ->with('sellable')
+            ->get();
+
+  		return view('sales_orders.create', compact('sellables', 'client'));
+  	}
+
+    public function store(Request $request)
+    {
+      $client = Client::find($request->client_id);
+      $sales_order_lines = json_decode($request->sales_order_lines);
+
+      DB::transaction(function () use ($request, $sales_order_lines) {
+            $sales_order = SalesOrder::create([
+                'so_number' => '0050',
+            ]);
+
+            foreach($sales_order_lines as $x)
+            {
+              SalesOrderLine::create([
+                  'sales_order_id' => $sales_order->id,
+                  'sellable_type' => $x->sellable_type,
+                  'sellable_id' => $x->sellable_id,
+                  'price' => $x->price,
+              ]); 
+            }
+        });
+
+        return redirect('sales_orders');
+    }
+}
