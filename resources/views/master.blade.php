@@ -12,6 +12,8 @@
 </head>
 
 <body>
+	@include('nav')
+	
 	<div id="app">
 		@yield('contents')
 	</div>

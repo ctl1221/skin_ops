@@ -53,4 +53,11 @@ class SalesOrderController extends Controller
 
         return redirect('sales_orders');
     }
+
+    public function destroy(SalesOrder $sales_order)
+    {
+        $sales_order->delete();
+        
+        return redirect('/sales_orders');
+    }
 }

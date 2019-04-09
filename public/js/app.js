@@ -37167,7 +37167,7 @@ var render = function() {
         _vm._v("\n\n    " + _vm._s(_vm.totalPrice) + "\n\n    "),
         _c("br"),
         _vm._v(" "),
-        _c("button", { on: { click: _vm.submitForm } }, [_vm._v("Submit")])
+        _c("button", [_vm._v("Submit")])
       ],
       2
     )

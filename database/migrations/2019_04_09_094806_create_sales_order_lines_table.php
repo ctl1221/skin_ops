@@ -15,10 +15,12 @@ class CreateSalesOrderLinesTable extends Migration
     {
         Schema::create('sales_order_lines', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('sales_order_id');
+            $table->unsignedBigInteger('sales_order_id');
             $table->morphs('sellable');
             $table->double('price');
             $table->timestamps();
+
+            $table->foreign('sales_order_id')->references('id')->on('sales_orders')->onDelete('cascade');
         });
     }
 

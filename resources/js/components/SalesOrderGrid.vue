@@ -36,7 +36,7 @@
 
      <br/>
 
-     <button @click="submitForm">Submit</button>
+     <button>Submit</button>
 
    </form>
  </div>
