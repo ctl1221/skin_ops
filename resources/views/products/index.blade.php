@@ -20,12 +20,11 @@ List of Products
 	      @foreach($products as $x)
 	      <tr>
 	        <td><a class="text-secondary" href="/products/{{ $x->id }}"> {{ $x->name }} </a></td>
-	        @if($x->is_active)
-	        <td><span class="badge badge-success">Active</span></td>
-	        @else
-	        <td><span class="badge badge-danger">Inactive</span></td>
-	        @endif
-
+	        <td>
+	        	<span class="badge {{ $x->is_active ? 'badge-success': 'badge-danger' }}">
+	        		{{ $x->is_active ? 'Active' : 'Inactive' }} 
+	        	</span>
+	        </td>
 	      </tr>
 	      @endforeach
 

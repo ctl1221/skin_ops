@@ -22,10 +22,11 @@ Route::get('/', function () {
 
 //Master Data
 Route::resource('pricelists', 'PricelistController');
-
 Route::resource('clients', 'ClientController');
-
 Route::resource('products', 'ProductController');
+Route::resource('packages', 'PackageController');
+
+//Modify
 Route::post('/products/{product}/deactivate', 'ProductController@deactivate');
 Route::post('/products/{product}/activate', 'ProductController@activate');
 

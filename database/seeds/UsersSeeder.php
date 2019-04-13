@@ -6,11 +6,6 @@ use App\Role;
 
 class UsersSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $admin_user = User::create([
