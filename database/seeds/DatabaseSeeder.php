@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call(UsersSeeder::class);
 
     	Product::create([
     		'name' => 'Collagen Candy',
@@ -38,12 +38,26 @@ class DatabaseSeeder extends Seeder
 
         Client::create([
             'last_name' => 'Licup',
-            'first_name' => 'Charles'
+            'first_name' => 'Charles',
+            'is_active' => 1,
         ]);
 
         Client::create([
             'last_name' => 'Stark',
-            'first_name' => 'Tony'
+            'first_name' => 'Tony',
+            'is_active' => 1,
+        ]);
+
+        Client::create([
+            'last_name' => 'Jones',
+            'first_name' => 'Davy',
+            'is_active' => 0,
+        ]);
+
+        Client::create([
+            'last_name' => 'Sparrow',
+            'first_name' => 'Jack',
+            'is_active' => 0,
         ]);
 
         Pricelist::create([
@@ -88,6 +102,27 @@ class DatabaseSeeder extends Seeder
             'sellable_id' => 2,
             'sellable_type' => 'App\\Service',
             'price' => 1400
+        ]);
+
+         PricelistSellable::create([
+            'pricelist_id' => 2,
+            'sellable_id' => 1,
+            'sellable_type' => 'App\\Product',
+            'price' => 600
+        ]);
+
+        PricelistSellable::create([
+            'pricelist_id' => 3,
+            'sellable_id' => 1,
+            'sellable_type' => 'App\\Product',
+            'price' => 550
+        ]);
+
+        PricelistSellable::create([
+            'pricelist_id' => 4,
+            'sellable_id' => 1,
+            'sellable_type' => 'App\\Product',
+            'price' => 540
         ]);
     }
 }

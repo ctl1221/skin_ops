@@ -10,4 +10,9 @@ class Client extends Model
     {
     	return $this->last_name . ", " . $this->first_name;
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
 }

@@ -22,7 +22,12 @@ Route::get('/', function () {
 
 //Master Data
 Route::resource('pricelists', 'PricelistController');
+
 Route::resource('clients', 'ClientController');
+
+Route::resource('products', 'ProductController');
+Route::post('/products/{product}/deactivate', 'ProductController@deactivate');
+Route::post('/products/{product}/activate', 'ProductController@activate');
 
 //Transactional Data
 Route::get('/sales_orders', 'SalesOrderController@index');
@@ -35,3 +40,7 @@ Route::delete('/sales_orders/{sales_order}', 'SalesOrderController@destroy');
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

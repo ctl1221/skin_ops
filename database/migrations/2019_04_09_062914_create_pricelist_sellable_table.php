@@ -15,10 +15,12 @@ class CreatePricelistSellableTable extends Migration
     {
         Schema::create('pricelist_sellable', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('pricelist_id');
+            $table->bigInteger('pricelist_id')->unsigned()->index();
             $table->morphs('sellable');
             $table->double('price');
             $table->timestamps();
+
+            $table->foreign('pricelist_id')->references('id')->on('pricelists')->onDelete('cascade');
         });
     }
 

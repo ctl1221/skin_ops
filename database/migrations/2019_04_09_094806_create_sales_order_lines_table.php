@@ -15,7 +15,7 @@ class CreateSalesOrderLinesTable extends Migration
     {
         Schema::create('sales_order_lines', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('sales_order_id');
+            $table->bigInteger('sales_order_id')->unsigned()->index();
             $table->morphs('sellable');
             $table->double('price');
             $table->timestamps();

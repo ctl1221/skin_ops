@@ -14,8 +14,8 @@
           Sales
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/customers/search">Search Client</a>
-          <a class="dropdown-item" href="/customers/create">New Client</a>
+          <a class="dropdown-item" href="/clients/search">Search Client</a>
+          <a class="dropdown-item" href="/clients/create">New Client</a>
           <a class="dropdown-item" href="/appointments">Appointments</a>
         </div>
     </li>
@@ -49,7 +49,7 @@
           <a class="dropdown-item" href="/reports/products">Report - Products</a>
           <a class="dropdown-item" href="/reports/packages">Report - Packages</a>
           <a class="dropdown-item" href="/reports/branches">Report - Branches</a>
-          <a class="dropdown-item" href="/reports/customers">Report - Clients</a>
+          <a class="dropdown-item" href="/reports/clients">Report - Clients</a>
         </div>
     </li>
     @endRole
@@ -61,7 +61,7 @@
           Master Data
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/customers">Clients</a>
+          <a class="dropdown-item" href="/clients">Clients</a>
           <a class="dropdown-item" href="/services">Services</a>
           <a class="dropdown-item" href="/products">Products</a>
           <a class="dropdown-item" href="/packages">Packages</a>

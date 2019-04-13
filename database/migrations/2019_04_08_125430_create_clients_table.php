@@ -18,6 +18,7 @@ class CreateClientsTable extends Migration
             $table->string('last_name');
             $table->string('first_name');
             $table->unsignedInteger('pricelist_id')->default(1);
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }
