@@ -2,6 +2,8 @@
 
 @section('contents')
 
+
+
 <table>
 
 	@foreach ($clients as $x)
