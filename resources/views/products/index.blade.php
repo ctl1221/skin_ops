@@ -2,8 +2,8 @@
 
 @section('heading')
 
-List of Products
-<a href="/products/create"><button type="button" class="btn btn-outline-success">+ New</button></a> 
+	List of Products
+	<a href="/products/create"><button type="button" class="btn btn-outline-success">+ New</button></a> 
 
 @endsection
 
@@ -18,18 +18,18 @@ List of Products
 	    </thead>
 
 	      @foreach($products as $x)
-	      <tr>
-	        <td><a class="text-secondary" href="/products/{{ $x->id }}"> {{ $x->name }} </a></td>
-	        <td>
-	        	<span class="badge {{ $x->is_active ? 'badge-success': 'badge-danger' }}">
-	        		{{ $x->is_active ? 'Active' : 'Inactive' }} 
-	        	</span>
-	        </td>
-	      </tr>
+		      <tr>
+		        <td><a class="text-secondary" href="/products/{{ $x->id }}"> {{ $x->name }} </a></td>
+		        <td>
+		        	<span class="badge {{ $x->is_active ? 'badge-success': 'badge-danger' }}">
+		        		{{ $x->is_active ? 'Active' : 'Inactive' }} 
+		        	</span>
+		        </td>
+		      </tr>
 	      @endforeach
 
-	  </table>
+	</table>
 
-	  {{ $products->links() }}	
+	{{ $products->links() }}	
 
 @endsection

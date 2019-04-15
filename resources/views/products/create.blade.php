@@ -1,7 +1,7 @@
 @extends ('master')
 
 @section('heading')
-Add New Product
+	Add New Product
 @endsection
 
 @section('contents')
@@ -35,6 +35,6 @@ Add New Product
 
 		{{-- @include('partials.errors') --}}
 
-	</div>	
+</div>	
 
-	@endsection
+@endsection

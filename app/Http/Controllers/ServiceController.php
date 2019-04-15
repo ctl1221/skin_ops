@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Service;
+use App\Pricelist;
+use App\PricelistSellable;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -14,72 +18,87 @@ class ServiceController extends Controller
     
     public function index()
     {
-        //
+        $services = Service::orderBy('name', 'asc')->paginate('10');
+
+        return view('services.index', compact('services'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $pricelists = Pricelist::get();
+
+        return view('services.create', compact('pricelists'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $pricelists = Pricelist::all();
+
+        DB::transaction(function () use ($request, $pricelists) {
+            $service = Service::create([
+                'name' => $request->service_name,
+            ]);
+
+            foreach ($pricelists as $x)
+            {
+                PricelistSellable::create([
+                    'pricelist_id' => $x->id,
+                    'sellable_id' => $service->id,
+                    'sellable_type' => 'App\\Service',
+                    'price' => $request[$x->name],
+                ]);
+            }
+        });
+
+        return redirect('/services');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Service  $service
-     * @return \Illuminate\Http\Response
-     */
     public function show(Service $service)
     {
-        //
+        return view('services.show', compact('service'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Service  $service
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Service $service)
     {
-        //
+        $pricelists = Pricelist::get();
+
+        return view('services.edit', compact('service', 'pricelists'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Service  $service
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Service $service)
     {
-        //
+        $pricelists = Pricelist::all();
+
+        DB::transaction(function () use ($request, $service, $pricelists) {
+            $service->name = $request->service_name;
+            $service->save();
+
+            foreach ($pricelists as $x)
+            {
+                $p = PricelistSellable::where('pricelist_id', $x->id)
+                                    ->where('sellable_id', $service->id)
+                                    ->where('sellable_type', 'App\\Service')
+                                    ->update(['price' => $request[$x->name] ]);
+            }
+            
+        });
+
+        return redirect('/services/' . $service->id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Service  $service
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Service $service)
+    public function deactivate(Service $service)
     {
-        //
+        $service->is_active = 0;
+        $service->save();
+
+        return back();
+    }
+
+    public function activate(Service $service)
+    {
+        $service->is_active = 1;
+        $service->save();
+
+        return back();
     }
 }

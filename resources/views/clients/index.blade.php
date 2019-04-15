@@ -1,18 +1,36 @@
 @extends('master')
 
+@section ('heading')
+
+	List of Clients
+	<a href="/customers/create"><button type="button" class="btn btn-outline-success" >+ New</button></a>
+	
+@endsection
+
 @section('contents')
 
+<div class="container">
+	<table class="table table-striped table-bordered table-sm" id="client_list">
 
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Payables</th>
+			</tr>
+		</thead>
 
-<table>
+		<tbody>
+			@foreach ($clients as $x)
+				<tr>
+					<td><a href="/clients/{{ $x->id }}">{{ $x->last_name . ", " . $x->first_name}}<a></td>
+					<td>---</td>
+				</tr>
+			@endforeach
+		</tbody>
 
-	@foreach ($clients as $x)
-		<tr>
-			<td><a href="/clients/{{ $x->id }}">{{ $x->last_name }}<a></td>
-			<td>{{ $x->first_name }}</td>
-		</tr>
-	@endforeach
+	</table>
+</div>
 
-</table>
+{{ $clients->links() }}
 
 @endsection

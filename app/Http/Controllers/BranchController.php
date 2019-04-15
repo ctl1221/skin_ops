@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
+use App\Branch;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class BranchController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
-  
+
     public function index()
     {
-        $clients = Client::orderBy('last_name','asc')->paginate('8');
+        $branches = Branch::all();
 
-        return view ('clients.index', compact('clients'));
+        return view ('branches.index', compact('branches'));
     }
 
     /**
@@ -43,21 +43,21 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Client  $client
+     * @param  \App\Branch  $branch
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $client)
+    public function show(Branch $branch)
     {
-        return view('clients.show', compact('client'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Client  $client
+     * @param  \App\Branch  $branch
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit(Branch $branch)
     {
         //
     }
@@ -66,10 +66,10 @@ class ClientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Client  $client
+     * @param  \App\Branch  $branch
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, Branch $branch)
     {
         //
     }
@@ -77,10 +77,10 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Client  $client
+     * @param  \App\Branch  $branch
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy(Branch $branch)
     {
         //
     }

@@ -2,28 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
+use App\Employee;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class EmployeeController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
-  
+
     public function index()
     {
-        $clients = Client::orderBy('last_name','asc')->paginate('8');
+        $employees = Employee::orderBy('last_name','asc')->paginate('3');
 
-        return view ('clients.index', compact('clients'));
+        return view ('employees.index', compact('employees'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
@@ -43,21 +38,21 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Client  $client
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $client)
+    public function show(Employee $employee)
     {
-        return view('clients.show', compact('client'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Client  $client
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit(Employee $employee)
     {
         //
     }
@@ -66,10 +61,10 @@ class ClientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Client  $client
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, Employee $employee)
     {
         //
     }
@@ -77,10 +72,10 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Client  $client
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy(Employee $employee)
     {
         //
     }

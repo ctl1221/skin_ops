@@ -24,11 +24,17 @@ Route::get('/', function () {
 Route::resource('pricelists', 'PricelistController');
 Route::resource('clients', 'ClientController');
 Route::resource('products', 'ProductController');
+Route::resource('services', 'ServiceController');
 Route::resource('packages', 'PackageController');
+Route::resource('employees', 'EmployeeController');
+Route::resource('branches', 'BranchController');
 
 //Modify
 Route::post('/products/{product}/deactivate', 'ProductController@deactivate');
 Route::post('/products/{product}/activate', 'ProductController@activate');
+
+Route::post('/services/{service}/deactivate', 'ServiceController@deactivate');
+Route::post('/services/{service}/activate', 'ServiceController@activate');
 
 //Transactional Data
 Route::get('/sales_orders', 'SalesOrderController@index');
