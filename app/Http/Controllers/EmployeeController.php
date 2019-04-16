@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Branch;
+
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -21,18 +23,24 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        //
+        $branches = Branch::where('is_active', '1')->get();
+
+        return view('employees.create', compact('branches'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        Employee::create([
+                'last_name' => $request->last_name, 
+                'first_name' => $request->first_name,
+                'branch_id' => $request->branch_id,
+                'is_receptionist' =>$request -> receptionist ? 1 : 0,
+                'is_doctor' =>$request -> doctor ? 1 : 0,
+                'is_aesthetician' =>$request -> aesthetician ? 1 : 0,
+                'is_administrator' =>$request -> administrator ? 1 : 0,
+                ]);
+
+        return redirect('/employees'); 
     }
 
     /**

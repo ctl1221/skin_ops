@@ -4,7 +4,7 @@
 
 	List of Branches 
 
-	<a href="/branches/create"><button type="button" class="btn btn-outline-success" >+ New</button></a> 
+	<a href="/branches/create"><button type="button" class="btn btn-outline-success">+ New</button></a> 
 	<a href="/branches/edit"><button type="button" class="btn btn-outline-warning">Edit</button></a>
 	
 @endsection

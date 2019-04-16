@@ -20,6 +20,10 @@ class CreateEmployeesTable extends Migration
             $table->unsignedInteger('pricelist_id')->default(3);
             $table->boolean('is_active')->default(1);
             $table->unsignedInteger('branch_id');
+            $table->boolean('is_receptionist');
+            $table->boolean('is_aesthetician');
+            $table->boolean('is_doctor');
+            $table->boolean('is_administrator');
             $table->timestamps();
         });
     }

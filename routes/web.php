@@ -27,7 +27,7 @@ Route::resource('products', 'ProductController');
 Route::resource('services', 'ServiceController');
 Route::resource('packages', 'PackageController');
 Route::resource('employees', 'EmployeeController');
-Route::resource('branches', 'BranchController');
+// Route::resource('branches', 'BranchController');
 
 //Modify
 Route::post('/products/{product}/deactivate', 'ProductController@deactivate');
@@ -35,6 +35,15 @@ Route::post('/products/{product}/activate', 'ProductController@activate');
 
 Route::post('/services/{service}/deactivate', 'ServiceController@deactivate');
 Route::post('/services/{service}/activate', 'ServiceController@activate');
+
+Route::get('/branches','BranchController@index');
+Route::get('/branches/create','BranchController@create');
+Route::post('/branches','BranchController@store');
+Route::get('/branches/edit','BranchController@edit');
+Route::post('/branches/update','BranchController@update');
+
+Route::post('/branches/{branch}/deactivate', 'BranchController@deactivate');
+Route::post('/branches/{branch}/activate', 'BranchController@activate');
 
 //Transactional Data
 Route::get('/sales_orders', 'SalesOrderController@index');
