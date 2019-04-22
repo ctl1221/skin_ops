@@ -22,7 +22,7 @@
 		<tbody>
 			@foreach ($employees as $x)
 				<tr>
-					<td><a href="/employees/{{ $x->id }}">{{ $x->last_name . ", " . $x->first_name}}<a></td>
+					<td><a href="/employees/{{ $x->id }}">{{ $x->display_name() }}<a></td>
 					<td>{{ $x->branch->name }}</td>
 					<td>
 		        		<span class="badge {{ $x->is_active ? 'badge-success': 'badge-danger' }}">

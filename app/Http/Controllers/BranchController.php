@@ -39,24 +39,26 @@ class BranchController extends Controller
         //
     }
 
-    public function edit(Branch $branch)
+    public function edit()
     {
-        $branch = Branch::all();
+        $branches = Branch::all();
 
-        return view('branches.edit', compact('branch'));
+        return view('branches.edit', compact('branches'));
     }
 
-    public function update(Request $request, Branch $branch)
+    public function update(Request $request)
     {
-        $branch = Branch::all();
+        $branches = Branch::all();
 
-        foreach ($branch as $x)
-        {
-            Branch::where('id', $x->id)
-                        ->update([
-                            'name' => $request[$x->id],
-                        ]);
-        }
+        DB::transaction(function () use ($request, $branches) {
+            foreach ($branches as $x)
+            {
+                Branch::where('id', $x->id)
+                            ->update([
+                                'name' => $request[$x->id],
+                            ]);
+            }
+        });
             
         return redirect ('/branches');
     }

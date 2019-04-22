@@ -8,18 +8,12 @@
 
 	<a href="/products/{{$product->id}}/edit"><button type="button" class="btn btn-outline-warning">Edit</button></a> 
 
-	
 	@if($product->is_active)
-	<form method="POST" action="/products/{{$product->id}}/deactivate">
-		@csrf
-		<input type="submit" class="btn btn-outline-danger" value="Deactivate">
-	</form>
+	<a href="/products/{{$product->id}}/deactivate"><button type="button" class="btn btn-outline-danger">Deactivate</button></a> 
 	
 	@else
-	<form method="POST" action="/products/{{$product->id}}/activate">
-		@csrf
-		<input type="submit" class="btn btn-outline-success" value="Activate">
-	</form>
+	<a href="/products/{{$product->id}}/activate"><button type="button" class="btn btn-outline-success">Activate</button></a> 
+
 	@endif
 
 @endsection

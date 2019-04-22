@@ -22,7 +22,7 @@
 		<tbody>
 			@foreach ($clients as $x)
 				<tr>
-					<td><a href="/clients/{{ $x->id }}">{{ $x->last_name . ", " . $x->first_name}}<a></td>
+					<td><a href="/clients/{{ $x->id }}">{{ $x->display_name() }}<a></td>
 					<td>---</td>
 				</tr>
 			@endforeach

@@ -10,16 +10,11 @@
 
 	
 	@if($service->is_active)
-	<form method="POST" action="/services/{{$service->id}}/deactivate">
-		@csrf
-		<input type="submit" class="btn btn-outline-danger" value="Deactivate">
-	</form>
+	<a href="/services/{{$service->id}}/deactivate"><button type="button" class="btn btn-outline-danger">Deactivate</button></a> 
 	
 	@else
-	<form method="POST" action="/services/{{$service->id}}/activate">
-		@csrf
-		<input type="submit" class="btn btn-outline-success" value="Activate">
-	</form>
+	<a href="/services/{{$service->id}}/activate"><button type="button" class="btn btn-outline-success">Activate</button></a> 
+
 	@endif
 
 @endsection

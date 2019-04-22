@@ -21,29 +21,37 @@ Route::get('/', function () {
 });
 
 //Master Data
-Route::resource('pricelists', 'PricelistController');
 Route::resource('clients', 'ClientController');
 Route::resource('products', 'ProductController');
 Route::resource('services', 'ServiceController');
 Route::resource('packages', 'PackageController');
 Route::resource('employees', 'EmployeeController');
-// Route::resource('branches', 'BranchController');
-
-//Modify
-Route::post('/products/{product}/deactivate', 'ProductController@deactivate');
-Route::post('/products/{product}/activate', 'ProductController@activate');
-
-Route::post('/services/{service}/deactivate', 'ServiceController@deactivate');
-Route::post('/services/{service}/activate', 'ServiceController@activate');
-
 Route::get('/branches','BranchController@index');
 Route::get('/branches/create','BranchController@create');
 Route::post('/branches','BranchController@store');
 Route::get('/branches/edit','BranchController@edit');
 Route::post('/branches/update','BranchController@update');
+Route::get('/pricelists','PricelistController@index');
+Route::get('/pricelists/create','PricelistController@create');
+Route::post('/pricelists','PricelistController@store');
+Route::get('/pricelists/edit','PricelistController@edit');
+Route::post('/pricelists/update','PricelistController@update');
+
+//Modify
+Route::get('/products/{product}/deactivate', 'ProductController@deactivate');
+Route::get('/products/{product}/activate', 'ProductController@activate');
+
+Route::get('/services/{service}/deactivate', 'ServiceController@deactivate');
+Route::get('/services/{service}/activate', 'ServiceController@activate');
 
 Route::post('/branches/{branch}/deactivate', 'BranchController@deactivate');
 Route::post('/branches/{branch}/activate', 'BranchController@activate');
+
+Route::get('/employees/{employee}/deactivate', 'EmployeeController@deactivate');
+Route::get('/employees/{employee}/activate', 'EmployeeController@activate');
+
+Route::get('/pricelists/{pricelist}/deactivate', 'PricelistController@deactivate');
+Route::get('/pricelists/{pricelist}/activate', 'PricelistController@activate');
 
 //Transactional Data
 Route::get('/sales_orders', 'SalesOrderController@index');

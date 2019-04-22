@@ -1,35 +1,30 @@
 @extends ('master')
 
 @section('heading')
-	Edit Branches
+	Edit Pricelist
 @endsection
 
 @section('contents')
 
 	<div class="container">
 
-		<form method="post" action="/branches/update">
-
+		<form method="post" action="/pricelists/update">
+		
 		@csrf
 
 		<form class = "form-horizontal">
 
-		@foreach($branches as $x)
-
+		@foreach($pricelists as $x)
 			<div class="form-group">
-			    <label for="branch_name">Current Name: {{ $x->name }}</label>
-
-			    <div>
+			    <label for="pricelist_name">Current: {{ $x->name }}</label>
 			    <input type="text" class="form-control" id="{{ $x->name }}" name="{{ $x->id }}" value="{{ $x->name }}" required>
-				</div>
 			</div>
-
 		@endforeach
 
 		<br>
 
 		<button type="submit" class="btn btn-warning">Update</button>
-		<a href="/branches"><button type="button" class="btn btn-danger">Cancel</button>
+		<a href="/pricelists"><button type="button" class="btn btn-danger">Cancel</button>
 		
 		</form>
 
