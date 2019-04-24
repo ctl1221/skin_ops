@@ -80,8 +80,19 @@ class ClientController extends Controller
      * @param  \App\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+     public function deactivate(Client $client)
     {
-        //
+        $client->is_active = 0;
+        $client->save();
+
+        return back();
+    }
+
+    public function activate(Client $client)
+    {
+        $client->is_active = 1;
+        $client->save();
+
+        return back();
     }
 }

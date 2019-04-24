@@ -44,11 +44,17 @@ Route::get('/products/{product}/activate', 'ProductController@activate');
 Route::get('/services/{service}/deactivate', 'ServiceController@deactivate');
 Route::get('/services/{service}/activate', 'ServiceController@activate');
 
+Route::get('/packages/{package}/deactivate', 'PackageController@deactivate');
+Route::get('/packages/{package}/activate', 'PackageController@activate');
+
 Route::post('/branches/{branch}/deactivate', 'BranchController@deactivate');
 Route::post('/branches/{branch}/activate', 'BranchController@activate');
 
 Route::get('/employees/{employee}/deactivate', 'EmployeeController@deactivate');
 Route::get('/employees/{employee}/activate', 'EmployeeController@activate');
+
+Route::get('/clients/{client}/deactivate', 'ClientController@deactivate');
+Route::get('/clients/{client}/activate', 'ClientController@activate');
 
 Route::get('/pricelists/{pricelist}/deactivate', 'PricelistController@deactivate');
 Route::get('/pricelists/{pricelist}/activate', 'PricelistController@activate');

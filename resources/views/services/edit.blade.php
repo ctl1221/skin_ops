@@ -9,6 +9,7 @@ Edit Service: {{ $service->name }}
 <div class="container">
 
 	<form method="post" action="/services/{{ $service->id}}">
+		
 		@method('patch')
 		@csrf
 

@@ -1,10 +1,27 @@
 @extends('master')
 
+@section('heading')
+
+	{{ $client->display_name() }}
+
+	<a href="/clients"><button type="button" class="btn btn-outline-primary">Back</button></a> 
+	<a href="/clients/search"><button type="button" class="btn btn-outline-primary">Back to Search</button></a> 
+
+	<a href="/clients/{{ $client->id }}/edit"><button type="button" class="btn btn-outline-warning">Edit</button></a> 
+
+	@if($client->is_active)
+	<a href="/clients/{{ $client->id }}/deactivate"><button type="button" class="btn btn-outline-danger">Deactivate</button></a> 
+	
+	@else
+	<a href="/clients/{{ $client->id }}/activate"><button type="button" class="btn btn-outline-success">Activate</button></a> 
+
+	@endif
+
+	<a href="/sales_orders/create/client/{{$client->id}}"><button type="button" class="btn btn-outline-secondary">Create Sales Order</button><a>
+
+@endsection
+
 @section('contents')
-
-{{ $client->display_name() }}
-
-<a href="/sales_orders/create/client/{{$client->id}}">Create<a>
 
 <div class="container">
 		

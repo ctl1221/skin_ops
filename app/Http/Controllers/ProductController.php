@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\Pricelist;
 use App\PricelistSellable;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller

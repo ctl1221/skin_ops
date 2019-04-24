@@ -76,6 +76,7 @@
           price: this.sellables[0].price,
         });
       },
+      
       deleteLine: function(index){
         this.sales_order_lines.splice(index,1);
 

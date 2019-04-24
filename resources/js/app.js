@@ -8,6 +8,7 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('sales-order-grid', require('./components/SalesOrderGrid.vue').default);
 Vue.component('sales-order-grid-line', require('./components/SalesOrderGridLine.vue').default);
+Vue.component('package-grid', require('./components/PackageGrid.vue').default);
 
 
 // const app = new Vue({

@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Service;
 use App\Pricelist;
 use App\PricelistSellable;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller

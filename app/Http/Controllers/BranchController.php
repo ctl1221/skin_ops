@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Branch;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BranchController extends Controller
 {
