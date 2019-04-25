@@ -19,6 +19,11 @@ class CreateClientsTable extends Migration
             $table->string('first_name');
             $table->unsignedInteger('pricelist_id')->default(1);
             $table->boolean('is_active')->default(1);
+            $table->date('birthday')->nullable();
+            $table->string('email')->nullable();
+            $table->string('address')->nullable();
+            $table->string('mobile_number')->nullable();
+            $table->string('gender')->default('unspecified');
             $table->timestamps();
         });
     }

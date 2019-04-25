@@ -22,7 +22,7 @@
         </td>
 
         <td>
-            <button @click="$emit('linedeleted')">X</button>
+            <i @click="$emit('linedeleted')" class="fas fa-trash-alt"></i>
         </td>
 
     </tr>

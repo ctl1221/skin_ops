@@ -1,12 +1,14 @@
 @extends('master')
 
+@section('heading')
+
+New Sales Order: {{ $client->display_name() }}
+
+<a href="/clients"><button type="button" class="btn btn-outline-danger">Cancel</button></a>
+
+@endsection
+
 @section('contents')
-
-	Create New Sales Order
-	
-	<br>
-
-	Client: {{ $client->display_name() }}
 
 	<sales-order-grid 
 		:sellables="{{ $sellables }}"

@@ -1,45 +1,49 @@
 <template>
 
   <div>
+
     <form method="post" action="/sales_orders">
 
       <slot></slot>
+
       <input type="hidden" name="sales_order_lines" :value="JSON.stringify(sales_order_lines)">
-      <input type="hidden" v-model="client_id">
+      <input type="hidden" name="client_id" v-model="client_id">
 
-      <table>
+      <table class="table table-bordered">
 
-       <thead>
-         <tr>
-           <th>Type</th>
-           <th>Item</th>
-           <th>Price</th>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Item</th>
+            <th>Price</th>
+            <th></th>
          </tr>
        </thead>
 
-       <tbody>
-         <gridline 
-         v-for="(x, index) in sales_order_lines"
-         :sellables="sellables" 
-         :key="index"
-         :price_disable="price_disable"
-         @lineupdated="updateLine(index, $event)"
-         @linedeleted="deleteLine(index)"
-         ></gridline>
-       </tbody>
+        <tbody>
+        <gridline 
+           v-for="(x, index) in sales_order_lines"
+           :sellables="sellables" 
+           :key="index"
+           :price_disable="price_disable"
+           @lineupdated="updateLine(index, $event)"
+           @linedeleted="deleteLine(index)"
+        ></gridline>
+        </tbody>
 
-     </table>
+      </table>
 
-     <button @click.prevent="addLine">Add Item</button>
+      <h4>Total Amount: {{ totalPrice | currencyFormat }}</h4> 
 
-     {{ totalPrice }}
+      <button @click.prevent="addLine">Add Item</button>
 
-     <br/>
+      <br><br>
 
-     <button>Submit</button>
+      <button>Submit</button>
 
-   </form>
- </div>
+    </form>
+
+  </div>
 
 </template>
 

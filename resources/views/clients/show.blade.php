@@ -4,6 +4,8 @@
 
 	{{ $client->display_name() }}
 
+	<a href="/sales_orders/create/client/{{$client->id}}"><button type="button" class="btn btn-outline-secondary">Create Sales Order</button><a>
+
 	<a href="/clients"><button type="button" class="btn btn-outline-primary">Back</button></a> 
 	<a href="/clients/search"><button type="button" class="btn btn-outline-primary">Back to Search</button></a> 
 
@@ -16,8 +18,6 @@
 	<a href="/clients/{{ $client->id }}/activate"><button type="button" class="btn btn-outline-success">Activate</button></a> 
 
 	@endif
-
-	<a href="/sales_orders/create/client/{{$client->id}}"><button type="button" class="btn btn-outline-secondary">Create Sales Order</button><a>
 
 @endsection
 
@@ -47,14 +47,13 @@
 					---
 				</td>
 				<th>Pricelist</th>
-				<td>---</td>
+				<td>{{ $client->pricelist->name }}</td>
 			</tr>
 
 			<tr>
 				<th>Birthday</th>
-				<td>
-					---
-				</td>
+				<td>{{ $client->birthday ? $client->birthday : '---' }}</td>
+
 				<th>Last Visit</th>
 				<td>
 					---
@@ -62,11 +61,31 @@
 			</tr>
 			<tr>
 				<th>Mobile No.</th>
-				<td>---</td>
+				<td>+{{ $client->mobile_number ? $client->mobile_number : '---' }}</td>
 				<th>Email Address</th>
-				<td>---</td>
+				<td>{{ $client->email ? $client->email : '---' }}</td>
 			</tr>
 		</table>
 	</div>
+
+	<div class="container">
+		
+		<nav>
+			<div class="nav nav-pills nav-justified" id="nav-tab" role="tablist">
+			    <a class="nav-item nav-link active" id="nav-history-tab" data-toggle="tab" href="#nav-history" role="tab" aria-controls="nav-history" aria-selected="true">History</a>
+
+			    <a class="nav-item nav-link" id="nav-service purchases-tab" data-toggle="tab" href="#nav-service purchases" role="tab" aria-controls="nav- service purchases" aria-selected="false">Service Purchases</a>
+
+			    <a class="nav-item nav-link" id="nav-product purchases-tab" data-toggle="tab" href="#nav-product purchases" role="tab" aria-controls="nav-product purchases" aria-selected="false">Product Purchases</a>
+			    
+			    <a class="nav-item nav-link" id="nav-package purchases-tab" data-toggle="tab" href="#nav-package purchases" role="tab" aria-controls="nav-pacakge purchases" aria-selected="false">Package Purchases</a>
+
+			    <a class="nav-item nav-link" id="nav-package claims history-tab" data-toggle="tab" href="#nav-package claims history" role="tab" aria-controls="nav-package claims history" aria-selected="false">P-Claims History</a>
+			    
+			    <a class="nav-item nav-link" id="nav-payments-tab" data-toggle="tab" href="#nav-payments" role="tab" aria-controls="nav-payments" aria-selected="false">Payments</a>
+			</div>
+		</nav>
+
+	</div>	
 
 @endsection

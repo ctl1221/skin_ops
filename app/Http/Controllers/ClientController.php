@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Pricelist;
+
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -19,67 +21,60 @@ class ClientController extends Controller
         return view ('clients.index', compact('clients'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $pricelists = Pricelist::all();
+
+        return view('clients.create', compact('pricelists'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $clients = Client::all();
+
+        Client::create([
+                'last_name' => $request->last_name, 
+                'first_name' => $request->first_name,
+                'birthday' => $request->birthday,
+                'gender' => $request->gender,
+                'pricelist_id' => $request->pricelist_id,
+                'email' => $request->email,
+                'address' => $request->address,
+                'mobile_number' => $request->mobile_no,
+                ]);
+
+        return redirect('/clients'); 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
     public function show(Client $client)
     {
         return view('clients.show', compact('client'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Client $client)
     {
-        //
+        $pricelists = Pricelist::all();
+
+        return view('clients.edit', compact('client', 'pricelists'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Client $client)
     {
-        //
+        Client::where('id', $client->id)
+                            ->update([
+                                'last_name' => $request->last_name, 
+                                'first_name' => $request->first_name,
+                                'birthday' => $request->birthday,
+                                'gender' => $request->gender,
+                                'pricelist_id' => $request->pricelist_id,
+                                'email' => $request->email,
+                                'address' => $request->address,
+                                'mobile_number' => $request->mobile_no,
+                            ]);
+
+        return redirect('/clients/' . $client->id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
      public function deactivate(Client $client)
     {
         $client->is_active = 0;

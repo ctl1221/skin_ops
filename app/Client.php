@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
+	protected $guarded = [];
+	
     public function display_name()
     {
     	return $this->last_name . ", " . $this->first_name;
@@ -14,5 +16,10 @@ class Client extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', 1);
+    }
+
+    public function pricelist()
+    {
+        return $this->belongsTo(Pricelist::class);
     }
 }

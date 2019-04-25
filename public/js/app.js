@@ -2003,6 +2003,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -37473,7 +37477,7 @@ var render = function() {
               expression: "client_id"
             }
           ],
-          attrs: { type: "hidden" },
+          attrs: { type: "hidden", name: "client_id" },
           domProps: { value: _vm.client_id },
           on: {
             input: function($event) {
@@ -37485,7 +37489,7 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _c("table", [
+        _c("table", { staticClass: "table table-bordered" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -37511,6 +37515,12 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
+        _c("h4", [
+          _vm._v(
+            "Total Amount: " + _vm._s(_vm._f("currencyFormat")(_vm.totalPrice))
+          )
+        ]),
+        _vm._v(" "),
         _c(
           "button",
           {
@@ -37523,7 +37533,8 @@ var render = function() {
           },
           [_vm._v("Add Item")]
         ),
-        _vm._v("\n\n    " + _vm._s(_vm.totalPrice) + "\n\n    "),
+        _vm._v(" "),
+        _c("br"),
         _c("br"),
         _vm._v(" "),
         _c("button", [_vm._v("Submit")])
@@ -37543,7 +37554,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Item")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Price")])
+        _c("th", [_vm._v("Price")]),
+        _vm._v(" "),
+        _c("th")
       ])
     ])
   }
@@ -37675,17 +37688,14 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("td", [
-      _c(
-        "button",
-        {
-          on: {
-            click: function($event) {
-              return _vm.$emit("linedeleted")
-            }
+      _c("i", {
+        staticClass: "fas fa-trash-alt",
+        on: {
+          click: function($event) {
+            return _vm.$emit("linedeleted")
           }
-        },
-        [_vm._v("X")]
-      )
+        }
+      })
     ])
   ])
 }
@@ -49847,7 +49857,13 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('sales-order-grid', __webpack_require__(/*! ./components/SalesOrderGrid.vue */ "./resources/js/components/SalesOrderGrid.vue")["default"]);
 Vue.component('sales-order-grid-line', __webpack_require__(/*! ./components/SalesOrderGridLine.vue */ "./resources/js/components/SalesOrderGridLine.vue")["default"]);
-Vue.component('package-grid', __webpack_require__(/*! ./components/PackageGrid.vue */ "./resources/js/components/PackageGrid.vue")["default"]); // const app = new Vue({
+Vue.component('package-grid', __webpack_require__(/*! ./components/PackageGrid.vue */ "./resources/js/components/PackageGrid.vue")["default"]);
+Vue.filter('currencyFormat', function (value) {
+  return value.toLocaleString('en-PH', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}); // const app = new Vue({
 //     el: '#app'
 // });
 

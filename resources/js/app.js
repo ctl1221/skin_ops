@@ -10,7 +10,9 @@ Vue.component('sales-order-grid', require('./components/SalesOrderGrid.vue').def
 Vue.component('sales-order-grid-line', require('./components/SalesOrderGridLine.vue').default);
 Vue.component('package-grid', require('./components/PackageGrid.vue').default);
 
-
+Vue.filter('currencyFormat', function (value) {
+	return value.toLocaleString('en-PH',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+});
 // const app = new Vue({
 //     el: '#app'
 // });

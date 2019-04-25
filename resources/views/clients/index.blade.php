@@ -3,7 +3,7 @@
 @section ('heading')
 
 	List of Clients
-	<a href="/customers/create"><button type="button" class="btn btn-outline-success" >+ New</button></a>
+	<a href="/clients/create"><button type="button" class="btn btn-outline-success" >+ New</button></a>
 	
 @endsection
 

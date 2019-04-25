@@ -60,15 +60,9 @@ Route::get('/pricelists/{pricelist}/deactivate', 'PricelistController@deactivate
 Route::get('/pricelists/{pricelist}/activate', 'PricelistController@activate');
 
 //Transactional Data
-Route::get('/sales_orders', 'SalesOrderController@index');
 Route::get('/sales_orders/create/client/{client}', 'SalesOrderController@create');
 Route::post('/sales_orders', 'SalesOrderController@store');
 Route::delete('/sales_orders/{sales_order}', 'SalesOrderController@destroy');
-
-
-
-
-
 
 
 Auth::routes();

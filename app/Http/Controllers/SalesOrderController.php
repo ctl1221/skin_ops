@@ -20,9 +20,7 @@ class SalesOrderController extends Controller
     
     public function index()
   	{
-  		$sales_orders = SalesOrder::all();
-
-  		return view('sales_orders.index', compact('sales_orders'));
+  
   	}
 
   	public function create(Client $client)
@@ -37,6 +35,7 @@ class SalesOrderController extends Controller
 
     public function store(Request $request)
     {
+      
       $client = Client::find($request->client_id);
       $sales_order_lines = json_decode($request->sales_order_lines);
 
@@ -56,7 +55,7 @@ class SalesOrderController extends Controller
             }
         });
 
-        return redirect('sales_orders');
+        return redirect('/clients/' . $client->id);
     }
 
     public function destroy(SalesOrder $sales_order)
