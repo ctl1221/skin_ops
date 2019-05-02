@@ -19,7 +19,8 @@ List of Packages
 			</tr>
 		</thead>
 
-			@foreach ($packages as $x)
+		<tbody>
+		@foreach ($packages as $x)
 			<tr>
 				<td><a class="text-secondary" href="/packages/{{ $x->id }}">{{ $x->name }}</a></td>
 				@if($x->is_active)
@@ -28,7 +29,8 @@ List of Packages
 		        <td><span class="badge badge-danger">Inactive</span></td>
 		        @endif
 			</tr>
-			@endforeach
+		@endforeach
+		</tbody>
 
 	</table>
 

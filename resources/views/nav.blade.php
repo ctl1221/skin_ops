@@ -66,9 +66,9 @@
           <a class="dropdown-item" href="/products">Products</a>
           <a class="dropdown-item" href="/packages">Packages</a>
           <a class="dropdown-item" href="/employees">Employees</a>
-          
           <a class="dropdown-item" href="/pricelists">Pricelists</a>
           <a class="dropdown-item" href="/branches">Branches</a>
+          <a class="dropdown-item" href="/payment_types">Payment Types</a>
         </div>
     </li>
     @endRole

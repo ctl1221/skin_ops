@@ -3,7 +3,7 @@
 @section ('heading')
 
 	List of Employees
-	<a href="/employees/create"><button type="button" class="btn btn-outline-success" >+ New</button></a>
+	<a href="/employees/create"><button type="button" class="btn btn-outline-success">+ New</button></a>
 	
 @endsection
 

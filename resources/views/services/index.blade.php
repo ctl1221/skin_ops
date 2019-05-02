@@ -17,6 +17,7 @@
 			</tr>
 		</thead>
 
+		<tbody>
 		@foreach ($services as $x)
 			<tr>
 				<td><a class="text-secondary" href="/services/{{ $x->id }}">{{ $x->name }} </a></td>
@@ -27,6 +28,7 @@
 	        	</td>
 	        </tr>
 		@endforeach
+		</tbody>
 
 	</table>
 

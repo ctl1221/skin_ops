@@ -5,6 +5,7 @@ use App\SalesOrder;
 use App\SalesOrderLine;
 use App\Employee;
 use App\Branch;
+use App\PaymentType;
 
 class DatabaseSeeder extends Seeder
 {
@@ -37,6 +38,18 @@ class DatabaseSeeder extends Seeder
 
         Branch::create([
             'name' => 'Makati',
+        ]);
+
+        Branch::create([
+            'name' => 'SM Mall of Asia',
+        ]);
+
+        PaymentType::create([
+            'name' => 'Cash',
+        ]);
+
+        PaymentType::create([
+            'name' => 'Card',
         ]);
     }
 }
