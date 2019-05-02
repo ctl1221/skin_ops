@@ -1827,12 +1827,14 @@ __webpack_require__.r(__webpack_exports__);
   props: ['sellables'],
   data: function data() {
     return {
-      package_grid_lines: []
+      package_grid_lines: [],
+      next_id: 1
     };
   },
   methods: {
     addLine: function addLine() {
       this.package_grid_lines.push({
+        id: this.next_id++,
         sellable_type: this.sellables[0].sellable_type,
         sellable_id: this.sellables[0].sellable_id,
         quantity: 1
@@ -1840,12 +1842,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteLine: function deleteLine(index) {
       this.package_grid_lines.splice(index, 1);
-
-      for (var i = 0; i < this.package_grid_lines.length; i++) {
-        this.$children[i].sel_sellable_type = this.package_grid_lines[i].sellable_type;
-        this.$children[i].sel_sellable_id = this.package_grid_lines[i].sellable_id;
-        this.$children[i].sel_quantity = this.package_grid_lines[i].quantity;
-      }
     },
     updateLine: function updateLine(index, event) {
       this.package_grid_lines[index].sellable_type = event.sellable_type;
@@ -2015,7 +2011,8 @@ __webpack_require__.r(__webpack_exports__);
   props: ['sellables', 'client_id', 'price_disable'],
   data: function data() {
     return {
-      sales_order_lines: []
+      sales_order_lines: [],
+      next_id: 1
     };
   },
   computed: {
@@ -2030,6 +2027,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     addLine: function addLine() {
       this.sales_order_lines.push({
+        id: this.next_id++,
         sellable_type: this.sellables[0].sellable_type,
         sellable_id: this.sellables[0].sellable_id,
         price: this.sellables[0].price
@@ -2037,12 +2035,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteLine: function deleteLine(index) {
       this.sales_order_lines.splice(index, 1);
-
-      for (var i = 0; i < this.sales_order_lines.length; i++) {
-        this.$children[i].sel_sellable_type = this.sales_order_lines[i].sellable_type;
-        this.$children[i].sel_sellable_id = this.sales_order_lines[i].sellable_id;
-        this.$children[i].sel_price = this.sales_order_lines[i].price;
-      }
     },
     updateLine: function updateLine(index, event) {
       this.sales_order_lines[index].sellable_type = event.sellable_type;
@@ -37269,7 +37261,7 @@ var render = function() {
       { staticClass: "table table-bordered" },
       _vm._l(_vm.package_grid_lines, function(x, index) {
         return _c("gridline", {
-          key: index,
+          key: x.id,
           attrs: { sellables: _vm.sellables },
           on: {
             lineupdated: function($event) {
@@ -37496,7 +37488,7 @@ var render = function() {
             "tbody",
             _vm._l(_vm.sales_order_lines, function(x, index) {
               return _c("gridline", {
-                key: index,
+                key: x.id,
                 attrs: {
                   sellables: _vm.sellables,
                   price_disable: _vm.price_disable
@@ -50290,8 +50282,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/nlicup/Desktop/Coding/skin_pro/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/nlicup/Desktop/Coding/skin_pro/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/charleslicup/Desktop/Coding/skin_ops/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/charleslicup/Desktop/Coding/skin_ops/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

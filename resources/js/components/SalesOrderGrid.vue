@@ -24,7 +24,7 @@
         <gridline 
            v-for="(x, index) in sales_order_lines"
            :sellables="sellables" 
-           :key="index"
+           :key="x.id"
            :price_disable="price_disable"
            @lineupdated="updateLine(index, $event)"
            @linedeleted="deleteLine(index)"
@@ -57,6 +57,7 @@
     data() {
       return {
         sales_order_lines: [],
+        next_id: 1,
       };
     },
 
@@ -75,6 +76,7 @@
     methods: {
       addLine: function(){
         this.sales_order_lines.push({
+          id: this.next_id++,
           sellable_type : this.sellables[0].sellable_type,
           sellable_id : this.sellables[0].sellable_id,
           price: this.sellables[0].price,
@@ -83,13 +85,6 @@
       
       deleteLine: function(index){
         this.sales_order_lines.splice(index,1);
-
-        for(let i = 0; i < this.sales_order_lines.length; i++)
-        {
-          this.$children[i].sel_sellable_type = this.sales_order_lines[i].sellable_type;
-          this.$children[i].sel_sellable_id = this.sales_order_lines[i].sellable_id;
-          this.$children[i].sel_price = this.sales_order_lines[i].price;
-        }
       },
 
       updateLine: function(index, event)
