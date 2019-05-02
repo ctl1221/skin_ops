@@ -8,6 +8,7 @@ use App\SalesOrderLine;
 use App\Sellable;
 use App\PricelistSellable;
 use App\Client;
+use App\PaymentType;
 
 use Illuminate\Support\Facades\DB;
 
@@ -30,7 +31,9 @@ class SalesOrderController extends Controller
             ->with('sellable')
             ->get();
 
-  		return view('sales_orders.create', compact('sellables', 'client'));
+      $payment_types = PaymentType::where('is_active', '=' , 1)->get();
+
+  		return view('sales_orders.create', compact('sellables', 'client', 'payment_types'));
   	}
 
     public function store(Request $request)

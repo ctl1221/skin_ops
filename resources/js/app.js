@@ -9,6 +9,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('sales-order-grid', require('./components/SalesOrderGrid.vue').default);
 Vue.component('sales-order-grid-line', require('./components/SalesOrderGridLine.vue').default);
 Vue.component('package-grid', require('./components/PackageGrid.vue').default);
+Vue.component('payment-list', require('./components/PaymentList.vue').default);
 
 Vue.filter('currencyFormat', function (value) {
 	return value.toLocaleString('en-PH',{minimumFractionDigits: 2, maximumFractionDigits: 2});

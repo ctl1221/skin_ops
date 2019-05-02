@@ -17,6 +17,10 @@ New Sales Order: {{ $client->display_name() }}
 		{{ csrf_field() }}
 	</sales-order-grid>
 
+	<payment-list
+		:payment_types="{{ $payment_types }}">
+	</payment-list>
+
 @endsection
 
 @section('scripts')
