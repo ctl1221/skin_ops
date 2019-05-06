@@ -15,9 +15,10 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->date('date');
             $table->morphs('parent');
-            $table->double('amount');
-            $table->string('reference');
+            $table->double('amount',2);
+            $table->string('reference')->nullable();
             $table->timestamps();
         });
     }

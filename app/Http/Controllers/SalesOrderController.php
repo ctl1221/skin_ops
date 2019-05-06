@@ -41,6 +41,7 @@ class SalesOrderController extends Controller
       
       $client = Client::find($request->client_id);
       $sales_order_lines = json_decode($request->sales_order_lines);
+      $payment_lines = json_decode($request->payment_lines);
 
       DB::transaction(function () use ($request, $sales_order_lines) {
             $sales_order = SalesOrder::create([

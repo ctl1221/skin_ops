@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSalesOrdersTable extends Migration
+class CreateHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateSalesOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('sales_orders', function (Blueprint $table) {
+        Schema::create('histories', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->bigInteger('client_id')->unsigned()->index();
-            $table->string('so_number');
+            $table->date('date');
+            $table->morphs('parent');
             $table->timestamps();
 
-            //$table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');   
         });
     }
 
@@ -31,6 +31,6 @@ class CreateSalesOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sales_orders');
+        Schema::dropIfExists('histories');
     }
 }

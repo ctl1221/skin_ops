@@ -1989,10 +1989,70 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['payment_types'],
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  data: function data() {
+    return {
+      payments: []
+    };
+  },
+  computed: {
+    checkString: function checkString() {
+      var string = '';
+
+      for (var i = 0; i < this.payments.length; i++) {
+        string += this.payments[i].checked ? '1' : '0';
+      }
+
+      return string;
+    },
+    totalPay: function totalPay() {
+      var total = 0;
+      this.payments.forEach(function (line, index) {
+        total += line.amount ? parseFloat(line.amount) : 0;
+        console.log(total);
+      });
+      return total;
+    }
+  },
+  watch: {
+    checkString: function checkString(newVal, oldVal) {
+      this.payments.forEach(function (line, index) {
+        if (!line.checked) {
+          line.amount = '';
+          line.reference = '';
+        }
+      });
+    },
+    totalPay: function totalPay(newVal, oldVal) {
+      this.$emit('totalpayingchanged', {
+        totalPay: newVal
+      });
+    }
+  },
+  created: function created() {
+    for (var i = 0; i < this.payment_types.length; i++) {
+      this.payments.push({
+        id: this.payment_types[i].id,
+        name: this.payment_types[i].name,
+        checked: false,
+        amount: '',
+        reference: ''
+      });
+    }
   }
 });
 
@@ -2008,18 +2068,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SalesOrderGridLine_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SalesOrderGridLine.vue */ "./resources/js/components/SalesOrderGridLine.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2078,6 +2126,13 @@ __webpack_require__.r(__webpack_exports__);
         total += line.price ? line.price : 0;
       });
       return total;
+    }
+  },
+  watch: {
+    totalPrice: function totalPrice(newVal, oldVal) {
+      this.$emit('totalpricechanged', {
+        totalPrice: newVal
+      });
     }
   },
   methods: {
@@ -37505,28 +37560,131 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _c("input", {
+      attrs: { type: "hidden", name: "payment_lines" },
+      domProps: { value: JSON.stringify(_vm.payments) }
+    }),
+    _vm._v(" "),
     _c("table", { staticClass: "table table-bordered" }, [
       _vm._m(0),
       _vm._v(" "),
       _c(
         "tbody",
-        _vm._l(_vm.payment_types, function(x) {
+        _vm._l(_vm.payment_types, function(x, index) {
           return _c("tr", [
             _c("td", [
               _c("div", { staticClass: "form-check" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.payments[index].checked,
+                      expression: "payments[index].checked"
+                    }
+                  ],
+                  staticClass: "form-check-input",
+                  attrs: { type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(_vm.payments[index].checked)
+                      ? _vm._i(_vm.payments[index].checked, null) > -1
+                      : _vm.payments[index].checked
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.payments[index].checked,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(
+                              _vm.payments[index],
+                              "checked",
+                              $$a.concat([$$v])
+                            )
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.payments[index],
+                              "checked",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.payments[index], "checked", $$c)
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" "),
                 _c("label", { staticClass: "form-check-label" }, [
-                  _c("input", {
-                    staticClass: "form-check-input",
-                    attrs: { type: "checkbox", name: "cash", value: "1" }
-                  }),
-                  _vm._v(_vm._s(x.name) + "\n                        ")
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(x.name) +
+                      "\n                        "
+                  )
                 ])
               ])
             ]),
             _vm._v(" "),
-            _vm._m(1, true),
+            _c("td", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.payments[index].amount,
+                    expression: "payments[index].amount"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "number",
+                  disabled: !_vm.payments[index].checked,
+                  required: ""
+                },
+                domProps: { value: _vm.payments[index].amount },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.payments[index], "amount", $event.target.value)
+                  }
+                }
+              })
+            ]),
             _vm._v(" "),
-            _vm._m(2, true)
+            _c("td", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.payments[index].reference,
+                    expression: "payments[index].reference"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", disabled: !_vm.payments[index].checked },
+                domProps: { value: _vm.payments[index].reference },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.payments[index],
+                      "reference",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ])
           ])
         }),
         0
@@ -37547,28 +37705,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Reference")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", name: "amount", required: "" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", name: "reference", required: "" }
-      })
     ])
   }
 ]
@@ -37594,93 +37730,76 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "form",
-      { attrs: { method: "post", action: "/sales_orders" } },
-      [
-        _vm._t("default"),
-        _vm._v(" "),
-        _c("input", {
-          attrs: { type: "hidden", name: "sales_order_lines" },
-          domProps: { value: JSON.stringify(_vm.sales_order_lines) }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.client_id,
-              expression: "client_id"
-            }
-          ],
-          attrs: { type: "hidden", name: "client_id" },
-          domProps: { value: _vm.client_id },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.client_id = $event.target.value
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("table", { staticClass: "table table-bordered" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.sales_order_lines, function(x, index) {
-              return _c("gridline", {
-                key: x.id,
-                attrs: {
-                  sellables: _vm.sellables,
-                  price_disable: _vm.price_disable
-                },
-                on: {
-                  lineupdated: function($event) {
-                    return _vm.updateLine(index, $event)
-                  },
-                  linedeleted: function($event) {
-                    return _vm.deleteLine(index)
-                  }
-                }
-              })
-            }),
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c("h4", [
-          _vm._v(
-            "Total Amount: " + _vm._s(_vm._f("currencyFormat")(_vm.totalPrice))
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.addLine($event)
-              }
-            }
-          },
-          [_vm._v("Add Item")]
-        ),
-        _vm._v(" "),
-        _c("br"),
-        _c("br"),
-        _vm._v(" "),
-        _c("button", [_vm._v("Submit")]),
-        _vm._v(" "),
-        _c("br"),
-        _c("br")
+    _c("input", {
+      attrs: { type: "hidden", name: "sales_order_lines" },
+      domProps: { value: JSON.stringify(_vm.sales_order_lines) }
+    }),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.client_id,
+          expression: "client_id"
+        }
       ],
-      2
-    )
+      attrs: { type: "hidden", name: "client_id" },
+      domProps: { value: _vm.client_id },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.client_id = $event.target.value
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-bordered" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        [
+          _vm._l(_vm.sales_order_lines, function(x, index) {
+            return _c("gridline", {
+              key: x.id,
+              attrs: {
+                sellables: _vm.sellables,
+                price_disable: _vm.price_disable
+              },
+              on: {
+                lineupdated: function($event) {
+                  return _vm.updateLine(index, $event)
+                },
+                linedeleted: function($event) {
+                  return _vm.deleteLine(index)
+                }
+              }
+            })
+          }),
+          _vm._v(" "),
+          _c("tr", [
+            _c("td", { attrs: { colspan: "4" } }, [
+              _c(
+                "a",
+                {
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.addLine($event)
+                    }
+                  }
+                },
+                [_vm._v("Add Item")]
+              )
+            ])
+          ])
+        ],
+        2
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -50500,8 +50619,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/nlicup/Desktop/Coding/skin_pro/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/nlicup/Desktop/Coding/skin_pro/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/charleslicup/Desktop/Coding/skin_ops/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/charleslicup/Desktop/Coding/skin_ops/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

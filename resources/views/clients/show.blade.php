@@ -84,7 +84,16 @@
 			    
 			    <a class="nav-item nav-link" id="nav-payments-tab" data-toggle="tab" href="#nav-payments" role="tab" aria-controls="nav-payments" aria-selected="false">Payments</a>
 			</div>
+
+
+
 		</nav>
+
+{{-- 			<div class="tab-content" id="nav-tabContent">
+			</div> --}}
+
+		@include('clients.partials.history')
+		@include('clients.partials.transactions')
 
 	</div>	
 

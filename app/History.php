@@ -4,12 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SalesOrderLine extends Model
+class History extends Model
 {
     protected $guarded = [];
 
-    public function sellable()
+    public function parent()
     {
     	return $this->morphTo();
     }
+
 }

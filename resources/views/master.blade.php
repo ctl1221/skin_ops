@@ -36,10 +36,6 @@
 	</div>
 </body>
 
-
-
-<script type="text/javascript">
-	@yield('scripts')
-</script>
+@yield('scripts')
 
 </html>
