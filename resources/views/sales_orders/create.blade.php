@@ -13,6 +13,16 @@ New Sales Order: {{ $client->display_name() }}
 <form method="post" action="/sales_orders">
 	{{ csrf_field() }}
 
+	<div class="form-group">
+	    <label for="date">Date:</label>
+	    <input type="date" class="form-control" id="date" name="date" required>
+	</div>
+
+	<div class="form-group">
+	    <label for="so_no">SO Number:</label>
+	    <input type="text" class="form-control" id="so_no" name="so_no" required>
+	</div>
+
 	<sales-order-grid 
 		:sellables="{{ $sellables }}"
 		:client_id="{{ $client->id }}"

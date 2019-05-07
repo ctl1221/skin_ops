@@ -19,6 +19,7 @@ class CreatePaymentsTable extends Migration
             $table->morphs('parent');
             $table->double('amount',2);
             $table->string('reference')->nullable();
+            $table->string('payment_type');
             $table->timestamps();
         });
     }
