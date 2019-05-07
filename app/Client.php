@@ -22,4 +22,9 @@ class Client extends Model
     {
         return $this->belongsTo(Pricelist::class);
     }
+
+    public function histories()
+    {
+        return $this->hasMany(History::class);
+    }
 }
