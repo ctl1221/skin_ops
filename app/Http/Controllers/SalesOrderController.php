@@ -55,14 +55,22 @@ class SalesOrderController extends Controller
 
             foreach($sales_order_lines as $x)
             {
-              SalesOrderLine::create([
+              $sales_order_line = SalesOrderLine::create([
                   'sales_order_id' => $sales_order->id,
                   'sellable_type' => $x->sellable_type,
                   'sellable_id' => $x->sellable_id,
                   'price' => $x->price,
               ]); 
 
-              //Package
+              if($x->sellable_type == 'App\\Package')
+              {
+                ClientClaim::create([
+                    'parent_type' => 'App\\Package',
+                    'parent_id' => $x->sellable_id,
+                    'sellable_type' => $x->sellable_type,
+                    'sellable_id' => $x->sellable_id,
+                ]);
+              }      
             }
 
             foreach($payment_lines as $x)
