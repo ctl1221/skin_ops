@@ -4,14 +4,14 @@
             <select v-model="sel_sellable_type">
                 <option value="App\Product">Products</option>
                 <option value="App\Service">Services</option>
-                <option>Packages</option>
+                <option value="App\Package">Packages</option>
             </select>
         </td>
 
         <td>
             <select v-model="sel_sellable_id">
                 <option v-for="(x, index) in sellables" 
-                        v-if="x.sellable_type == sel_sellable_type"
+                        v-if="x.sellable_type == sel_sellable_type && x.sellable.is_active == 1" 
                         :value="x.sellable_id">{{x.sellable.name}}
                 </option>
             </select>
@@ -53,7 +53,7 @@
             {
                 for(let i = 0; i < this.sellables.length; i++)
                 {
-                    if(this.sellables[i].sellable_type == newVal)
+                    if(this.sellables[i].sellable_type == newVal && this.sellables[i].sellable.is_active == 1)
                     {
                         this.sel_sellable_id = this.sellables[i].sellable_id;
                         this.sel_price = this.sellables[i].price;
@@ -94,7 +94,16 @@
         },
         
         mounted() {
-            
+            for(let i = 0; i < this.sellables.length; i++)
+            {
+                if(this.sellables[i].sellable.is_active == 1)
+                {
+                    this.sel_sellable_type = this.sellables[i].sellable_type;
+                    this.sel_sellable_id = this.sellables[i].sellable_id;
+                    this.sel_price = this.sellables[i].price;
+                    return;
+                }
+            }
         }
     }
 </script>

@@ -20,6 +20,7 @@ class CreateClientClaimsTable extends Migration
             $table->date('claimed_by_date')->nullable();
             $table->morphs('parent');
             $table->morphs('sellable');
+            $table->morphs('category');
             $table->timestamps();
         });
     }

@@ -11,6 +11,7 @@ use App\Client;
 use App\PaymentType;
 use App\Payment;
 use App\History;
+use App\ClientClaim;
 
 use Illuminate\Support\Facades\DB;
 
@@ -64,13 +65,23 @@ class SalesOrderController extends Controller
 
               if($x->sellable_type == 'App\\Package')
               {
-                ClientClaim::create([
-                    'parent_type' => 'App\\Package',
-                    'parent_id' => $x->sellable_id,
-                    'sellable_type' => $x->sellable_type,
-                    'sellable_id' => $x->sellable_id,
-                ]);
+                foreach($sales_order_line->sellable->breakdowns as $y)
+                {
+                  for($i = 0; $i < $y->quantity; $i++)
+                  {
+                    ClientClaim::create([
+                        'parent_type' => 'App\\SalesOrder',
+                        'parent_id' => $sales_order->id,
+                        'sellable_type' => $y->sellable_type,
+                        'sellable_id' => $y->sellable_id,
+                        'category_type' => 'App\\Package',
+                        'category_id' => $x->sellable_id,
+                    ]);
+                  }
+                }
               }      
+
+              
             }
 
             foreach($payment_lines as $x)

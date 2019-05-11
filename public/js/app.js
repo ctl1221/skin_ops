@@ -2216,7 +2216,7 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     sel_sellable_type: function sel_sellable_type(newVal, oldVal) {
       for (var i = 0; i < this.sellables.length; i++) {
-        if (this.sellables[i].sellable_type == newVal) {
+        if (this.sellables[i].sellable_type == newVal && this.sellables[i].sellable.is_active == 1) {
           this.sel_sellable_id = this.sellables[i].sellable_id;
           this.sel_price = this.sellables[i].price;
           return;
@@ -2244,7 +2244,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    for (var i = 0; i < this.sellables.length; i++) {
+      if (this.sellables[i].sellable.is_active == 1) {
+        this.sel_sellable_type = this.sellables[i].sellable_type;
+        this.sel_sellable_id = this.sellables[i].sellable_id;
+        this.sel_price = this.sellables[i].price;
+        return;
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -37879,7 +37888,9 @@ var render = function() {
             _vm._v("Services")
           ]),
           _vm._v(" "),
-          _c("option", [_vm._v("Packages")])
+          _c("option", { attrs: { value: "App\\Package" } }, [
+            _vm._v("Packages")
+          ])
         ]
       )
     ]),
@@ -37913,7 +37924,8 @@ var render = function() {
           }
         },
         _vm._l(_vm.sellables, function(x, index) {
-          return x.sellable_type == _vm.sel_sellable_type
+          return x.sellable_type == _vm.sel_sellable_type &&
+            x.sellable.is_active == 1
             ? _c("option", { domProps: { value: x.sellable_id } }, [
                 _vm._v(_vm._s(x.sellable.name) + "\n            ")
               ])
@@ -50619,8 +50631,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/charleslicup/Desktop/Coding/skin_ops/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/charleslicup/Desktop/Coding/skin_ops/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/nlicup/Desktop/Coding/skin_pro/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/nlicup/Desktop/Coding/skin_pro/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

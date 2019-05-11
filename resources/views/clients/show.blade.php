@@ -8,7 +8,6 @@
 
 	<a href="/clients"><button type="button" class="btn btn-outline-primary">Back</button></a> 
 	<a href="/clients/search"><button type="button" class="btn btn-outline-primary">Back to Search</button></a> 
-
 	<a href="/clients/{{ $client->id }}/edit"><button type="button" class="btn btn-outline-warning">Edit</button></a> 
 
 	@if($client->is_active)
