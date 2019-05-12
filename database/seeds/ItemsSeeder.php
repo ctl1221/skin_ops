@@ -80,6 +80,7 @@ class ItemsSeeder extends Seeder
                 'sellable_type' => 'App\Service',
                 'quantity' => rand(1,3),
             ]);
+
         });
     }
 }

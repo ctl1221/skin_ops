@@ -62,6 +62,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/clients">Clients</a>
+          <a class="dropdown-item" href="/memberships">Memberships</a>
           <a class="dropdown-item" href="/services">Services</a>
           <a class="dropdown-item" href="/products">Products</a>
           <a class="dropdown-item" href="/packages">Packages</a>

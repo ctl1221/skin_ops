@@ -6,6 +6,8 @@ use App\SalesOrderLine;
 use App\Employee;
 use App\Branch;
 use App\PaymentType;
+use App\Membership;
+use App\PricelistSellable;
 
 class DatabaseSeeder extends Seeder
 {
@@ -51,5 +53,75 @@ class DatabaseSeeder extends Seeder
         PaymentType::create([
             'name' => 'Card',
         ]);
+
+        Membership::create([
+            'name' => 'Standard Membership',
+            'pricelist_id' => 2,
+            'days_valid' => 365,
+        ]);
+
+        Membership::create([
+            'name' => 'Marina Membership',
+            'pricelist_id' => 2,
+            'days_valid' => 365,
+        ]);
+
+        PricelistSellable::create([
+            'pricelist_id' => 1,
+            'sellable_type' => 'App\Membership',
+            'sellable_id' => 1,
+            'price' => 1000,
+        ]);
+
+        PricelistSellable::create([
+            'pricelist_id' => 2,
+            'sellable_type' => 'App\Membership',
+            'sellable_id' => 1,
+            'price' => 1000,
+        ]);
+
+        PricelistSellable::create([
+            'pricelist_id' => 3,
+            'sellable_type' => 'App\Membership',
+            'sellable_id' => 1,
+            'price' => 1000,
+        ]);
+
+        PricelistSellable::create([
+            'pricelist_id' => 4,
+            'sellable_type' => 'App\Membership',
+            'sellable_id' => 1,
+            'price' => 1000,
+        ]);
+
+        PricelistSellable::create([
+            'pricelist_id' => 1,
+            'sellable_type' => 'App\Membership',
+            'sellable_id' => 2,
+            'price' => 1000,
+        ]);
+
+        PricelistSellable::create([
+            'pricelist_id' => 2,
+            'sellable_type' => 'App\Membership',
+            'sellable_id' => 2,
+            'price' => 1000,
+        ]);
+
+        PricelistSellable::create([
+            'pricelist_id' => 3,
+            'sellable_type' => 'App\Membership',
+            'sellable_id' => 2,
+            'price' => 1000,
+        ]);
+
+        PricelistSellable::create([
+            'pricelist_id' => 4,
+            'sellable_type' => 'App\Membership',
+            'sellable_id' => 2,
+            'price' => 1000,
+        ]);
+
+
     }
 }
