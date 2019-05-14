@@ -5,6 +5,7 @@
                 <option value="App\Product">Products</option>
                 <option value="App\Service">Services</option>
                 <option value="App\Package">Packages</option>
+                <option value="App\Membership">Memberships</option>
             </select>
         </td>
 

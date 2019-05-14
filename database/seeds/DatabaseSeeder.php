@@ -8,11 +8,17 @@ use App\Branch;
 use App\PaymentType;
 use App\Membership;
 use App\PricelistSellable;
+use App\Product;
 
 class DatabaseSeeder extends Seeder
 {
     public function run()
     {
+        Product::create([
+            'name' => 'Membership',
+            'is_active' => 0,
+        ]);
+
         $this->call(UsersSeeder::class);
         $this->call(PricelistsSeeder::class);
         $this->call(ItemsSeeder::class);
@@ -56,13 +62,11 @@ class DatabaseSeeder extends Seeder
 
         Membership::create([
             'name' => 'Standard Membership',
-            'pricelist_id' => 2,
             'days_valid' => 365,
         ]);
 
         Membership::create([
             'name' => 'Marina Membership',
-            'pricelist_id' => 2,
             'days_valid' => 365,
         ]);
 
@@ -121,7 +125,6 @@ class DatabaseSeeder extends Seeder
             'sellable_id' => 2,
             'price' => 1000,
         ]);
-
 
     }
 }

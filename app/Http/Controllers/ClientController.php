@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use App\Pricelist;
+use App\ClientMembership;
 
 use Illuminate\Http\Request;
 

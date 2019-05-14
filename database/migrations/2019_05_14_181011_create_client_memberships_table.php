@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMembershipsTable extends Migration
+class CreateClientMembershipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateMembershipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('memberships', function (Blueprint $table) {
+        Schema::create('client_memberships', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->integer('days_valid')->default(365);
-            $table->boolean('is_active')->default(1);
+            $table->unsignedInteger('client_id');
+            $table->unsignedInteger('membership_id');
+            $table->date('date_start');
+            $table->date('date_end');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateMembershipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('memberships');
+        Schema::dropIfExists('client_memberships');
     }
 }

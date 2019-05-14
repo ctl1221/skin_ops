@@ -26,8 +26,6 @@ Route::resource('products', 'ProductController');
 Route::resource('services', 'ServiceController');
 Route::resource('packages', 'PackageController');
 Route::resource('employees', 'EmployeeController');
-Route::resource('memberships', 'MembershipController');
-
 
 Route::get('/branches','BranchController@index');
 Route::get('/branches/create','BranchController@create');
@@ -46,6 +44,12 @@ Route::get('/payment_types/create','PaymentTypeController@create');
 Route::post('/payment_types','PaymentTypeController@store');
 Route::get('/payment_types/edit','PaymentTypeController@edit');
 Route::post('/payment_types/update','PaymentTypeController@update');
+
+Route::get('/memberships','MembershipController@index');
+Route::get('/memberships/create','MembershipController@create');
+Route::post('/memberships','MembershipController@store');
+Route::get('/memberships/edit','MembershipController@edit');
+Route::post('/memberships/update','MembershipController@update');
 
 //Modify
 Route::get('/products/{product}/deactivate', 'ProductController@deactivate');
@@ -71,6 +75,9 @@ Route::get('/pricelists/{pricelist}/activate', 'PricelistController@activate');
 
 Route::post('/payment_types/{paymentType}/deactivate', 'PaymentTypeController@deactivate');
 Route::post('/payment_types/{paymentType}/activate', 'PaymentTypeController@activate');
+
+Route::post('/memberships/{membership}/deactivate', 'MembershipController@deactivate');
+Route::post('/memberships/{membership}/activate', 'MembershipController@activate');
 
 //Transactional Data
 Route::get('/sales_orders/create/client/{client}', 'SalesOrderController@create');

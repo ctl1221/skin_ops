@@ -3,7 +3,10 @@
 @section ('heading')
 
 	List of Memberships
+
 	<a href="/memberships/create"><button type="button" class="btn btn-outline-success">+ New</button></a>
+
+	{{-- <td><a href="/memberships/edit"><button type="button" class="btn btn-outline-warning">Edit</button></a></td> --}}
 	
 @endsection
 
@@ -14,28 +17,45 @@
 
 		<thead>
 			<tr>
-				<th>Name</th>
-				<th>Days Valid</th>
-				<th>Status</th>
+				<th width="60%" class="text-center">Name</th>
+				<th width="10%" class="text-center">Days Valid</th>
+				<th width="15%" class="text-center">Price</th>
+				<th width="15%" class="text-center">Status</th>
 		</thead>
-
-		<tbody>
-			@foreach ($memberships as $x)
-				<tr>
-					<td>{{ $x->name }}</td>
-					<td>{{ $x->days_valid }}</td>
-					<td>
-		        		<span class="badge {{ $x->is_active ? 'badge-success': 'badge-danger' }}">
-		        		{{ $x->is_active ? 'Active' : 'Inactive' }} 
-		  				</span>
-		        	</td>
-				</tr>
-			@endforeach
-		</tbody>
 
 	</table>
 </div>
 
-{{ $memberships->links() }}
+<div class="container">
+	@foreach ($memberships as $x)
+		<table class="table table-sm table-bordered table-fullwidth">
+			@foreach ($x->breakdowns as $y)
+			<tr>
+				@if($loop->first)
+					<td rowspan="{{ count($x->breakdowns) }}" class="text-center align-middle" width="20%">{{ $x->name }}</td>
+				@endif
+
+				<td width="40%">{{ $y->quantity . " x " . $y->sellable->name }}</td>
+				
+				@if($loop->first)
+				<td rowspan="{{ count($x->breakdowns) }}" class="text-center align-middle" width="10%">{{ $x->days_valid }}</td>
+				@endif
+
+				@if($loop->first)
+				<td rowspan="{{ count($x->breakdowns) }}" class="text-center align-middle" width="15%">{{ $x->pricelists[0]->price }}</td>
+				@endif
+
+				@if($loop->first)
+				<td rowspan="{{ count($x->breakdowns) }}" class="text-center align-middle" width="15%">
+	        		<span class="badge {{ $x->is_active ? 'badge-success': 'badge-danger' }}">
+	        		{{ $x->is_active ? 'Active' : 'Inactive' }} 
+	  				</span>
+	        	</td>
+	        	@endif
+			</tr>	
+			@endforeach	
+		</table>
+	@endforeach
+</div>
 
 @endsection

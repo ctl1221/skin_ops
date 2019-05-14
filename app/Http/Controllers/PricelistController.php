@@ -7,6 +7,7 @@ use App\Pricelist;
 use App\PricelistSellable;
 use App\Product;
 use App\Service;
+use App\Membership;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -42,6 +43,7 @@ class PricelistController extends Controller
             $products = Product::all();
             $services = Service::all();
             $packages = Package::all();
+            $memberships = Membership::all();
 
             foreach($products as $x)
             {
@@ -69,6 +71,16 @@ class PricelistController extends Controller
                     'pricelist_id' => $pricelist->id,
                     'sellable_id' => $x->id,
                     'sellable_type' => 'App\\Package',
+                    'price' => 0,
+                ]);
+            }
+
+            foreach($memberships as $x)
+            {
+                PricelistSellable::create([
+                    'pricelist_id' => $pricelist->id,
+                    'sellable_id' => $x->id,
+                    'sellable_type' => 'App\\Membership',
                     'price' => 0,
                 ]);
             }

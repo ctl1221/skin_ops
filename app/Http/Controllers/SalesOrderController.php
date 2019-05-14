@@ -12,8 +12,11 @@ use App\PaymentType;
 use App\Payment;
 use App\History;
 use App\ClientClaim;
+use App\ClientMembership;
+use App\Membership;
 
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class SalesOrderController extends Controller
 {
@@ -63,25 +66,38 @@ class SalesOrderController extends Controller
                   'price' => $x->price,
               ]); 
 
+              if($x->sellable_type =='App\\Membership')
+              {
+                $membership = Membership::findOrFail($x->sellable_id);
+
+                ClientMembership::create([
+                    'client_id' => $client->id,
+                    'membership_id' => $x->sellable_id,
+                    'date_start' => $request->date,
+                    'date_end' => Carbon::parse($request->date)->addDays($membership->days_valid),
+                ]);
+              }
+
               if($x->sellable_type == 'App\\Package')
               {
                 foreach($sales_order_line->sellable->breakdowns as $y)
                 {
-                  for($i = 0; $i < $y->quantity; $i++)
+                  if($y->sellable_type == 'App\\Service')
                   {
-                    ClientClaim::create([
-                        'parent_type' => 'App\\SalesOrder',
-                        'parent_id' => $sales_order->id,
-                        'sellable_type' => $y->sellable_type,
-                        'sellable_id' => $y->sellable_id,
-                        'category_type' => 'App\\Package',
-                        'category_id' => $x->sellable_id,
-                    ]);
+                    for($i = 0; $i < $y->quantity; $i++)
+                    {
+                      ClientClaim::create([
+                          'parent_type' => 'App\\SalesOrder',
+                          'parent_id' => $sales_order->id,
+                          'sellable_type' => $y->sellable_type,
+                          'sellable_id' => $y->sellable_id,
+                          'category_type' => 'App\\Package',
+                          'category_id' => $x->sellable_id,
+                      ]);
+                    }
                   }
                 }
-              }      
-
-              
+              }         
             }
 
             foreach($payment_lines as $x)

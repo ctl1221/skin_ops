@@ -27,4 +27,9 @@ class Client extends Model
     {
         return $this->hasMany(History::class);
     }
+
+    public function memberships()
+    {
+        return $this->belongsToMany(Membership::class, 'client_memberships')->withPivot('date_end')->orderBy('date_end', 'desc');
+    }
 }

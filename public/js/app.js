@@ -2199,6 +2199,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['sellables', 'price_disable'],
   data: function data() {
@@ -37890,6 +37891,10 @@ var render = function() {
           _vm._v(" "),
           _c("option", { attrs: { value: "App\\Package" } }, [
             _vm._v("Packages")
+          ]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "App\\Membership" } }, [
+            _vm._v("Memberships")
           ])
         ]
       )

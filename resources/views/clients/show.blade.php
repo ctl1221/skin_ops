@@ -42,11 +42,10 @@
 
 			<tr>
 				<th>Member Expiry</th>
-				<td>
-					---
-				</td>
+				<td>{{ count($client->memberships) ? $client->memberships[0]->pivot->date_end : '---' }}</td>
+
 				<th>Pricelist</th>
-				<td>{{ $client->pricelist->name }}</td>
+				<td>{{ $client->pricelist->name ? $client->pricelist->name : '---' }}</td>
 			</tr>
 
 			<tr>

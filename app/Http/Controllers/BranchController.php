@@ -35,11 +35,6 @@ class BranchController extends Controller
         return redirect('/branches'); 
     }
 
-    public function show(Branch $branch)
-    {
-        //
-    }
-
     public function edit()
     {
         $branches = Branch::all();
