@@ -14,14 +14,10 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        Product::create([
-            'name' => 'Prima Membership',
-            'is_active' => 0,
-        ]);
-
         $this->call(UsersSeeder::class);
         $this->call(PricelistsSeeder::class);
-        $this->call(ItemsSeeder::class);
+        //$this->call(ItemsSeeder::class);
+        $this->call(RealDataSeeder::class);
         factory(App\Client::class, 50)->create();
 
         Employee::create([

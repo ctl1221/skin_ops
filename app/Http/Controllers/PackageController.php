@@ -21,7 +21,7 @@ class PackageController extends Controller
 
     public function index()
     {
-        $packages = Package::with('breakdowns')->orderBy('name')->paginate(4);
+        $packages = Package::with('breakdowns')->orderBy('name')->paginate(10);
 
         return view('packages.index', compact('packages'));
     }
