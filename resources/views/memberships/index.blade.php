@@ -32,10 +32,10 @@
 			@foreach ($x->breakdowns as $y)
 			<tr>
 				@if($loop->first)
-					<td rowspan="{{ count($x->breakdowns) }}" class="text-center align-middle" width="20%">{{ $x->name }}</td>
+					<td rowspan="{{ count($x->breakdowns) }}" class="text-center align-middle" width="30%">{{ $x->name }}</td>
 				@endif
 
-				<td width="40%">{{ $y->quantity . " x " . $y->sellable->name }}</td>
+				<td width="30%">{{ $y->quantity . " x " . $y->sellable->name }}</td>
 				
 				@if($loop->first)
 				<td rowspan="{{ count($x->breakdowns) }}" class="text-center align-middle" width="10%">{{ $x->days_valid }}</td>

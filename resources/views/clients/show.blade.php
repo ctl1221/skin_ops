@@ -29,7 +29,7 @@
 				<th>Payables</th>
 				<td>
 					<span class="badge badge-danger">
-						---
+						{{ $client->payable_amount() }}
 					</span>
 				</td>
 				<th>To Claims from Packages</th>

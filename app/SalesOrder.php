@@ -12,4 +12,9 @@ class SalesOrder extends Model
     {
     	return $this->hasMany(SalesOrderLine::class);
     }
+
+    public function payments()
+    {
+    	return $this->morphMany(Payment::class, 'parent');
+    }
 }
