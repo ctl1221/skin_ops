@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Product::create([
-            'name' => 'Membership',
+            'name' => 'Prima Membership',
             'is_active' => 0,
         ]);
 
