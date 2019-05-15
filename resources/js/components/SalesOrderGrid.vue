@@ -5,34 +5,48 @@
     <input type="hidden" name="sales_order_lines" :value="JSON.stringify(sales_order_lines)">
     <input type="hidden" name="client_id" v-model="client_id">
 
-    <table class="table table-bordered">
+    <div class="table-responsive">
+      <table class="table table-bordered table-sm mb-4">
 
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Item</th>
-          <th>Price</th>
-          <th></th>
-        </tr>
-      </thead>
+        <thead>
 
-      <tbody>
-        <gridline 
-          v-for="(x, index) in sales_order_lines"
-          :sellables="sellables" 
-          :key="x.id"
-          :price_disable="price_disable"
-          @lineupdated="updateLine(index, $event)"
-          @linedeleted="deleteLine(index)">
-        </gridline>
+          <tr>
+            <th colspan="7" class="text-center bg-secondary text-white">
+              <h5 class="mt-1 mb-1">Item Details</h5>
+            </th>
+          </tr>
 
-        <tr>
-          <td colspan="4"><a @click.prevent="addLine">Add Item</a></td>
-        </tr>
+          <tr>
+            <th>Type</th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Sold By</th>
+            <th>Treated By</th>
+            <th>Assisted By</th>
+            <th></th>
+          </tr>
+        </thead>
 
-    </tbody>
+        <tbody>
+          <gridline 
+            v-for="(x, index) in sales_order_lines"
+            :sellables="sellables" 
+            :employees="employees"
+            :key="x.id"
+            :price_disable="price_disable"
+            @lineupdated="updateLine(index, $event)"
+            @linedeleted="deleteLine(index)">
+          </gridline>
 
-  </table>
+          <tr>
+            <td colspan="7" class="text-center">
+              <button type="button" class="btn btn-info btn-sm" @click.prevent="addLine">Add Item</button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
 </div>
 
 </template>
@@ -43,7 +57,7 @@ import gridline from './SalesOrderGridLine.vue'
 
 export default {
   components: { gridline },
-  props: ['sellables','client_id','price_disable'],
+  props: ['sellables','employees','client_id','price_disable'],
   data() {
     return {
       sales_order_lines: [],
@@ -77,6 +91,9 @@ export default {
         sellable_type : this.sellables[0].sellable_type,
         sellable_id : this.sellables[0].sellable_id,
         price: this.sellables[0].price,
+        sold_by_id: '',
+        treated_by_id: '',
+        assisted_by_id: '',
       });
     },
 
@@ -89,6 +106,9 @@ export default {
       this.sales_order_lines[index].sellable_type = event.sellable_type;
       this.sales_order_lines[index].sellable_id = event.sellable_id;
       this.sales_order_lines[index].price = parseFloat(event.price);
+      this.sales_order_lines[index].sold_by_id = event.sold_by_id;
+      this.sales_order_lines[index].treated_by_id = event.treated_by_id;
+      this.sales_order_lines[index].assisted_by_id = event.assisted_by_id;
     },
   },
 

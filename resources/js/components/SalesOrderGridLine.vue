@@ -23,7 +23,51 @@
         </td>
 
         <td>
-            <i @click="$emit('linedeleted')" class="fas fa-trash-alt"></i>
+            <select v-model="sel_sold_by_id">
+                <option value="">----------------------</option>
+                <option v-for="(x, index) in employees" 
+                        :value="x.id">{{x.last_name + ', ' + x.first_name }}
+                </option>
+            </select>
+        </td>
+
+        <template v-if="sel_sellable_type == 'App\\Service'">
+            <td>
+                <select v-model="sel_treated_by_id">
+                    <option value="">----------------------</option>
+                    <option v-for="(x, index) in employees" 
+                            :value="x.id">{{x.last_name + ', ' + x.first_name }}
+                    </option>
+                </select>
+            </td>
+
+            <td>
+                <select v-model="sel_assisted_by_id">
+                    <option value="">----------------------</option>
+                    <option v-for="(x, index) in employees" 
+                            :value="x.id">{{x.last_name + ', ' + x.first_name }}
+                    </option>
+                </select>
+            </td>
+        </template>
+
+        <template v-else>
+
+            <td>
+
+            </td>
+
+            <td>
+
+            </td>
+        </template>
+
+        <td class="text-center">
+            <button type="button" class="btn btn-danger btn-sm" 
+                @click="$emit('linedeleted')">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+            
         </td>
 
     </tr>
@@ -32,20 +76,23 @@
 <script>
 
     export default {
-        props: ['sellables','price_disable'],
+        props: ['sellables','employees','price_disable'],
         
         data() {
             return {
                 sel_sellable_type: this.sellables[0].sellable_type,
                 sel_sellable_id: this.sellables[0].sellable_id,
                 sel_price: this.sellables[0].price,
+                sel_sold_by_id: '',
+                sel_treated_by_id: '',
+                sel_assisted_by_id: '',
             };
         },
 
         computed: {
             selecteds: function ()
             {
-                return `${this.sel_sellable_type}|${this.sel_sellable_id}|${this.sel_price}`;
+                return `${this.sel_sellable_type}|${this.sel_sellable_id}|${this.sel_price}|${this.sel_sold_by_id}|${this.sel_treated_by_id}|${this.sel_assisted_by_id}`;
             },
         },
 
@@ -90,6 +137,9 @@
                     sellable_type : this.sel_sellable_type,
                     sellable_id : this.sel_sellable_id,
                     price: this.sel_price,
+                    sold_by_id: this.sel_sold_by_id,
+                    treated_by_id: this.sel_treated_by_id,
+                    assisted_by_id: this.sel_assisted_by_id,
                 });
             },
         },

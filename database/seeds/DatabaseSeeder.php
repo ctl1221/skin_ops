@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsersSeeder::class);
         $this->call(PricelistsSeeder::class);
-        //$this->call(ItemsSeeder::class);
-        $this->call(RealDataSeeder::class);
-        $this->call(RealData2Seeder::class);
+        $this->call(ItemsSeeder::class);
+        //$this->call(RealDataSeeder::class);
+        //$this->call(RealData2Seeder::class);
         factory(App\Client::class, 50)->create();
 
         Employee::create([

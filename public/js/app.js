@@ -2002,6 +2002,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['payment_types'],
   data: function data() {
@@ -2107,12 +2114,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     gridline: _SalesOrderGridLine_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ['sellables', 'client_id', 'price_disable'],
+  props: ['sellables', 'employees', 'client_id', 'price_disable'],
   data: function data() {
     return {
       sales_order_lines: [],
@@ -2141,7 +2162,10 @@ __webpack_require__.r(__webpack_exports__);
         id: this.next_id++,
         sellable_type: this.sellables[0].sellable_type,
         sellable_id: this.sellables[0].sellable_id,
-        price: this.sellables[0].price
+        price: this.sellables[0].price,
+        sold_by_id: '',
+        treated_by_id: '',
+        assisted_by_id: ''
       });
     },
     deleteLine: function deleteLine(index) {
@@ -2151,6 +2175,9 @@ __webpack_require__.r(__webpack_exports__);
       this.sales_order_lines[index].sellable_type = event.sellable_type;
       this.sales_order_lines[index].sellable_id = event.sellable_id;
       this.sales_order_lines[index].price = parseFloat(event.price);
+      this.sales_order_lines[index].sold_by_id = event.sold_by_id;
+      this.sales_order_lines[index].treated_by_id = event.treated_by_id;
+      this.sales_order_lines[index].assisted_by_id = event.assisted_by_id;
     }
   },
   mounted: function mounted() {
@@ -2200,18 +2227,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['sellables', 'price_disable'],
+  props: ['sellables', 'employees', 'price_disable'],
   data: function data() {
     return {
       sel_sellable_type: this.sellables[0].sellable_type,
       sel_sellable_id: this.sellables[0].sellable_id,
-      sel_price: this.sellables[0].price
+      sel_price: this.sellables[0].price,
+      sel_sold_by_id: '',
+      sel_treated_by_id: '',
+      sel_assisted_by_id: ''
     };
   },
   computed: {
     selecteds: function selecteds() {
-      return "".concat(this.sel_sellable_type, "|").concat(this.sel_sellable_id, "|").concat(this.sel_price);
+      return "".concat(this.sel_sellable_type, "|").concat(this.sel_sellable_id, "|").concat(this.sel_price, "|").concat(this.sel_sold_by_id, "|").concat(this.sel_treated_by_id, "|").concat(this.sel_assisted_by_id);
     }
   },
   watch: {
@@ -2241,7 +2315,10 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('lineupdated', {
         sellable_type: this.sel_sellable_type,
         sellable_id: this.sel_sellable_id,
-        price: this.sel_price
+        price: this.sel_price,
+        sold_by_id: this.sel_sold_by_id,
+        treated_by_id: this.sel_treated_by_id,
+        assisted_by_id: this.sel_assisted_by_id
       });
     }
   },
@@ -37569,13 +37646,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", [
     _c("input", {
       attrs: { type: "hidden", name: "payment_lines" },
       domProps: { value: JSON.stringify(_vm.payments) }
     }),
     _vm._v(" "),
-    _c("table", { staticClass: "table table-bordered" }, [
+    _c("table", { staticClass: "table table-bordered table-sm mb-4" }, [
       _vm._m(0),
       _vm._v(" "),
       _c(
@@ -37593,7 +37670,7 @@ var render = function() {
                       expression: "payments[index].checked"
                     }
                   ],
-                  staticClass: "form-check-input",
+                  staticClass: "form-check-input form-control-sm",
                   attrs: { type: "checkbox" },
                   domProps: {
                     checked: Array.isArray(_vm.payments[index].checked)
@@ -37630,13 +37707,17 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("label", { staticClass: "form-check-label" }, [
-                  _vm._v(
-                    "\n                            " +
-                      _vm._s(x.name) +
-                      "\n                        "
-                  )
-                ])
+                _c(
+                  "label",
+                  { staticClass: "form-check-label form-control-sm" },
+                  [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(x.name) +
+                        "\n                        "
+                    )
+                  ]
+                )
               ])
             ]),
             _vm._v(" "),
@@ -37650,7 +37731,7 @@ var render = function() {
                     expression: "payments[index].amount"
                   }
                 ],
-                staticClass: "form-control",
+                staticClass: "form-control form-control-sm",
                 attrs: {
                   type: "number",
                   disabled: !_vm.payments[index].checked,
@@ -37678,7 +37759,7 @@ var render = function() {
                     expression: "payments[index].reference"
                   }
                 ],
-                staticClass: "form-control",
+                staticClass: "form-control form-control-sm",
                 attrs: { type: "text", disabled: !_vm.payments[index].checked },
                 domProps: { value: _vm.payments[index].reference },
                 on: {
@@ -37708,6 +37789,17 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
+      _c("tr", [
+        _c(
+          "th",
+          {
+            staticClass: "text-center bg-secondary text-white",
+            attrs: { colspan: "3" }
+          },
+          [_c("h5", { staticClass: "mt-1 mb-1" }, [_vm._v("Payment Modes")])]
+        )
+      ]),
+      _vm._v(" "),
       _c("tr", [
         _c("th", [_vm._v("Type")]),
         _vm._v(" "),
@@ -37766,49 +37858,58 @@ var render = function() {
       }
     }),
     _vm._v(" "),
-    _c("table", { staticClass: "table table-bordered" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        [
-          _vm._l(_vm.sales_order_lines, function(x, index) {
-            return _c("gridline", {
-              key: x.id,
-              attrs: {
-                sellables: _vm.sellables,
-                price_disable: _vm.price_disable
-              },
-              on: {
-                lineupdated: function($event) {
-                  return _vm.updateLine(index, $event)
+    _c("div", { staticClass: "table-responsive" }, [
+      _c("table", { staticClass: "table table-bordered table-sm mb-4" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          [
+            _vm._l(_vm.sales_order_lines, function(x, index) {
+              return _c("gridline", {
+                key: x.id,
+                attrs: {
+                  sellables: _vm.sellables,
+                  employees: _vm.employees,
+                  price_disable: _vm.price_disable
                 },
-                linedeleted: function($event) {
-                  return _vm.deleteLine(index)
-                }
-              }
-            })
-          }),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td", { attrs: { colspan: "4" } }, [
-              _c(
-                "a",
-                {
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.addLine($event)
-                    }
+                on: {
+                  lineupdated: function($event) {
+                    return _vm.updateLine(index, $event)
+                  },
+                  linedeleted: function($event) {
+                    return _vm.deleteLine(index)
                   }
-                },
-                [_vm._v("Add Item")]
+                }
+              })
+            }),
+            _vm._v(" "),
+            _c("tr", [
+              _c(
+                "td",
+                { staticClass: "text-center", attrs: { colspan: "7" } },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-info btn-sm",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.addLine($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Add Item")]
+                  )
+                ]
               )
             ])
-          ])
-        ],
-        2
-      )
+          ],
+          2
+        )
+      ])
     ])
   ])
 }
@@ -37819,11 +37920,28 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c(
+          "th",
+          {
+            staticClass: "text-center bg-secondary text-white",
+            attrs: { colspan: "7" }
+          },
+          [_c("h5", { staticClass: "mt-1 mb-1" }, [_vm._v("Item Details")])]
+        )
+      ]),
+      _vm._v(" "),
+      _c("tr", [
         _c("th", [_vm._v("Type")]),
         _vm._v(" "),
         _c("th", [_vm._v("Item")]),
         _vm._v(" "),
         _c("th", [_vm._v("Price")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Sold By")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Treated By")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Assisted By")]),
         _vm._v(" "),
         _c("th")
       ])
@@ -37851,129 +37969,279 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("tr", [
-    _c("td", [
-      _c(
-        "select",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.sel_sellable_type,
-              expression: "sel_sellable_type"
-            }
-          ],
-          on: {
-            change: function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.sel_sellable_type = $event.target.multiple
-                ? $$selectedVal
-                : $$selectedVal[0]
-            }
-          }
-        },
-        [
-          _c("option", { attrs: { value: "App\\Product" } }, [
-            _vm._v("Products")
-          ]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "App\\Service" } }, [
-            _vm._v("Services")
-          ]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "App\\Package" } }, [
-            _vm._v("Packages")
-          ]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "App\\Membership" } }, [
-            _vm._v("Memberships")
-          ])
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c(
-        "select",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.sel_sellable_id,
-              expression: "sel_sellable_id"
-            }
-          ],
-          on: {
-            change: function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.sel_sellable_id = $event.target.multiple
-                ? $$selectedVal
-                : $$selectedVal[0]
-            }
-          }
-        },
-        _vm._l(_vm.sellables, function(x, index) {
-          return x.sellable_type == _vm.sel_sellable_type &&
-            x.sellable.is_active == 1
-            ? _c("option", { domProps: { value: x.sellable_id } }, [
-                _vm._v(_vm._s(x.sellable.name) + "\n            ")
-              ])
-            : _vm._e()
-        }),
-        0
-      )
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c("input", {
-        directives: [
+  return _c(
+    "tr",
+    [
+      _c("td", [
+        _c(
+          "select",
           {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.sel_price,
-            expression: "sel_price"
-          }
-        ],
-        attrs: { type: "number", min: "0", disabled: _vm.price_disable },
-        domProps: { value: _vm.sel_price },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.sel_sellable_type,
+                expression: "sel_sellable_type"
+              }
+            ],
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.sel_sellable_type = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
             }
-            _vm.sel_price = $event.target.value
+          },
+          [
+            _c("option", { attrs: { value: "App\\Product" } }, [
+              _vm._v("Products")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "App\\Service" } }, [
+              _vm._v("Services")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "App\\Package" } }, [
+              _vm._v("Packages")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "App\\Membership" } }, [
+              _vm._v("Memberships")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("td", [
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.sel_sellable_id,
+                expression: "sel_sellable_id"
+              }
+            ],
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.sel_sellable_id = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          _vm._l(_vm.sellables, function(x, index) {
+            return x.sellable_type == _vm.sel_sellable_type &&
+              x.sellable.is_active == 1
+              ? _c("option", { domProps: { value: x.sellable_id } }, [
+                  _vm._v(_vm._s(x.sellable.name) + "\n            ")
+                ])
+              : _vm._e()
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("td", [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.sel_price,
+              expression: "sel_price"
+            }
+          ],
+          attrs: { type: "number", min: "0", disabled: _vm.price_disable },
+          domProps: { value: _vm.sel_price },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.sel_price = $event.target.value
+            }
           }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("td", [
-      _c("i", {
-        staticClass: "fas fa-trash-alt",
-        on: {
-          click: function($event) {
-            return _vm.$emit("linedeleted")
-          }
-        }
-      })
-    ])
-  ])
+        })
+      ]),
+      _vm._v(" "),
+      _c("td", [
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.sel_sold_by_id,
+                expression: "sel_sold_by_id"
+              }
+            ],
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.sel_sold_by_id = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          [
+            _c("option", { attrs: { value: "" } }, [
+              _vm._v("----------------------")
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.employees, function(x, index) {
+              return _c("option", { domProps: { value: x.id } }, [
+                _vm._v(
+                  _vm._s(x.last_name + ", " + x.first_name) + "\n            "
+                )
+              ])
+            })
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _vm.sel_sellable_type == "App\\Service"
+        ? [
+            _c("td", [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.sel_treated_by_id,
+                      expression: "sel_treated_by_id"
+                    }
+                  ],
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.sel_treated_by_id = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "" } }, [
+                    _vm._v("----------------------")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.employees, function(x, index) {
+                    return _c("option", { domProps: { value: x.id } }, [
+                      _vm._v(
+                        _vm._s(x.last_name + ", " + x.first_name) +
+                          "\n                "
+                      )
+                    ])
+                  })
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.sel_assisted_by_id,
+                      expression: "sel_assisted_by_id"
+                    }
+                  ],
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.sel_assisted_by_id = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "" } }, [
+                    _vm._v("----------------------")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.employees, function(x, index) {
+                    return _c("option", { domProps: { value: x.id } }, [
+                      _vm._v(
+                        _vm._s(x.last_name + ", " + x.first_name) +
+                          "\n                "
+                      )
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          ]
+        : [_c("td"), _vm._v(" "), _c("td")],
+      _vm._v(" "),
+      _c("td", { staticClass: "text-center" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-danger btn-sm",
+            attrs: { type: "button" },
+            on: {
+              click: function($event) {
+                return _vm.$emit("linedeleted")
+              }
+            }
+          },
+          [_c("i", { staticClass: "fas fa-trash-alt" })]
+        )
+      ])
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50636,8 +50904,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/nlicup/Desktop/Coding/skin_pro/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/nlicup/Desktop/Coding/skin_pro/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/charleslicup/Desktop/Coding/skin_ops/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/charleslicup/Desktop/Coding/skin_ops/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

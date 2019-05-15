@@ -14,6 +14,7 @@ use App\History;
 use App\ClientClaim;
 use App\ClientMembership;
 use App\Membership;
+use App\Employee;
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -37,9 +38,11 @@ class SalesOrderController extends Controller
             ->with('sellable')
             ->get();
 
+      $employees = Employee::where('is_active',1)->get();
+
       $payment_types = PaymentType::where('is_active', '=' , 1)->get();
 
-  		return view('sales_orders.create', compact('sellables', 'client', 'payment_types'));
+  		return view('sales_orders.create', compact('sellables', 'client', 'payment_types','employees'));
 
   	}
 

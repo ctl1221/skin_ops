@@ -1,10 +1,17 @@
 <template>
-    <div class="container">
+    <div>
 
         <input type="hidden" name="payment_lines" :value="JSON.stringify(payments)">
 
-        <table class="table table-bordered">
+
+        <table class="table table-bordered table-sm mb-4">
             <thead>
+
+                <tr>
+                    <th colspan="3" class="text-center bg-secondary text-white">
+                        <h5 class="mt-1 mb-1">Payment Modes</h5>
+                    </th>
+                </tr>
                 <tr>
                     <th>Type</th>
                     <th>Amount</th>
@@ -17,9 +24,9 @@
                     <td>
                         <div class="form-check">
                             <input type="checkbox" 
-                                class="form-check-input" 
+                                class="form-check-input form-control-sm" 
                                 v-model="payments[index].checked">
-                            <label class="form-check-label">
+                            <label class="form-check-label form-control-sm">
                                 {{x.name}}
                             </label>    
                         </div>
@@ -27,7 +34,7 @@
 
                     <td>
                         <input type="number" 
-                            class="form-control" 
+                            class="form-control form-control-sm" 
                             v-model="payments[index].amount"
                             :disabled="!payments[index].checked"
                             required>
@@ -35,7 +42,7 @@
 
                     <td>
                         <input type="text" 
-                            class="form-control" 
+                            class="form-control form-control-sm" 
                             v-model="payments[index].reference"
                             :disabled="!payments[index].checked">
                     </td>  
