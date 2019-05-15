@@ -19,6 +19,7 @@ class CreateClientMembershipsTable extends Migration
             $table->unsignedInteger('membership_id');
             $table->date('date_start');
             $table->date('date_end');
+            $table->boolean('is_expired')->default(0);
             $table->timestamps();
         });
     }
