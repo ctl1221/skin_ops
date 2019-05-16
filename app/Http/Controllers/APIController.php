@@ -19,9 +19,7 @@ class APIController extends Controller
 
 		if($request->filter)
 		{
-			$services
-				->where('name','like','%' . $request->filter . '%')
-				->orWhere('is_active', $request->filter == "active" ? 1: 0 );
+			$services->where('name','like','%' . $request->filter . '%');
 		}
 
 		$per_page = $request->per_page ? (int) $request->per_page : null;
