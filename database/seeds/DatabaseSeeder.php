@@ -16,30 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsersSeeder::class);
         $this->call(PricelistsSeeder::class);
-        $this->call(ItemsSeeder::class);
-        //$this->call(RealDataSeeder::class);
-        //$this->call(RealData2Seeder::class);
+        //$this->call(ItemsSeeder::class);
+        $this->call(RealDataSeeder::class);
+        $this->call(RealData2Seeder::class);
         factory(App\Client::class, 50)->create();
-
-        Employee::create([
-    		'last_name' => 'Grande',
-    		'first_name' => 'Ariana',
-    		'branch_id' => 1,
-            'is_doctor' => 0,
-            'is_receptionist' => 1,
-            'is_aesthetician' => 0,
-            'is_administrator' => 0,
-    	]);
-
-    	Employee::create([
-    		'last_name' => 'Obama',
-    		'first_name' => 'Michelle',
-    		'branch_id' => 2,
-            'is_doctor' => 0,
-            'is_receptionist' => 0,
-            'is_aesthetician' => 1,
-            'is_administrator' => 0,
-    	]);
 
         Branch::create([
             'name' => 'Makati',
@@ -47,6 +27,14 @@ class DatabaseSeeder extends Seeder
 
         Branch::create([
             'name' => 'SM Mall of Asia',
+        ]);
+
+        Branch::create([
+            'name' => 'Alabang Molito',
+        ]);
+
+        Branch::create([
+            'name' => 'SM North Edsa',
         ]);
 
         PaymentType::create([

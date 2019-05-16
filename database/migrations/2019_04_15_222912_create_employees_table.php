@@ -17,7 +17,6 @@ class CreateEmployeesTable extends Migration
             $table->bigIncrements('id');
             $table->string('last_name');
             $table->string('first_name');
-            $table->unsignedInteger('pricelist_id')->default(3);
             $table->boolean('is_active')->default(1);
             $table->unsignedInteger('branch_id');
             $table->boolean('is_receptionist');

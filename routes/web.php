@@ -17,7 +17,6 @@ Route::get('/', function () {
 
     return $pricelist;
 
-
 });
 
 //Master Data
@@ -84,6 +83,8 @@ Route::get('/sales_orders/create/client/{client}', 'SalesOrderController@create'
 Route::post('/sales_orders', 'SalesOrderController@store');
 Route::delete('/sales_orders/{sales_order}', 'SalesOrderController@destroy');
 
+//APIs
+Route::get('/api/services', 'APIController@services');
 
 Auth::routes();
 

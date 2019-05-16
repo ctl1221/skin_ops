@@ -18,9 +18,35 @@ class ServiceController extends Controller
     
     public function index()
     {
-        $services = Service::orderBy('name', 'asc')->paginate('10');
+        $index_url = "/services";
+        $api_url = "/api/services";
+        $fields = json_encode([
+        [
+            'name' => 'id',
+            'title' => '',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-center',
+            'callback' => 'linkify',
+        ],
+        [
+            'name' => 'name',
+            'sortField' => 'name',
+            'title' => 'Name',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-left',
+            //'callback' => 'allcap',
+        ],
 
-        return view('services.index', compact('services'));
+        [
+            'name' => 'is_active',
+            'sortField' => 'is_active',
+            'title' => 'Status',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-center',
+        ]
+    ]);
+
+        return view('services.index', compact('index_url', 'api_url', 'fields'));
     }
 
     public function create()

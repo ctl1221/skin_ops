@@ -9,7 +9,13 @@
 
 @section ('contents')
 
-	<table class="table table-bordered table-sm">
+	<my-vuetable
+	index_url="{{ $index_url }}"
+    :fields="{{ $fields }}"
+    api_url="{{ $api_url }}"
+    ></my-vuetable>
+
+	{{-- <table class="table table-bordered table-sm">
 		<thead class="thead-light">
 			<tr>
 				<th>Name</th>
@@ -32,8 +38,19 @@
 
 	</table>
 
-	{{ $services->links() }}	
+	{{ $services->links() }} --}}	
 
 @endsection
 
+@section('scripts')
+  
+  <script type="text/javascript">
+	var app = new Vue({
+  		
+  		el: '#app',
+  		data: {			  				
+  		},
+	});
+  </script>
 
+@endsection
