@@ -1,20 +1,20 @@
 <template>
   <div class="container">
-      <div class="row mb-3">
-        <div class="col">
+      <div class="row">
+        <div class="col-4">
            <filter-bar 
            @filter-set="onFilterSet($event)"
            @filter-reset="onFilterReset()"
            ></filter-bar>
         </div>
 
-       <div class="col">
-          <vuetable-pagination 
+        <div class="col-8">
+          <vuetable-pagination-bootstrap 
             ref="pagination"
-            :css="css.pagination"
+            class="float-right"
             @vuetable-pagination:change-page="onChangePage">        
-          </vuetable-pagination>
-      </div>
+          </vuetable-pagination-bootstrap>
+        </div>
     </div>
 
 
@@ -23,6 +23,7 @@
       :fields="fields"
       :append-params="moreParams"
       :css="css.table"
+      :per-page="per_page"
       pagination-path=""
       @vuetable:pagination-data="onPaginationData"
 
@@ -37,7 +38,7 @@
 
 <script>
 import Vuetable from 'vuetable-2/src/components/Vuetable';
-import VuetablePagination from 'vuetable-2/src/components/VuetablePagination';
+import VuetablePaginationBootstrap from './VuetablePaginationBootstrap';
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo';
 import FilterBar from './FilterBar.vue'
 import CssConfig from './VuetableCssConfig.js'
@@ -45,11 +46,11 @@ import CssConfig from './VuetableCssConfig.js'
 export default {
   components: {
     Vuetable,
-    VuetablePagination,
+    VuetablePaginationBootstrap,
     VuetablePaginationInfo,
     FilterBar,
   },
-  props: ['index_url', 'api_url','fields'],
+  props: ['index_url', 'api_url','per_page','fields'],
   data () {
     return {
       moreParams: {},
@@ -63,6 +64,12 @@ export default {
 
     linkify (value) {
       return '<a href="' + this.index_url + '/' + value + '">' + 'View' + '</a>';
+    },
+
+    badgify (value) {
+      return value == 1
+        ? '<span class="badge badge-success">Active</span>'
+        : '<span class="badge badge-danger">Inactive</span>'
     },
 
     onPaginationData (paginationData) {
@@ -86,43 +93,6 @@ export default {
       Vue.nextTick( () => this.$refs.vuetable.refresh())
     }
   },
-}
-</script>
+};
 
-<style>
-.pagination {
-  margin: 0;
-  float: right;
-}
-.pagination a.page {
-  border: 1px solid lightgray;
-  border-radius: 3px;
-  padding: 5px 10px;
-  margin-right: 2px;
-}
-.pagination a.page.active {
-  color: white;
-  background-color: #337ab7;
-  border: 1px solid lightgray;
-  border-radius: 3px;
-  padding: 5px 10px;
-  margin-right: 2px;
-}
-.pagination a.btn-nav {
-  border: 1px solid lightgray;
-  border-radius: 3px;
-  padding: 5px 7px;
-  margin-right: 2px;
-}
-.pagination a.btn-nav.disabled {
-  color: lightgray;
-  border: 1px solid lightgray;
-  border-radius: 3px;
-  padding: 5px 7px;
-  margin-right: 2px;
-  cursor: not-allowed;
-}
-.pagination-info {
-  float: left;
-}
-</style>
+</script>

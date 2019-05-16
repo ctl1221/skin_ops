@@ -43,7 +43,7 @@ Create Transaction - <u>{{ $client->display_name() }}</u>
 					:sellables="{{ $sellables }}"
 					:employees="{{ $employees }}"
 					:client_id="{{ $client->id }}"
-					:price_disable="false"
+					:price_disable="true"
 					@totalpricechanged = "totalPrice = $event.totalPrice"
 				></sales-order-grid>
 

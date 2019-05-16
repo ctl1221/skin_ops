@@ -1,12 +1,10 @@
 <template>
-    <div class="filter-bar ui basic segment grid">
-      <div class="ui form">
-        <div class="inline field">
-          <label>Search for:</label>
-          <input type="text" v-model="filterText" class="three wide column" @keyup.enter="doFilter">
-          <button class="ui primary button" @click="doFilter">Go</button>
-          <button class="ui button" @click="resetFilter">Reset</button>
-        </div>
+
+    <div class="input-group">
+      <input type="text" class="form-control" v-model="filterText" @keyup.enter="doFilter">
+      <div class="input-group-append">
+        <button class="btn btn-outline-success" type="button" @click="doFilter">Search</button>
+        <button class="btn btn-outline-danger" type="button" @click="resetFilter">Clear</button>
       </div>
     </div>
   </template>

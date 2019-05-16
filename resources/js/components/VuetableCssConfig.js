@@ -8,17 +8,17 @@ export default {
       return `<span class="${classes.join(' ')}"></span>`
     }
   },
-  pagination: {
-    wrapperClass: "pagination pull-right",
-    activeClass: "btn-primary",
-    disabledClass: "disabled",
-    pageClass: "btn btn-border",
-    linkClass: "btn btn-border",
-    icons: {
-      first: "",
-      prev: "",
-      next: "",
-      last: ""
-    }
-  }
+  // pagination: {
+  //   wrapperClass: "pagination pull-right",
+  //   activeClass: "page-link active",
+  //   disabledClass: "disabled",
+  //   pageClass: "page-link",
+  //   linkClass: "page-item",
+  //   icons: {
+  //     first: "",
+  //     prev: "",
+  //     next: "",
+  //     last: ""
+  //   }
+  // }
 }

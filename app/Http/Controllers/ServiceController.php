@@ -20,21 +20,15 @@ class ServiceController extends Controller
     {
         $index_url = "/services";
         $api_url = "/api/services";
+        $per_page = 10;
+
         $fields = json_encode([
-        [
-            'name' => 'id',
-            'title' => '',
-            'titleClass' => 'text-center',
-            'dataClass' => 'text-center',
-            'callback' => 'linkify',
-        ],
         [
             'name' => 'name',
             'sortField' => 'name',
             'title' => 'Name',
             'titleClass' => 'text-center',
             'dataClass' => 'text-left',
-            //'callback' => 'allcap',
         ],
 
         [
@@ -43,10 +37,18 @@ class ServiceController extends Controller
             'title' => 'Status',
             'titleClass' => 'text-center',
             'dataClass' => 'text-center',
-        ]
+            'callback' => 'badgify',
+        ],
+        [
+            'name' => 'id',
+            'title' => '',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-center',
+            'callback' => 'linkify',
+        ],
     ]);
 
-        return view('services.index', compact('index_url', 'api_url', 'fields'));
+        return view('services.index', compact('index_url', 'api_url', 'per_page', 'fields'));
     }
 
     public function create()

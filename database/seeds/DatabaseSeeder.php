@@ -38,11 +38,27 @@ class DatabaseSeeder extends Seeder
         ]);
 
         PaymentType::create([
+            'name' => 'Promotions',
+        ]);
+
+        PaymentType::create([
+            'name' => 'Discount',
+        ]);
+
+        PaymentType::create([
             'name' => 'Cash',
         ]);
 
         PaymentType::create([
             'name' => 'Card',
+        ]);
+
+        PaymentType::create([
+            'name' => 'Cash GC',
+        ]);
+
+        PaymentType::create([
+            'name' => 'Freebies GC',
         ]);
 
     }

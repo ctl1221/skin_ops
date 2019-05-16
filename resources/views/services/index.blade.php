@@ -13,6 +13,7 @@
 	index_url="{{ $index_url }}"
     :fields="{{ $fields }}"
     api_url="{{ $api_url }}"
+    per_page="{{ $per_page }}"
     ></my-vuetable>
 
 	{{-- <table class="table table-bordered table-sm">
