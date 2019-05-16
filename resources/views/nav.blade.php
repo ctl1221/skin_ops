@@ -16,7 +16,6 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/clients/search">Search Client</a>
           <a class="dropdown-item" href="/clients/create">New Client</a>
-          <a class="dropdown-item" href="/appointments">Appointments</a>
         </div>
     </li>
    @endRole
@@ -28,11 +27,7 @@
           Management
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/promotions">Promotions</a>
-          <a class="dropdown-item" href="/giftcertificates">Gift Certificates</a>
-          <a class="dropdown-item" href="/overridekeys">Override Keys</a>
-          <a class="dropdown-item" href="/memberships">Memberships</a>
-
+          <a class="dropdown-item" href="/sms_promotions">SMS Promotions</a>
         </div>
     </li>
     @endRole
@@ -82,7 +77,6 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/lusers/view">Users</a>
-          <a class="dropdown-item" href="/pmusers">PM Users</a>
         </div>
     </li>
     @endRole
