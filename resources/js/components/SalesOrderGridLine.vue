@@ -36,6 +36,7 @@
                 <select v-model="sel_treated_by_id">
                     <option value="">----------------------</option>
                     <option v-for="(x, index) in employees" 
+                            v-if="x.is_aesthetician == 1 || x.is_doctor == 1"
                             :value="x.id">{{x.last_name + ', ' + x.first_name }}
                     </option>
                 </select>
@@ -45,6 +46,7 @@
                 <select v-model="sel_assisted_by_id">
                     <option value="">----------------------</option>
                     <option v-for="(x, index) in employees" 
+                            v-if="x.is_aesthetician == 1"
                             :value="x.id">{{x.last_name + ', ' + x.first_name }}
                     </option>
                 </select>

@@ -2410,6 +2410,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['sellables', 'employees', 'price_disable'],
   data: function data() {
@@ -42073,12 +42075,14 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _vm._l(_vm.employees, function(x, index) {
-                    return _c("option", { domProps: { value: x.id } }, [
-                      _vm._v(
-                        _vm._s(x.last_name + ", " + x.first_name) +
-                          "\n                "
-                      )
-                    ])
+                    return x.is_aesthetician == 1 || x.is_doctor == 1
+                      ? _c("option", { domProps: { value: x.id } }, [
+                          _vm._v(
+                            _vm._s(x.last_name + ", " + x.first_name) +
+                              "\n                "
+                          )
+                        ])
+                      : _vm._e()
                   })
                 ],
                 2
@@ -42119,12 +42123,14 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _vm._l(_vm.employees, function(x, index) {
-                    return _c("option", { domProps: { value: x.id } }, [
-                      _vm._v(
-                        _vm._s(x.last_name + ", " + x.first_name) +
-                          "\n                "
-                      )
-                    ])
+                    return x.is_aesthetician == 1
+                      ? _c("option", { domProps: { value: x.id } }, [
+                          _vm._v(
+                            _vm._s(x.last_name + ", " + x.first_name) +
+                              "\n                "
+                          )
+                        ])
+                      : _vm._e()
                   })
                 ],
                 2

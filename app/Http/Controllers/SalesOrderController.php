@@ -38,7 +38,7 @@ class SalesOrderController extends Controller
             ->with('sellable')
             ->get();
 
-      $employees = Employee::where('is_active',1)->get();
+      $employees = Employee::where('is_active',1)->orderBy('last_name','asc')->get();
 
       $payment_types = PaymentType::where('is_active', '=' , 1)->get();
 
