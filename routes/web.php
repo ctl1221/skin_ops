@@ -83,6 +83,10 @@ Route::get('/sales_orders/create/client/{client}', 'SalesOrderController@create'
 Route::post('/sales_orders', 'SalesOrderController@store');
 Route::delete('/sales_orders/{sales_order}', 'SalesOrderController@destroy');
 
+//Management
+Route::get('/sms_promotions/create/', 'SMSPromotionController@create');
+Route::get('/reports/create/', 'ReportController@create');
+
 //APIs
 Route::get('/api/services', 'APIController@services');
 
