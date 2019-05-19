@@ -113,7 +113,7 @@ class SalesOrderController extends Controller
                     'parent_id' => $sales_order->id,
                     'amount' => $x->amount,
                     'reference' => $x->reference,
-                    'payment_type' => $x->name,
+                    'payment_type_id' => $x->id,
                 ]); 
               }
             }

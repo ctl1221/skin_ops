@@ -14,12 +14,9 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
+
         $this->call(UsersSeeder::class);
         $this->call(PricelistsSeeder::class);
-        $this->call(ItemsSeeder::class);
-        //$this->call(RealDataSeeder::class);
-        //$this->call(RealData2Seeder::class);
-        factory(App\Client::class, 50)->create();
 
         Branch::create([
             'name' => 'Makati',
@@ -36,6 +33,11 @@ class DatabaseSeeder extends Seeder
         Branch::create([
             'name' => 'SM North Edsa',
         ]);
+
+        //$this->call(ItemsSeeder::class);
+        $this->call(RealDataSeeder::class);
+        $this->call(RealData2Seeder::class);
+        factory(App\Client::class, 50)->create();
 
         PaymentType::create([
             'name' => 'Promotions',

@@ -18,7 +18,7 @@ class CreateEmployeesTable extends Migration
             $table->string('last_name');
             $table->string('first_name');
             $table->boolean('is_active')->default(1);
-            $table->unsignedInteger('branch_id');
+            $table->bigInteger('branch_id')->unsigned()->index();
             $table->boolean('is_receptionist');
             $table->boolean('is_aesthetician');
             $table->boolean('is_doctor');

@@ -15,13 +15,10 @@ class CreateSalesOrdersTable extends Migration
     {
         Schema::create('sales_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->bigInteger('client_id')->unsigned()->index();
             $table->string('so_number');
             $table->date('date');
             $table->timestamps();
-
-            //$table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
         });
     }
 

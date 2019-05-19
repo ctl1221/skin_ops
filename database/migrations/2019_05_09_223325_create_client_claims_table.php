@@ -16,7 +16,7 @@ class CreateClientClaimsTable extends Migration
         Schema::create('client_claims', function (Blueprint $table) {
             $table->bigIncrements('id');
             //$table->unsignedInteger('owner_id')->nullable();
-            $table->unsignedInteger('claimed_by_id')->nullable();
+            $table->bigInteger('claimed_by_id')->nullable()->unsigned()->index();
             $table->date('claimed_by_date')->nullable();
             $table->morphs('parent');
             $table->morphs('sellable');

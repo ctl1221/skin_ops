@@ -19,8 +19,6 @@ class CreateSalesOrderLinesTable extends Migration
             $table->morphs('sellable');
             $table->double('price');
             $table->timestamps();
-
-            $table->foreign('sales_order_id')->references('id')->on('sales_orders')->onDelete('cascade');
         });
     }
 

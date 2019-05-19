@@ -16,7 +16,6 @@ class CreatePackageBreakdownsTable extends Migration
         Schema::create('package_breakdowns', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('package_id')->unsigned()->index();
-            //$table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
             $table->morphs('sellable');
             $table->integer('quantity');
             $table->timestamps();

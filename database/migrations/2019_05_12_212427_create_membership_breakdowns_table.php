@@ -16,7 +16,6 @@ class CreateMembershipBreakdownsTable extends Migration
         Schema::create('membership_breakdowns', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('membership_id')->unsigned()->index();
-            $table->foreign('membership_id')->references('id')->on('memberships')->onDelete('cascade');
             $table->morphs('sellable');
             $table->integer('quantity');
             $table->timestamps();

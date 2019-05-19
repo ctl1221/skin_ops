@@ -19,8 +19,6 @@ class CreatePricelistSellableTable extends Migration
             $table->morphs('sellable');
             $table->double('price');
             $table->timestamps();
-
-            $table->foreign('pricelist_id')->references('id')->on('pricelists')->onDelete('cascade');
         });
     }
 
