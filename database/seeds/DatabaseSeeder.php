@@ -41,26 +41,32 @@ class DatabaseSeeder extends Seeder
 
         PaymentType::create([
             'name' => 'Promotions',
+            'is_subtractable' => 1,
         ]);
 
         PaymentType::create([
             'name' => 'Discount',
+            'is_subtractable' => 1,
         ]);
 
         PaymentType::create([
             'name' => 'Cash',
+            'is_direct' => 1,
         ]);
 
         PaymentType::create([
             'name' => 'Card',
+            'is_direct' => 1,
         ]);
 
         PaymentType::create([
             'name' => 'Cash GC',
+            'is_subtractable' => 1,
         ]);
 
         PaymentType::create([
             'name' => 'Freebies GC',
+            'is_subtractable' => 1,
         ]);
 
     }

@@ -55,7 +55,7 @@ Create Transaction - <u>{{ $client->display_name() }}</u>
 
 				<div class="row">
 					<div class="col-7">
-						<textarea class="form-control" id="notes" rows="4" placeholder="Notes / Remarks..."></textarea>
+						<textarea class="form-control" id="notes" name="notes" rows="4" placeholder="Notes / Remarks..."></textarea>
 
 					</div>
 					<div class="col-5">

@@ -2159,6 +2159,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['payment_types'],
   data: function data() {
@@ -41413,131 +41466,295 @@ var render = function() {
       domProps: { value: JSON.stringify(_vm.payments) }
     }),
     _vm._v(" "),
-    _c("table", { staticClass: "table table-bordered table-sm mb-4" }, [
+    _c("table", { staticClass: "table table-bordered table-sm mb-4 mt-2" }, [
       _vm._m(0),
       _vm._v(" "),
       _c(
         "tbody",
         _vm._l(_vm.payment_types, function(x, index) {
-          return _c("tr", [
-            _c("td", [
-              _c("div", { staticClass: "form-check" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.payments[index].checked,
-                      expression: "payments[index].checked"
-                    }
-                  ],
-                  staticClass: "form-check-input form-control-sm",
-                  attrs: { type: "checkbox" },
-                  domProps: {
-                    checked: Array.isArray(_vm.payments[index].checked)
-                      ? _vm._i(_vm.payments[index].checked, null) > -1
-                      : _vm.payments[index].checked
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$a = _vm.payments[index].checked,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 &&
+          return _c(
+            "tr",
+            [
+              x.is_subtractable
+                ? [
+                    _c("td", [
+                      _c("div", { staticClass: "form-check" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.payments[index].checked,
+                              expression: "payments[index].checked"
+                            }
+                          ],
+                          staticClass: "form-check-input form-control-sm",
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(_vm.payments[index].checked)
+                              ? _vm._i(_vm.payments[index].checked, null) > -1
+                              : _vm.payments[index].checked
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.payments[index].checked,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.payments[index],
+                                      "checked",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.payments[index],
+                                      "checked",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.payments[index], "checked", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          { staticClass: "form-check-label form-control-sm" },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(x.name) +
+                                "\n                        "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.payments[index].amount,
+                            expression: "payments[index].amount"
+                          }
+                        ],
+                        staticClass: "form-control form-control-sm",
+                        attrs: {
+                          type: "number",
+                          disabled: !_vm.payments[index].checked,
+                          required: ""
+                        },
+                        domProps: { value: _vm.payments[index].amount },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
                             _vm.$set(
                               _vm.payments[index],
-                              "checked",
-                              $$a.concat([$$v])
+                              "amount",
+                              $event.target.value
                             )
-                        } else {
-                          $$i > -1 &&
-                            _vm.$set(
-                              _vm.payments[index],
-                              "checked",
-                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                            )
+                          }
                         }
-                      } else {
-                        _vm.$set(_vm.payments[index], "checked", $$c)
-                      }
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  { staticClass: "form-check-label form-control-sm" },
-                  [
-                    _vm._v(
-                      "\n                            " +
-                        _vm._s(x.name) +
-                        "\n                        "
-                    )
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.payments[index].reference,
+                            expression: "payments[index].reference"
+                          }
+                        ],
+                        staticClass: "form-control form-control-sm",
+                        attrs: {
+                          type: "text",
+                          disabled: !_vm.payments[index].checked
+                        },
+                        domProps: { value: _vm.payments[index].reference },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.payments[index],
+                              "reference",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
                   ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.payments[index].amount,
-                    expression: "payments[index].amount"
-                  }
-                ],
-                staticClass: "form-control form-control-sm",
-                attrs: {
-                  type: "number",
-                  disabled: !_vm.payments[index].checked,
-                  required: ""
-                },
-                domProps: { value: _vm.payments[index].amount },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.payments[index], "amount", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.payments[index].reference,
-                    expression: "payments[index].reference"
-                  }
-                ],
-                staticClass: "form-control form-control-sm",
-                attrs: { type: "text", disabled: !_vm.payments[index].checked },
-                domProps: { value: _vm.payments[index].reference },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.payments[index],
-                      "reference",
-                      $event.target.value
-                    )
-                  }
-                }
-              })
-            ])
-          ])
+                : _vm._e()
+            ],
+            2
+          )
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-bordered table-sm mb-4" }, [
+      _vm._m(1),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.payment_types, function(x, index) {
+          return _c(
+            "tr",
+            [
+              x.is_direct || x.is_external
+                ? [
+                    _c("td", [
+                      _c("div", { staticClass: "form-check" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.payments[index].checked,
+                              expression: "payments[index].checked"
+                            }
+                          ],
+                          staticClass: "form-check-input form-control-sm",
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(_vm.payments[index].checked)
+                              ? _vm._i(_vm.payments[index].checked, null) > -1
+                              : _vm.payments[index].checked
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.payments[index].checked,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.payments[index],
+                                      "checked",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.payments[index],
+                                      "checked",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(_vm.payments[index], "checked", $$c)
+                              }
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          { staticClass: "form-check-label form-control-sm" },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(x.name) +
+                                "\n                        "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.payments[index].amount,
+                            expression: "payments[index].amount"
+                          }
+                        ],
+                        staticClass: "form-control form-control-sm",
+                        attrs: {
+                          type: "number",
+                          disabled: !_vm.payments[index].checked,
+                          required: ""
+                        },
+                        domProps: { value: _vm.payments[index].amount },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.payments[index],
+                              "amount",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.payments[index].reference,
+                            expression: "payments[index].reference"
+                          }
+                        ],
+                        staticClass: "form-control form-control-sm",
+                        attrs: {
+                          type: "text",
+                          disabled: !_vm.payments[index].checked
+                        },
+                        domProps: { value: _vm.payments[index].reference },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.payments[index],
+                              "reference",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]
+                : _vm._e()
+            ],
+            2
+          )
         }),
         0
       )
@@ -41545,6 +41762,35 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c(
+          "th",
+          {
+            staticClass: "text-center bg-secondary text-white",
+            attrs: { colspan: "3" }
+          },
+          [
+            _c("h5", { staticClass: "mt-1 mb-1" }, [
+              _vm._v("Discounts and Freebies")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _c("th", [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Amount")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Reference")])
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -56921,8 +57167,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/charleslicup/Desktop/Coding/skin_ops/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/charleslicup/Desktop/Coding/skin_ops/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/nlicup/Desktop/Coding/skin_pro/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/nlicup/Desktop/Coding/skin_pro/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

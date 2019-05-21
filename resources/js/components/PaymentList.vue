@@ -3,13 +3,12 @@
 
         <input type="hidden" name="payment_lines" :value="JSON.stringify(payments)">
 
-
-        <table class="table table-bordered table-sm mb-4">
+        <table class="table table-bordered table-sm mb-4 mt-2">
             <thead>
 
                 <tr>
                     <th colspan="3" class="text-center bg-secondary text-white">
-                        <h5 class="mt-1 mb-1">Payment Modes</h5>
+                        <h5 class="mt-1 mb-1">Discounts and Freebies</h5>
                     </th>
                 </tr>
                 <tr>
@@ -21,6 +20,8 @@
 
             <tbody>
                 <tr v-for="(x, index) in payment_types">
+                   
+                    <template v-if="x.is_subtractable">
                     <td>
                         <div class="form-check">
                             <input type="checkbox" 
@@ -46,6 +47,58 @@
                             v-model="payments[index].reference"
                             :disabled="!payments[index].checked">
                     </td>  
+                    </template>
+
+                </tr>
+            </tbody>
+
+        </table>
+
+        <table class="table table-bordered table-sm mb-4">
+            <thead>
+
+                <tr>
+                    <th colspan="3" class="text-center bg-secondary text-white">
+                        <h5 class="mt-1 mb-1">Payment Modes</h5>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Reference</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr v-for="(x, index) in payment_types">
+                   
+                    <template v-if="x.is_direct || x.is_external">
+                    <td>
+                        <div class="form-check">
+                            <input type="checkbox" 
+                                class="form-check-input form-control-sm" 
+                                v-model="payments[index].checked">
+                            <label class="form-check-label form-control-sm">
+                                {{x.name}}
+                            </label>    
+                        </div>
+                    </td>
+
+                    <td>
+                        <input type="number" 
+                            class="form-control form-control-sm" 
+                            v-model="payments[index].amount"
+                            :disabled="!payments[index].checked"
+                            required>
+                    </td>
+
+                    <td>
+                        <input type="text" 
+                            class="form-control form-control-sm" 
+                            v-model="payments[index].reference"
+                            :disabled="!payments[index].checked">
+                    </td>  
+                    </template>
 
                 </tr>
             </tbody>

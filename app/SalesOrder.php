@@ -17,4 +17,10 @@ class SalesOrder extends Model
     {
     	return $this->morphMany(Payment::class, 'parent');
     }
+
+    public function client()
+    {
+    	return $this->belongsTo(Client::class);
+    }
+
 }

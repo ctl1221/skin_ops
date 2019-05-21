@@ -17,6 +17,10 @@ class CreatePaymentTypesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->boolean('is_active')->default(1);
+            $table->boolean('is_direct')->default(0);
+            $table->boolean('is_external')->default(0);
+            $table->boolean('is_addable')->default(0);
+            $table->boolean('is_subtractable')->default(0);
             $table->timestamps();
         });
     }

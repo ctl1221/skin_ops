@@ -53,11 +53,12 @@ class SalesOrderController extends Controller
       $sales_order_lines = json_decode($request->sales_order_lines);
       $payment_lines = json_decode($request->payment_lines);
 
-      DB::transaction(function () use ($request, $sales_order_lines, $client, $payment_lines) {
+      $latest_id = DB::transaction(function () use ($request, $sales_order_lines, $client, $payment_lines) {
             $sales_order = SalesOrder::create([
                 'client_id' => $client->id,
                 'so_number' => '0050',
                 'date' => $request->date,
+                'notes' => nl2br($request->notes),
             ]);
 
             foreach($sales_order_lines as $x)
@@ -67,6 +68,9 @@ class SalesOrderController extends Controller
                   'sellable_type' => $x->sellable_type,
                   'sellable_id' => $x->sellable_id,
                   'price' => $x->price,
+                  'sold_by_id' => intval($x->sold_by_id),
+                  'treated_by_id' => intval($x->treated_by_id),
+                  'assisted_by_id' => intval($x->assisted_by_id),
               ]); 
 
               if($x->sellable_type =='App\\Membership')
@@ -124,11 +128,16 @@ class SalesOrderController extends Controller
                   'parent_type' => 'App\\SalesOrder',
                   'parent_id' => $sales_order->id,
           ]);
-           
+          
+          return $sales_order->id;
         });
 
-        return redirect('/clients/' . $client->id);
+      return redirect('/sales_orders/' . $latest_id);
+    }
 
+     public function show(SalesOrder $sales_order)
+    {
+        return view('sales_orders.show', compact('sales_order'));
     }
 
     public function destroy(SalesOrder $sales_order)

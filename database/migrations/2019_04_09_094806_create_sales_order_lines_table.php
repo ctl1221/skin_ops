@@ -18,6 +18,9 @@ class CreateSalesOrderLinesTable extends Migration
             $table->bigInteger('sales_order_id')->unsigned()->index();
             $table->morphs('sellable');
             $table->double('price');
+            $table->bigInteger('sold_by_id')->nullable();
+            $table->bigInteger('treated_by_id')->nullable();
+            $table->bigInteger('assisted_by_id')->nullable();
             $table->timestamps();
         });
     }

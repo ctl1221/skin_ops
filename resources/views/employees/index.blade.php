@@ -10,7 +10,7 @@
 @section('contents')
 
 <div class="container">
-	<table class="table table-striped table-bordered table-sm" id="client_list">
+	<table class="table table-striped table-bordered table-sm" id="employee_list">
 
 		<thead>
 			<tr>
