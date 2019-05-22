@@ -18,12 +18,12 @@
 
 	  <div class="form-group">
 	    <label for="last_name">Last Name:</label>
-	    <input type="text" class="form-control" id="last_name" name="last_name" required >
+	    <input type="text" class="form-control" id="last_name" name="last_name" required>
 	  </div>
 
 	  <div class="form-group">
 		<label for="branch">Select Branch:</label>
-		<select class="form-control" id="branch_id" name="branch_id" required >
+		<select class="form-control" id="branch_id" name="branch_id" required>
 		  @foreach ($branches as $x)
 		  	<option value={{ $x->id }}>{{ $x->name }}</option>
 		  @endforeach

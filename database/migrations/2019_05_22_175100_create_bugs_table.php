@@ -19,7 +19,7 @@ class CreateBugsTable extends Migration
             $table->text('details');
             $table->string('filepath');
             $table->bigInteger('user_id')->unsigned()->index();
-            $table->string('status')->default('new');
+            $table->string('status')->default('New');
             $table->timestamps();
         });
     }
