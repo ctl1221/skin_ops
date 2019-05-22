@@ -16,6 +16,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/clients/search">Search Client</a>
           <a class="dropdown-item" href="/clients/create">New Client</a>
+          <a class="dropdown-item" href="/sales_orders">Sales Orders</a>
         </div>
     </li>
    @endRole

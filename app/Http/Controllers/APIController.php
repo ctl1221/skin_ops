@@ -26,4 +26,25 @@ class APIController extends Controller
 
 		return $services->paginate($per_page);
 	}
+
+	public function sales_orders(Request $request)
+	{
+
+		if($request->sort){
+			list($sortCol, $sortDir) = explode('|', $request->sort);
+			$sales_orders = \App\SalesOrder::orderBy($sortCol, $sortDir);
+		}
+		else {
+			$sales_orders = \App\SalesOrder::orderBy('id', 'asc');
+		}
+
+		if($request->filter)
+		{
+			$sales_orders->where('fullname','like','%' . $request->filter . '%');
+		}
+
+		$per_page = $request->per_page ? (int) $request->per_page : null;
+
+		return $sales_orders->with('client')->paginate($per_page);
+	}
 }

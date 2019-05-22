@@ -1,14 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\SalesOrder;
-use App\SalesOrderLine;
-use App\Employee;
+
 use App\Branch;
 use App\PaymentType;
-use App\Membership;
-use App\PricelistSellable;
-use App\Product;
+use App\Sequence;
 
 class DatabaseSeeder extends Seeder
 {
@@ -34,9 +30,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'SM North Edsa',
         ]);
 
-        $this->call(ItemsSeeder::class);
-        //$this->call(RealDataSeeder::class);
-        //$this->call(RealData2Seeder::class);
+        //$this->call(ItemsSeeder::class);
+        $this->call(RealDataSeeder::class);
+        $this->call(RealData2Seeder::class);
         factory(App\Client::class, 50)->create();
 
         PaymentType::create([
@@ -67,6 +63,24 @@ class DatabaseSeeder extends Seeder
         PaymentType::create([
             'name' => 'Freebies GC',
             'is_subtractable' => 1,
+        ]);
+
+        Sequence::create([
+            'name' => 'SO Number',
+            'description' => 'Sales Order Number',
+            'prefix' => 'SO',
+            'integer_value' => 10001,
+            'decimal_value' => 10001,
+            'text_value' => '10001'
+        ]);
+
+        Sequence::create([
+            'name' => 'DT Number',
+            'description' => 'Draft Number',
+            'prefix' => 'DT',
+            'integer_value' => 10001,
+            'decimal_value' => 10001,
+            'text_value' => '10001'
         ]);
 
     }

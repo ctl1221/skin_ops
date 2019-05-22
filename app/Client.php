@@ -46,14 +46,24 @@ class Client extends Model
     public function payable_amount()
     {
         $payments = 0;
+        $payables = 0;
+
         foreach($this->sales_orders as $x)
         {
-            foreach($x->payments as $y)
+            if($x->is_posted)
             {
-                $payments += $y->amount;
+                foreach($x->sales_order_lines as $y)
+                {
+                    $payables += $y->price;
+                }
+
+                foreach($x->payments as $y)
+                {
+                    $payments += $y->amount;
+                }
             }
         }
 
-        return $this->payables->sum('price') - $payments;
+        return $payables - $payments;
     }
 }

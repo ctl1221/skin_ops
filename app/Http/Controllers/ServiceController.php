@@ -39,6 +39,7 @@ class ServiceController extends Controller
             'dataClass' => 'text-center',
             'callback' => 'badgify',
         ],
+        
         [
             'name' => 'id',
             'title' => '',

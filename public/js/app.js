@@ -41226,7 +41226,7 @@ var render = function() {
           fields: _vm.fields,
           "append-params": _vm.moreParams,
           css: _vm.css.table,
-          "per-page": _vm.per_page,
+          "per-page": parseInt(_vm.per_page),
           "pagination-path": ""
         },
         on: { "vuetable:pagination-data": _vm.onPaginationData }

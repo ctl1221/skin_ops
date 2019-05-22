@@ -23,7 +23,7 @@
       :fields="fields"
       :append-params="moreParams"
       :css="css.table"
-      :per-page="per_page"
+      :per-page="parseInt(per_page)"
       pagination-path=""
       @vuetable:pagination-data="onPaginationData"
 

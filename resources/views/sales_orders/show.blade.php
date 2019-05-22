@@ -4,6 +4,14 @@
 
 Please Confirm Transaction
 
+<form method="post" action="/sales_orders/{{ $sales_order->id }}/post">
+		
+	@csrf
+
+	@if(!$sales_order->is_posted)<button>POST</button>@endif
+
+</form>
+
 @endsection
 
 @section('contents')
@@ -37,8 +45,14 @@ Please Confirm Transaction
 				</div>
 
 				<div class="form-group col">
-					<label for="draft_no">Draft Number:</label>
-					<input type="text" class="form-control" id="so_no" name="draft_no" disabled>
+					<label for="so_no">
+						@if($sales_order->is_posted)
+							Sales Order Number:
+						@else
+							Draft Number:
+						@endif
+					</label>
+					<input type="text" class="form-control" id="so_no" name="so_no" value="{{ $sales_order->so_number }}" disabled>
 				</div>
 			</div>
 
@@ -169,7 +183,7 @@ Please Confirm Transaction
 
 			<div class="row">
 				<div class="col-7">
-					<textarea class="form-control" id="notes" name="notes" rows="4" placeholder="Notes / Remarks..." readonly>{{ $sales_order->notes }}</textarea>
+					<textarea class="form-control" id="notes" name="notes" rows="5" placeholder="Notes / Remarks..." readonly>{{ $sales_order->notes }}</textarea>
 
 				</div>
 				<div class="col-5">
@@ -179,7 +193,15 @@ Please Confirm Transaction
 								Total Bill
 							</td>
 							<td>
-								@{{ totalPrice | currencyFormat}}
+								{{ $a = $sales_order->total_price() }}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Less: Discounts 
+							</td>
+							<td>
+								{{ $b = $sales_order->total_discount() }}
 							</td>
 						</tr>
 						<tr>
@@ -188,7 +210,7 @@ Please Confirm Transaction
 								Total Pay
 							</td>
 							<td>
-								@{{ totalPay | currencyFormat}}
+								{{ $c = $sales_order->total_pay() }}
 							</td>
 						</tr>
 						<tr>
@@ -196,7 +218,7 @@ Please Confirm Transaction
 								Remaining Balance
 							</td>
 							<td>
-								@{{ totalPrice - totalPay | currencyFormat}}
+								{{ $a - $b - $c }}
 							</td>
 						</tr>
 					</table>

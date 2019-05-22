@@ -25,6 +25,7 @@ Route::resource('products', 'ProductController');
 Route::resource('services', 'ServiceController');
 Route::resource('packages', 'PackageController');
 Route::resource('employees', 'EmployeeController');
+Route::resource('bugs', 'BugController');
 
 Route::get('/branches','BranchController@index');
 Route::get('/branches/create','BranchController@create');
@@ -83,6 +84,7 @@ Route::get('/sales_orders', 'SalesOrderController@index');
 Route::get('/sales_orders/create/client/{client}', 'SalesOrderController@create');
 Route::get('/sales_orders/{sales_order}', 'SalesOrderController@show');
 Route::post('/sales_orders', 'SalesOrderController@store');
+Route::post('/sales_orders/{sales_order}/post', 'SalesOrderController@post');
 Route::delete('/sales_orders/{sales_order}', 'SalesOrderController@destroy');
 
 //Management
@@ -91,6 +93,7 @@ Route::get('/reports/create/', 'ReportController@create');
 
 //APIs
 Route::get('/api/services', 'APIController@services');
+Route::get('/api/sales_orders', 'APIController@sales_orders');
 
 Auth::routes();
 
