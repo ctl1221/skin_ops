@@ -3,16 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Jobs\SendSingleSms;
 use App\SMSEagle;
 
 class SMSPromotionController extends Controller
 {
+	 public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function create()
     {
-    	$sms = new SMSEagle();
-    	$sms->to = "09175794288";
-	    $sms->sendSMS("hehhe\nHello");
+    	return view('sms_promotions.create');
+    }
 
-		return 'Success';
+    public function store(Request $request)
+    {
+        dispatch(new SendSingleSms($mobile_no = $request->mobile_no, $details = $request->details));
+      
+		return back();
     }
 }

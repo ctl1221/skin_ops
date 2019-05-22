@@ -11,12 +11,12 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function(){
+	dispatch( function() {
+		    logger("Hello There");
+    	});
     
-    $pricelist = App\PricelistSellable::with('sellable')->get();
-
-    return $pricelist;
-
+		return "Finished";
 });
 
 //Master Data
@@ -89,7 +89,10 @@ Route::delete('/sales_orders/{sales_order}', 'SalesOrderController@destroy');
 
 //Management
 Route::get('/sms_promotions/create/', 'SMSPromotionController@create');
+Route::post('/sms_promotions', 'SMSPromotionController@store');
 Route::get('/reports/create/', 'ReportController@create');
+
+
 
 //APIs
 Route::get('/api/services', 'APIController@services');

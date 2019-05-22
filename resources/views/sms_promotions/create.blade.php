@@ -1,19 +1,19 @@
 @extends('master')
 
 @section ('heading')
-	Create New Concern
+	Create SMS Blast
 @endsection
 
 @section ('contents')
 
 	<div class="container">
 
-	<form method="post" action="/bugs" enctype="multipart/form-data">
+	<form method="post" action="/sms_promotions">
 		@csrf
 
 	  	<div class="form-group">
-	    	<label for="title">Title:</label>
-	    	<input type="text" class="form-control" id="title" name="title" required>
+	    	<label for="mobile_no">Mobile Number:</label>
+	    	<input type="text" class="form-control" id="mobile_no" name="mobile_no">
 	  	</div>
 
 	  	<div class="form-group">
@@ -21,11 +21,6 @@
 	    	<textarea class="form-control" id="details" name="details" required></textarea>
 	  	</div>
 
-		<div class="form-group">
-			<label for="file">Upload Screenshot (image file only):</label>
-			<input type="file" class="form-control-file" id="file" name="file">
-		</div>
-		
 	<br>
 
 	<button type="submit" class="btn btn-primary">Create</button>

@@ -5,7 +5,7 @@ use GuzzleHttp;
 
 class SMSEagle
 {
-    public $url, $login, $pass, $to, $groupname;
+    public $url, $login, $pass, $to, $groupname, $flash;
 
     public function __construct()
     {
@@ -14,6 +14,7 @@ class SMSEagle
     	$this->pass = env('SMSEAGLE_PASS');
     	$this->to = env('SMSEAGLE_TO');
     	$this->groupname = env('SMSEAGLE_GROUP');
+        $this->flash = 0;
     }
 
     public function sendSMS($message)
@@ -25,7 +26,9 @@ class SMSEagle
             'login' => $this->login,
             'pass' => $this->pass,
             'to' => $this->to,
-            'message' => $message]
+            'message' => $message,
+            'flash' => $this->flash,
+            ]
         ]);
 
         return $response;
