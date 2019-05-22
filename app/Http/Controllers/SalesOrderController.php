@@ -58,7 +58,7 @@ class SalesOrderController extends Controller
                 'client_id' => $client->id,
                 'so_number' => '0050',
                 'date' => $request->date,
-                'notes' => nl2br($request->notes),
+                'notes' => $request->notes,
             ]);
 
             foreach($sales_order_lines as $x)

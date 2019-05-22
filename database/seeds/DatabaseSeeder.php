@@ -34,9 +34,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'SM North Edsa',
         ]);
 
-        //$this->call(ItemsSeeder::class);
-        $this->call(RealDataSeeder::class);
-        $this->call(RealData2Seeder::class);
+        $this->call(ItemsSeeder::class);
+        //$this->call(RealDataSeeder::class);
+        //$this->call(RealData2Seeder::class);
         factory(App\Client::class, 50)->create();
 
         PaymentType::create([

@@ -79,6 +79,7 @@ Route::post('/memberships/{membership}/deactivate', 'MembershipController@deacti
 Route::post('/memberships/{membership}/activate', 'MembershipController@activate');
 
 //Transactional Data
+Route::get('/sales_orders', 'SalesOrderController@index');
 Route::get('/sales_orders/create/client/{client}', 'SalesOrderController@create');
 Route::get('/sales_orders/{sales_order}', 'SalesOrderController@show');
 Route::post('/sales_orders', 'SalesOrderController@store');
