@@ -92,7 +92,8 @@ Route::get('/sms_promotions/create/', 'SMSPromotionController@create');
 Route::post('/sms_promotions', 'SMSPromotionController@store');
 Route::get('/reports/create/', 'ReportController@create');
 
-
+Route::get('/reports', 'ReportController@index');
+Route::post('/reports/download', 'ReportController@download');
 
 //APIs
 Route::get('/api/services', 'APIController@services');

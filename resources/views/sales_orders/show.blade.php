@@ -2,15 +2,34 @@
 
 @section ('heading')
 
-Please Confirm Transaction
+<div class="container">
 
-<form method="post" action="/sales_orders/{{ $sales_order->id }}/post">
+	<form method="post" action="/sales_orders/{{ $sales_order->id }}/post">
 		
-	@csrf
+		@csrf
 
-	@if(!$sales_order->is_posted)<button>POST</button>@endif
+		@if(!$sales_order->is_posted)
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+				    <li class="breadcrumb-item"><a href="/sales_orders">Sales Orders</a></li>
+				    <li class="breadcrumb-item active" aria-current="page">DT{{ $sales_order->so_number }}
+				    	<button type="submit" class="btn btn-outline-success">POST</button>
+				    </li>
+			  	</ol>
+			</nav> 
+			
+		@else
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+				    <li class="breadcrumb-item"><a href="/sales_orders">Sales Orders</a></li>
+				    <li class="breadcrumb-item active" aria-current="page">SO{{ $sales_order->so_number }}</li>
+			 	</ol>
+			</nav> 
+		@endif
 
-</form>
+	</form>
+
+</div>
 
 @endsection
 
@@ -25,9 +44,9 @@ Please Confirm Transaction
 				<div class="form-group col">
 					<label for="name">Name:</label>
 					<a href="/clients/{{$sales_order->client->id}}">
-					<input type="text" class="form-control" 
-					id="name" name="name" value="{{ $sales_order->client->display_name() }}" disabled>
-				</a>
+						<input type="text" class="form-control" 
+						id="name" name="name" value="{{ $sales_order->client->display_name() }}" disabled>
+					</a>
 				</div>
 
 				<div class="form-group col">
@@ -45,13 +64,7 @@ Please Confirm Transaction
 				</div>
 
 				<div class="form-group col">
-					<label for="so_no">
-						@if($sales_order->is_posted)
-							Sales Order Number:
-						@else
-							Draft Number:
-						@endif
-					</label>
+					<label for="so_no">Draft Number:</label>
 					<input type="text" class="form-control" id="so_no" name="so_no" value="{{ $sales_order->so_number }}" disabled>
 				</div>
 			</div>
@@ -228,5 +241,34 @@ Please Confirm Transaction
 		</div>
 	</div>
 </div>
+
+@endsection
+
+@section('scripts')
+
+<script type="text/javascript">
+
+	var app = new Vue({
+
+		el: '#app',
+		data: {
+			flash_message: "{{ session('message') }}",
+			message_type: "{{ session('message_type') }}"
+		},
+		created: function () {
+
+			if(this.flash_message)
+			{
+				Vue.toasted.show(this.flash_message, {
+						type: this.message_type,
+						duration: 3000,
+			            position: 'bottom-right',
+			            theme: 'outline',
+					});
+			}
+		},
+	});
+
+</script>
 
 @endsection

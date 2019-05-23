@@ -156,7 +156,7 @@ class SalesOrderController extends Controller
       return $sales_order->id;
     });
 
-    return redirect('/sales_orders/' . $latest_id);
+    return redirect('/sales_orders/' . $latest_id)->with(['message' => 'Draft Job Created', 'message_type' => 'info']);
   }
 
   public function show(SalesOrder $sales_order)
@@ -229,7 +229,7 @@ class SalesOrderController extends Controller
       });
     }
 
-    return back();
+    return back()->with(['message' => 'Sales Order Posted', 'message_type' => 'success']);;
   }
 
   public function destroy(SalesOrder $sales_order)
