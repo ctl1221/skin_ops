@@ -25,6 +25,7 @@
         "vuetable-2": "^1.7.5"
     },
     "dependencies": {
+        "vue-cal": "^1.58.0",
         "vue-toasted": "^1.1.27"
     }
 }

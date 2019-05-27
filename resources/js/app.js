@@ -16,6 +16,8 @@ Vue.component('sales-order-grid-line', require('./components/SalesOrderGridLine.
 Vue.component('package-grid', require('./components/PackageGrid.vue').default);
 Vue.component('payment-list', require('./components/PaymentList.vue').default);
 Vue.component('my-vuetable', require('./components/MyVuetable.vue').default);
+Vue.component('client-search', require('./components/ClientSearch.vue').default);
+Vue.component('my-calendar', require('./components/MyCalendar.vue').default);
 
 Vue.filter('currencyFormat', function (value) {
 	return value.toLocaleString('en-PH',{minimumFractionDigits: 2, maximumFractionDigits: 2});

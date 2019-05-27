@@ -47,4 +47,24 @@ class APIController extends Controller
 
 		return $sales_orders->with('client')->paginate($per_page);
 	}
+
+	public function client_search(Request $request)
+	{
+		$last_name = str_replace("%", "", $request->last_name);
+		$first_name = str_replace("%", "", $request->first_name);
+
+		if($last_name && $first_name)
+		{
+			$clients = \App\Client::where('last_name', 'like', '%' . $last_name . '%')
+				->where('first_name', 'like', '%' . $first_name . '%')
+				->get();
+		}
+
+		return $clients;
+	}
+
+	public function appointments()
+	{
+		return \App\Appointment::all();
+	}
 }

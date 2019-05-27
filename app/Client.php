@@ -38,6 +38,16 @@ class Client extends Model
         return $this->belongsToMany(Membership::class, 'client_memberships')->withPivot('date_end')->orderBy('date_end', 'desc');
     }
 
+    public function to_claims()
+    {
+        $sales_orders_id = $this->sales_orders->pluck('id');
+
+        return \App\ClientClaim::where('parent_type','App\\SalesOrder')
+                    ->whereIn('parent_id', $sales_orders_id)
+                    ->with('sellable')
+                    ->get();
+    }
+
     public function payables()
     {
         return $this->hasManyThrough(SalesOrderLine::class, SalesOrder::class);

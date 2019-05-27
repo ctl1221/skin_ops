@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\ClientClaim;
 use App\Pricelist;
 use App\ClientMembership;
 
@@ -74,6 +75,29 @@ class ClientController extends Controller
                             ]);
 
         return redirect('/clients/' . $client->id);
+    }
+
+    public function search()
+    {
+        return view('clients.search');
+    }
+
+    public function claim(Client $client)
+    {
+        return view('clients.claim', compact('client'));
+    }
+
+    public function claimPost(Client $client, Request $request)
+    {
+        $client_claim = ClientClaim::findOrFail($request->selected_client_claim_id);
+
+        if($request->selected_give_others_id && !$request->has('claim_for_myself'))
+            $client_claim->claimed_by_id = $request->selected_give_others_id;
+        else
+            $client_claim->claimed_by_id = $client->id;
+        $client_claim->save();
+
+        return redirect('/clients/' . $client->id );
     }
 
      public function deactivate(Client $client)

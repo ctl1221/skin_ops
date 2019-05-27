@@ -19,8 +19,14 @@ Route::get('/', function(){
 		return "Finished";
 });
 
+Route::get('/dashboard', function(){
+	return view('dashboard');
+});
+
 //Master Data
+Route::get('/clients/search', 'ClientController@search');
 Route::resource('clients', 'ClientController');
+
 Route::resource('products', 'ProductController');
 Route::resource('services', 'ServiceController');
 Route::resource('packages', 'PackageController');
@@ -67,6 +73,8 @@ Route::post('/branches/{branch}/activate', 'BranchController@activate');
 Route::get('/employees/{employee}/deactivate', 'EmployeeController@deactivate');
 Route::get('/employees/{employee}/activate', 'EmployeeController@activate');
 
+Route::get('/clients/{client}/claim', 'ClientController@claim');
+Route::post('/clients/{client}/claim', 'ClientController@claimPost');
 Route::get('/clients/{client}/deactivate', 'ClientController@deactivate');
 Route::get('/clients/{client}/activate', 'ClientController@activate');
 
@@ -98,6 +106,11 @@ Route::post('/reports/download', 'ReportController@download');
 //APIs
 Route::get('/api/services', 'APIController@services');
 Route::get('/api/sales_orders', 'APIController@sales_orders');
+Route::post('/api/clients/search', 'APIController@client_search');
+Route::post('/api/appointments', 'APIController@appointments');
+
+Route::post('/appointments', 'AppointmentController@store');
+Route::post('/appointments/{appointment}/edit', 'AppointmentController@edit');
 
 Auth::routes();
 

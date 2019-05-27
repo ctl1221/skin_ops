@@ -4,7 +4,9 @@
 
 	{{ $client->display_name() }}
 
-	<a href="/sales_orders/create/client/{{$client->id}}"><button type="button" class="btn btn-outline-secondary">Create Sales Order</button><a>
+	<a href="/sales_orders/create/client/{{ $client->id }}"><button type="button" class="btn btn-outline-secondary">Create Sales Order</button><a>
+
+	<a href="/clients/{{ $client->id }}/claim"><button type="button" class="btn btn-outline-secondary">Claim Packages</button><a>
 
 	<a href="/clients"><button type="button" class="btn btn-outline-primary">Back</button></a> 
 	<a href="/clients/search"><button type="button" class="btn btn-outline-primary">Back to Search</button></a> 
