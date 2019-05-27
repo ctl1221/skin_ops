@@ -111,6 +111,7 @@ Route::post('/api/appointments', 'APIController@appointments');
 
 Route::post('/appointments', 'AppointmentController@store');
 Route::post('/appointments/{appointment}/edit', 'AppointmentController@edit');
+Route::post('/appointments/{appointment}/delete', 'AppointmentController@delete');
 
 Auth::routes();
 

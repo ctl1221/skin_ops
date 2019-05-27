@@ -43,7 +43,6 @@
                         <label for="start">Content:</label>
                         <input type="text" class="form-control" id="content" name="content">
                     </div>
-                    
                 </form>
             </div>
 
@@ -73,9 +72,13 @@
     editable-events
     class="vuecal--full-height-delete"
 
-    :no-event-overlaps="true"
+    :no-event-overlaps="false"
+    :events-on-month-view="[true, 'short'][1]"
 
     @event-title-change="editEvent($event)"
+    @event-content-change="editEvent($event)"
+    @event-duration-change="editEvent($event)"
+    @event-delete="deleteEvent($event)"
 
 
     ></vue-cal>
@@ -92,7 +95,7 @@
         components: { VueCal },
         data() {
             return {
-                toggleTime: true,
+                toggleTime: false,
                 events: [],
 
             };
@@ -110,7 +113,13 @@
             },
 
             editEvent: function(event) {
+                console.log(event);
                 axios.post('/appointments/' + event.id + '/edit', event).then(response=>{
+                    this.getAllEvents();
+                }, this);
+            },
+            deleteEvent: function(event) {
+                axios.post('/appointments/' + event.id + '/delete').then(response=>{
                     this.getAllEvents();
                 }, this);
             },

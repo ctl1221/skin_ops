@@ -2022,6 +2022,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2030,7 +2033,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      toggleTime: true,
+      toggleTime: false,
       events: []
     };
   },
@@ -2052,8 +2055,16 @@ __webpack_require__.r(__webpack_exports__);
     editEvent: function editEvent(event) {
       var _this3 = this;
 
+      console.log(event);
       axios.post('/appointments/' + event.id + '/edit', event).then(function (response) {
         _this3.getAllEvents();
+      }, this);
+    },
+    deleteEvent: function deleteEvent(event) {
+      var _this4 = this;
+
+      axios.post('/appointments/' + event.id + '/delete').then(function (response) {
+        _this4.getAllEvents();
       }, this);
     }
   },
@@ -48551,11 +48562,21 @@ var render = function() {
           "today-button": "",
           "12Hour": true,
           "editable-events": "",
-          "no-event-overlaps": true
+          "no-event-overlaps": false,
+          "events-on-month-view": [true, "short"][1]
         },
         on: {
           "event-title-change": function($event) {
             return _vm.editEvent($event)
+          },
+          "event-content-change": function($event) {
+            return _vm.editEvent($event)
+          },
+          "event-duration-change": function($event) {
+            return _vm.editEvent($event)
+          },
+          "event-delete": function($event) {
+            return _vm.deleteEvent($event)
           }
         }
       })
