@@ -27,13 +27,16 @@ class BugSubmitted extends Notification implements ShouldQueue
     public function toSlack($notifiable)
     {
         $url = url('/bugs/' . $this->bug->id);
+        $image_url = url(\Storage::url($this->bug->filepath));
+
         return (new SlackMessage)
             ->error()
             ->to('#it_issues')
             ->content('A bug has been submitted by ' . $this->bug->user->name)
-            ->attachment(function ($attachment) use ($url) {
+            ->attachment(function ($attachment) use ($url, $image_url) {
                 $attachment->title($this->bug->title, $url)
-                    ->content($this->bug->details);
+                    ->content($this->bug->detail)
+                    ->image($image_url);
             });
     }
 

@@ -65,6 +65,11 @@ class APIController extends Controller
 
 	public function appointments()
 	{
-		return \App\Appointment::all();
+		$branch_id = \Auth::user()->branch->id;
+		$start = \Carbon\Carbon::now()->addMonth(-6);
+
+		return \App\Appointment::where('branch_id',$branch_id)
+				->where('start', '>=', $start)
+				->orderBy('start','asc')->get();
 	}
 }

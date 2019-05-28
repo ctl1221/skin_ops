@@ -12,7 +12,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        $this->call(UsersSeeder::class);
         $this->call(PricelistsSeeder::class);
 
         Branch::create([
@@ -30,6 +29,8 @@ class DatabaseSeeder extends Seeder
         Branch::create([
             'name' => 'SM North Edsa',
         ]);
+
+        $this->call(UsersSeeder::class);
 
         //$this->call(ItemsSeeder::class);
         $this->call(RealDataSeeder::class);

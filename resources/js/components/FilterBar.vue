@@ -1,7 +1,7 @@
 <template>
 
     <div class="input-group">
-      <input type="text" class="form-control" v-model="filterText" @keyup.enter="doFilter">
+      <input ref="search" type="text" class="form-control" v-model="filterText" @keyup.enter="doFilter">
       <div class="input-group-append">
         <button class="btn btn-outline-success" type="button" @click="doFilter">Search</button>
         <button class="btn btn-outline-danger" type="button" @click="resetFilter">Clear</button>
@@ -24,6 +24,9 @@
         this.filterText = ''
         this.$emit('filter-reset');
       }
+    },
+    mounted () {
+      this.$refs.search.focus();
     }
   }
 </script>

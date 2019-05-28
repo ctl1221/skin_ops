@@ -4,7 +4,7 @@
 
         <div class="form-group">
           <label for="usr">First Name:</label>
-          <input type="text" class="form-control" id="first_name" name="first_name" v-model="first_name">
+          <input ref="first" type="text" class="form-control" id="first_name" name="first_name" v-model="first_name">
         </div>
 
         <div class="form-group">
@@ -48,8 +48,8 @@
             return {
                 selected_give_others_id: '',
                 selected_give_others: '',
-                first_name:'arch',
-                last_name:'bin',
+                first_name:'',
+                last_name:'',
                 search_results:[],
             };
         },
@@ -86,5 +86,8 @@
                 this.selected_give_others_id = client.id;
             }
         },
+        mounted() {
+            this.$refs.first.focus();
+        }
     }
 </script>

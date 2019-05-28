@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">{{ config('app.name', 'Laravel') }}</a>
+  <a class="navbar-brand" href="/dashboard">{{ config('app.name', 'Laravel') }}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -28,31 +28,14 @@
           Management
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/reports">Reports</a>
           <a class="dropdown-item" href="/sms_promotions">SMS Promotions</a>
         </div>
     </li>
     @endRole
 
-
     @role('management')
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="data" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Reports
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/reports/sales">Report - Sales</a>
-          <a class="dropdown-item" href="/reports/services">Report - Services</a>
-          <a class="dropdown-item" href="/reports/products">Report - Products</a>
-          <a class="dropdown-item" href="/reports/packages">Report - Packages</a>
-          <a class="dropdown-item" href="/reports/branches">Report - Branches</a>
-          <a class="dropdown-item" href="/reports/clients">Report - Clients</a>
-        </div>
-    </li>
-    @endRole
-
-
-    @role('management')
-	 <li class="nav-item dropdown">
+	  <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="data" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Master Data
         </a>
@@ -67,8 +50,8 @@
           <a class="dropdown-item" href="/branches">Branches</a>
           <a class="dropdown-item" href="/payment_types">Payment Types</a>
         </div>
-    </li>
-    @endRole
+     </li>
+     @endRole
 
 
     @role('admin')
@@ -78,20 +61,27 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/lusers/view">Users</a>
+          <a class="dropdown-item" href="/bugs">Bugs</a>
+          <a class="dropdown-item" href="/horizon">Laravel Horizon</a>
         </div>
     </li>
     @endRole
 
   </ul>
 
+ 
+
     <ul class="navbar-nav ml-auto">
       @guest
         <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
 
-     @else
-        <li class="nav-item dropdown">
+      @else
+      <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                {{ Auth::user()->name }} <span class="caret"></span>
+              <b><u>{{ Auth::user()->branch->name }}</u></b> 
+              &nbsp 
+              {{ Auth::user()->name }} 
+              <span class="caret"></span>
             </a>
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -110,8 +100,6 @@
         </li>
       @endguest
     </ul>
-
-
 
   </div>
 

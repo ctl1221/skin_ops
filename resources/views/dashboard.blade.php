@@ -2,7 +2,7 @@
 
 
 @section('heading')
-
+Calendar: {{ Auth::user()->branch->name }}
 @endsection
 
 

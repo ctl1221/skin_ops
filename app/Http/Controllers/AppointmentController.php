@@ -10,13 +10,16 @@ class AppointmentController extends Controller
 {
     public function store(Request $request)
     {
+        $datetime_string = $request->date . ' ' . $request->time;
+        $start = Carbon::parse($datetime_string);
+
     	Appointment::create([
-    		'start' => Carbon::now(),
-    		'end' => Carbon::now()->addHour(1),
+    		'start' => $datetime_string,
+    		'end' => $start->addHour(1),
     		'branch_id' => 1,
-    		'title' => 'Charles Licup',
-    		'content' => 'Basic facial',
-    		'class' => 'appointment'
+    		'title' => $request->title,
+    		'content' => $request->content,
+    		'class' => $request->color,
     	]);
 
     	return "success";

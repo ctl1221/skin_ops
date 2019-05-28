@@ -6,7 +6,7 @@
 
 @section('contents')
 	
-	<client-search 
+	<client-search
 		min_char_first_name = 3
 		min_char_last_name = 2
 		mode = "search"
