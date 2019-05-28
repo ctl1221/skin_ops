@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\SlackMessage;
+use App\Bug;
 
 class BugSubmitted extends Notification implements ShouldQueue
 {
@@ -13,7 +14,7 @@ class BugSubmitted extends Notification implements ShouldQueue
 
     private $bug;
 
-    public function __construct($bug)
+    public function __construct(Bug $bug)
     {
         $this->bug = $bug;
     }
@@ -25,9 +26,15 @@ class BugSubmitted extends Notification implements ShouldQueue
 
     public function toSlack($notifiable)
     {
+        $url = url('/bugs/' . $this->bug->id);
         return (new SlackMessage)
+            ->error()
             ->to('#it_issues')
-            ->content('Test Issue' . $this->bug->title);
+            ->content('A bug has been submitted by ' . $this->bug->user->name)
+            ->attachment(function ($attachment) use ($url) {
+                $attachment->title($this->bug->title, $url)
+                    ->content($this->bug->details);
+            });
     }
 
     public function toArray($notifiable)
