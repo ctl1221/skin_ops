@@ -13,7 +13,6 @@ class SendSingleSms implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    
     protected $sms, $mobile_no, $details;
 
     public function __construct($mobile_no, $details)

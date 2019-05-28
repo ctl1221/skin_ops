@@ -20,7 +20,7 @@ class SMSPromotionController extends Controller
 
     public function store(Request $request)
     {
-        dispatch(new SendSingleSms($mobile_no = $request->mobile_no, $details = $request->details));
+        SendSingleSms::dispatch($mobile_no = $request->mobile_no, $details = $request->details);
       
 		return back();
     }

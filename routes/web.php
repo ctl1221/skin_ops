@@ -12,11 +12,38 @@
 */
 
 Route::get('/', function(){
-	dispatch( function() {
-		    logger("Hello There");
-    	});
-    
-		return "Finished";
+
+    \Notification::send(App\SkinProSlack::find(1) , new App\Notifications\BugSubmitted);
+
+    return "Success2";
+
+});
+
+Route::get('/slack', function(){
+	$url = env('LOG_SLACK_WEBHOOK_URL');
+
+	$client = new GuzzleHttp\Client();
+	$attachments = [
+        		'title' => 'Plan a Vacation',
+        		'text' => 'I\'ve been working too hard, it\'s time for a break.',
+        		'color' => '#2eb886',
+        	];
+
+    $payload = [
+    	'text' => 'Robert De',
+    	'attachments' => [
+    		'json' => $attachments
+    	]
+    ];
+
+    $payload = json_encode(['text' => 'from api 3']);
+
+    $response = $client->post($url,[
+    	'form_params' => [
+    		'payload' => $payload
+    	]
+    ]);
+
 });
 
 Route::get('/dashboard', function(){

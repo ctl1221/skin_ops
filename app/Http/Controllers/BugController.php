@@ -35,6 +35,8 @@ class BugController extends Controller
     		'user_id' => auth()->user()->id,
     	]);
 
+        \Notification::send(\App\SkinProSlack::find(1) , new \App\Notifications\BugSubmitted($bug));
+
     	return redirect('/bugs/' . $bug->id);
     }
 
