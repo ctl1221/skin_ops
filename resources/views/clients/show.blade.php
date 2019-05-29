@@ -37,7 +37,7 @@
 				<th>To Claims from Packages</th>
 				<td>
 					<span class="badge badge-success">
-						---
+						{{ $client->to_claims()->count() }}
 					</span>
 				</td>
 			</tr>
@@ -56,7 +56,7 @@
 
 				<th>Last Visit</th>
 				<td>
-					---
+					{{ $client->last_visit() }}
 				</td>
 			</tr>
 			<tr>
@@ -93,7 +93,7 @@
 			</div> --}}
 
 		@include('clients.partials.history')
-		@include('clients.partials.transactions')
+		@include('clients.partials.sales_orders')
 
 	</div>	
 

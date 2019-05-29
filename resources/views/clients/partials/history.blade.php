@@ -11,7 +11,7 @@
 					@if($x->parent_type == 'App\\SalesOrder')
 						<tr>
 							<td class="text-center" rowspan="3">{{  \Carbon\Carbon::parse($x->date)->toFormattedDateString() }}</td>
-							<td>Sales Order : {{ $x->parent->so_number }}</td>
+							<td>Sales Order : <u>{{ $x->parent->so_number }}</u> </td>
 						</tr>
 						<tr>
 							<td>
@@ -21,11 +21,21 @@
 								@endforeach
 							</td>
 						</tr>
+
+						
 						<tr>
 							<td>
-								Paid using
+								@if( $x->parent->payments->count() )
+								Paid 
+									@foreach( $x->parent->payments as $z)
+									<b>{{ $z->amount }}</b> using <u>{{ $z->payment_type->name }}</u> 
+									@endforeach
+								@else
+								No payment made
+								@endif
 							</td>
-						</tr>
+						</tr>	
+
 					@endif
 				@endforeach
 

@@ -13,6 +13,11 @@ class SalesOrderLine extends Model
     	return $this->morphTo();
     }
 
+    public function sales_order()
+    {
+        return $this->belongsTo(SalesOrder::class);
+    }
+
 	public function seller()
     {
     	return $this->belongsTo(Employee::class, 'sold_by_id');

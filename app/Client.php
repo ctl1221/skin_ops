@@ -30,6 +30,11 @@ class Client extends Model
         return $this->hasMany(SalesOrder::class);
     }
 
+    public function sales_order_lines()
+    {
+        return $this->hasManyThrough(SalesOrderLine::class, SalesOrder::class);
+    }
+
     public function pricelist()
     {
         return $this->belongsTo(Pricelist::class);
@@ -38,6 +43,13 @@ class Client extends Model
     public function histories()
     {
         return $this->hasMany(History::class);
+    }
+
+    public function last_visit()
+    {
+        $last_visit = History::latest()->first()->date;
+
+        return $last_visit;
     }
 
     public function memberships()

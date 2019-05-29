@@ -6,6 +6,7 @@ use App\Client;
 use App\ClientClaim;
 use App\Pricelist;
 use App\ClientMembership;
+use App\SalesOrder;
 
 use Illuminate\Http\Request;
 
