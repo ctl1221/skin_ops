@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
 	protected $guarded = [];
+
+    protected $appends = ['fullname'];
+
+    public function getFullnameAttribute()
+    {
+        return $this->display_name();
+    }
 	
     public function display_name()
     {

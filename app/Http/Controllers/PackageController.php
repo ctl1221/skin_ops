@@ -21,9 +21,38 @@ class PackageController extends Controller
 
     public function index()
     {
-        $packages = Package::with('breakdowns')->orderBy('name')->paginate(10);
+        $index_url = "/packages";
+        $api_url = "/api/packages";
+        $per_page = 10;
 
-        return view('packages.index', compact('packages'));
+        $fields = json_encode([
+        [
+            'name' => 'name',
+            'sortField' => 'name',
+            'title' => 'Name',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-left',
+        ],
+
+        [
+            'name' => 'is_active',
+            'sortField' => 'is_active',
+            'title' => 'Status',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-center',
+            'callback' => 'badgify',
+        ],
+        
+        [
+            'name' => 'id',
+            'title' => 'View',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-center',
+            'callback' => 'linkify',
+        ],
+    ]);
+
+        return view('packages.index', compact('index_url', 'api_url', 'per_page', 'fields'));
     }
 
     public function create()

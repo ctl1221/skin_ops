@@ -13,7 +13,7 @@
 	
 	@else
 	<a href="/products/{{$product->id}}/activate"><button type="button" class="btn btn-outline-success">Activate</button></a> 
-
+ 
 	@endif
 
 @endsection

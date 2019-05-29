@@ -44,7 +44,7 @@ class SalesOrderController extends Controller
 
         [
             'name' => 'reference',
-            'sortField' => 'reference',
+            'sortField' => 'so_number',
             'title' => 'Reference',
             'titleClass' => 'text-center',
             'dataClass' => 'text-center',
@@ -52,7 +52,7 @@ class SalesOrderController extends Controller
 
         [
             'name' => 'fullname',
-            'sortField' => 'client.last_name',
+            'sortField' => 'last_name',
             'title' => 'Client',
             'titleClass' => 'text-center',
             'dataClass' => 'text-center',
@@ -76,7 +76,7 @@ class SalesOrderController extends Controller
 
         [
             'name' => 'id',
-            'title' => '',
+            'title' => 'View',
             'titleClass' => 'text-center',
             'dataClass' => 'text-center',
             'callback' => 'linkify',

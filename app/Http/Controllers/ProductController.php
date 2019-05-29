@@ -18,9 +18,38 @@ class ProductController extends Controller
     
     public function index()
     {
-        $products = Product::orderBy('name','asc')->paginate('8');
+        $index_url = "/products";
+        $api_url = "/api/products";
+        $per_page = 10;
 
-        return view('products.index', compact('products'));
+        $fields = json_encode([
+        [
+            'name' => 'name',
+            'sortField' => 'name',
+            'title' => 'Name',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-left',
+        ],
+
+        [
+            'name' => 'is_active',
+            'sortField' => 'is_active',
+            'title' => 'Status',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-center',
+            'callback' => 'badgify',
+        ],
+        
+        [
+            'name' => 'id',
+            'title' => 'View',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-center',
+            'callback' => 'linkify',
+        ],
+    ]);
+
+        return view('products.index', compact('index_url', 'api_url', 'per_page', 'fields'));
     }
 
     public function create()

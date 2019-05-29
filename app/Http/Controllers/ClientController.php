@@ -18,9 +18,38 @@ class ClientController extends Controller
   
     public function index()
     {
-        $clients = Client::orderBy('last_name','asc')->paginate('8');
+        $index_url = "clients";
+        $api_url = "/api/clients";
+        $per_page = 10;
 
-        return view ('clients.index', compact('clients'));
+        $fields = json_encode([
+        [
+            'name' => 'fullname',
+            'sortField' => 'last_name',
+            'title' => 'Name',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-left',
+        ],
+
+        [
+            'name' => 'is_active',
+            'sortField' => 'is_active',
+            'title' => 'Status',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-center',
+            'callback' => 'badgify',
+        ],
+        
+        [
+            'name' => 'id',
+            'title' => 'View',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-center',
+            'callback' => 'linkify',
+        ],
+    ]);
+
+        return view('clients.index', compact('index_url', 'api_url', 'per_page', 'fields'));
     }
 
     public function create()

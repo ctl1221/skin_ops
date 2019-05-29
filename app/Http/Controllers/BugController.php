@@ -16,7 +16,9 @@ class BugController extends Controller
   
     public function index()
     {
-        
+        $bugs = Bug::orderBy('created_at','asc')->paginate('8');
+
+        return view('bugs.index', compact('bugs'));
     }
 
     public function create()
@@ -43,5 +45,29 @@ class BugController extends Controller
     public function show(Bug $bug)
     {
     	return view('bugs.show', compact('bug'));
+    }
+
+    public function close(Bug $bug)
+    {
+        $bug->status = 'Close';
+        $bug->save();
+
+        return back();
+    }
+
+    public function open(Bug $bug)
+    {
+        $bug->status = 'Open';
+        $bug->save();
+
+        return back();
+    }
+
+    public function delete(Bug $bug)
+    {
+        Storage::delete($bug->filepath);
+        $bug->delete();
+        
+        return redirect('/bugs');
     }
 }

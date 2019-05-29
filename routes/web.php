@@ -114,6 +114,10 @@ Route::post('/payment_types/{paymentType}/activate', 'PaymentTypeController@acti
 Route::post('/memberships/{membership}/deactivate', 'MembershipController@deactivate');
 Route::post('/memberships/{membership}/activate', 'MembershipController@activate');
 
+Route::get('/bugs/{bug}/close', 'BugController@close');
+Route::get('/bugs/{bug}/open', 'BugController@open');
+Route::get('/bugs/{bug}/delete', 'BugController@delete');
+
 //Transactional Data
 Route::get('/sales_orders', 'SalesOrderController@index');
 Route::get('/sales_orders/create/client/{client}', 'SalesOrderController@create');
@@ -132,6 +136,11 @@ Route::post('/reports/download', 'ReportController@download');
 
 //APIs
 Route::get('/api/services', 'APIController@services');
+Route::get('/api/products', 'APIController@products');
+Route::get('/api/packages', 'APIController@packages');
+Route::get('/api/employees', 'APIController@employees');
+Route::get('/api/clients', 'APIController@clients');
+
 Route::get('/api/sales_orders', 'APIController@sales_orders');
 Route::post('/api/clients/search', 'APIController@client_search');
 Route::post('/api/appointments', 'APIController@appointments');
@@ -141,5 +150,4 @@ Route::post('/appointments/{appointment}/edit', 'AppointmentController@edit');
 Route::post('/appointments/{appointment}/delete', 'AppointmentController@delete');
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');

@@ -61,7 +61,7 @@
 			</tr>
 			<tr>
 				<th>Mobile No.</th>
-				<td>+{{ $client->mobile_number ? $client->mobile_number : '---' }}</td>
+				<td>{{ $client->mobile_number ? $client->mobile_number : '---' }}</td>
 				<th>Email Address</th>
 				<td>{{ $client->email ? $client->email : '---' }}</td>
 			</tr>
