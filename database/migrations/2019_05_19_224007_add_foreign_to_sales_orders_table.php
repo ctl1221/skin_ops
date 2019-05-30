@@ -15,6 +15,8 @@ class AddForeignToSalesOrdersTable extends Migration
     {
         Schema::table('sales_orders', function (Blueprint $table) {
              $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+             $table->foreign('receptionist_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -27,6 +29,8 @@ class AddForeignToSalesOrdersTable extends Migration
     {
         Schema::table('sales_orders', function (Blueprint $table) {
             $table->dropForeign(['client_id']);
+            $table->dropForeign(['branch_id']);
+            $table->dropForeign(['receptionist_id']);
         });
     }
 }

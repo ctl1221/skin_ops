@@ -60,7 +60,7 @@
           Admin
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/lusers/view">Users</a>
+          <a class="dropdown-item" href="/users">Users</a>
           <a class="dropdown-item" href="/bugs">Bugs</a>
           <a class="dropdown-item" href="/horizon" target="_blank">Laravel Horizon</a>
         </div>

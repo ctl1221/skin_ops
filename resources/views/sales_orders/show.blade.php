@@ -14,6 +14,7 @@
 				    <li class="breadcrumb-item"><a href="/sales_orders">Sales Orders</a></li>
 				    <li class="breadcrumb-item active" aria-current="page">DT{{ $sales_order->so_number }}
 				    	<button type="submit" class="btn btn-outline-success">POST</button>
+				    	<button class="btn btn-outline-danger" @click.prevent="deleteSalesOrder('/sales_orders/{{ $sales_order->id }}/delete')">DELETE</button></a>
 				    </li>
 			  	</ol>
 			</nav> 
@@ -52,7 +53,7 @@
 				<div class="form-group col">
 					<label for="receptionist">Receptionist:</label>
 					<input type="text" class="form-control" 
-					id="name" name="receptionist" value="" disabled>
+					id="name" name="receptionist" value="{{ Auth::user()->name }}" disabled>
 				</div>
 			</div>
 
@@ -72,12 +73,10 @@
 			<div class="row mb-3">
 				<div class="form-group col">
 					<label for="branch">Branch:</label>
-					<input type="text" class="form-control" id="branch" name="branch" value="" disabled>
+					<input type="text" class="form-control" id="branch" name="branch" value="{{ Auth::user()->branch->name }}" disabled>
 				</div>
 
 				<div class="form-group col">
-					<label for="pricelist">Pricelist:</label>
-					<input type="text" class="form-control" id="pricelist" name="pricelist" value="" disabled>
 				</div>
 			</div>
 
@@ -254,6 +253,16 @@
 		data: {
 			flash_message: "{{ session('message') }}",
 			message_type: "{{ session('message_type') }}"
+		},
+		methods: {
+			deleteSalesOrder: function(url, id) {
+				axios.post(url)
+					.then(response =>
+					{
+						window.location.href = "/sales_orders";
+					}
+				);
+			},
 		},
 		created: function () {
 

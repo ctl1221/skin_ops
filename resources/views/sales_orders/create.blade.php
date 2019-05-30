@@ -2,7 +2,7 @@
 
 @section('heading')
 
-Create Transaction - <u>{{ $client->display_name() }}</u>
+Create Transaction - <a href="/clients/{{ $client->id }}">{{ $client->display_name() }}</a>
 
 @endsection
 
@@ -12,7 +12,8 @@ Create Transaction - <u>{{ $client->display_name() }}</u>
 	<div class="card">
 		<div class="card-body">
 			<form method="post" action="/sales_orders">
-				{{ csrf_field() }}
+
+				@csrf
 
 				<div class="row">
 					<div class="form-group col">
@@ -22,20 +23,24 @@ Create Transaction - <u>{{ $client->display_name() }}</u>
 					</div>
 
 					<div class="form-group col">
-						<label for="so_no">Potential SO Number:</label>
-						<input type="text" class="form-control" id="so_no" name="so_no" disabled>
+						<label for="receptionist">Receptionist:</label>
+						<input type="text" class="form-control" id="receptionist" value="{{ Auth::user()->name }}"disabled>
 					</div>
 				</div>
+
+				<input type="hidden" name="branch_id" value="{{ Auth::user()->branch->id }}">
+
+				<input type="hidden" name="receptionist_id" value="{{ Auth::id() }}">
 
 				<div class="row mb-3">
 					<div class="form-group col">
 						<label for="branch">Branch:</label>
-						<input type="text" class="form-control" id="branch" name="branch" disabled>
+						<input type="text" class="form-control" id="branch" value="{{ Auth::user()->branch->name }}" disabled>
 					</div>
 
 					<div class="form-group col">
 						<label for="pricelist">Pricelist:</label>
-						<input type="text" class="form-control" id="pricelist" name="pricelist" disabled>
+						<input type="text" class="form-control" id="pricelist_id" value="{{ $client->pricelist->name }}" disabled>
 					</div>
 				</div>
 

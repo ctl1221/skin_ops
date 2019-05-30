@@ -122,6 +122,8 @@ class SalesOrderController extends Controller
         'client_id' => $client->id,
         'so_number' => $current_so_number,
         'date' => $request->date,
+        'branch_id' => $request->branch_id,
+        'receptionist_id' => $request->receptionist_id,
         'notes' => $request->notes,
       ]);
 
@@ -234,8 +236,15 @@ class SalesOrderController extends Controller
 
   public function destroy(SalesOrder $sales_order)
   {
-    $sales_order->delete();
+      DB::transaction(function () use ($sales_order) {
+          $sales_order->delete();
 
+          foreach($sales_order->payments as $x)
+          {
+            $x->delete();
+          }
+      });
+    
     return redirect('/sales_orders');
   }
 }

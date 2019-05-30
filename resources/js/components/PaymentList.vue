@@ -38,6 +38,7 @@
                             class="form-control form-control-sm" 
                             v-model="payments[index].amount"
                             :disabled="!payments[index].checked"
+                            step="0.01"
                             required>
                     </td>
 
@@ -89,6 +90,7 @@
                             class="form-control form-control-sm" 
                             v-model="payments[index].amount"
                             :disabled="!payments[index].checked"
+                            step="0.01"
                             required>
                     </td>
 

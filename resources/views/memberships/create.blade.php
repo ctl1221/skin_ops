@@ -19,6 +19,8 @@
 
 		  <package-grid :sellables="{{ $sellables }}"></package-grid>
 
+		  <br/>
+		  
 		  <div class="form-group">
 		    <label for="days_valid">Days Valid:</label>
 		    <input type="text" class="form-control" id="days_valid" name="days_valid" required>

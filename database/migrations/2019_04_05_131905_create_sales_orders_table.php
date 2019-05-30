@@ -18,7 +18,9 @@ class CreateSalesOrdersTable extends Migration
             $table->bigInteger('client_id')->unsigned()->index();
             $table->string('so_number');
             $table->date('date');
+            $table->bigInteger('branch_id')->unsigned()->index();
             $table->text('notes')->nullable();
+            $table->bigInteger('receptionist_id')->unsigned()->index();
             $table->boolean('is_posted')->default(0);
             $table->timestamps();
         });

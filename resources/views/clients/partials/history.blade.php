@@ -28,7 +28,7 @@
 								@if( $x->parent->payments->count() )
 								Paid 
 									@foreach( $x->parent->payments as $z)
-									<b>{{ $z->amount }}</b> using <u>{{ $z->payment_type->name }}</u> 
+									<b>{{ number_format($z->amount,2) }}</b> using <u>{{ $z->payment_type->name }}</u>
 									@endforeach
 								@else
 								No payment made

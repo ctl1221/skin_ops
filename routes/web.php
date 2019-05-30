@@ -124,7 +124,7 @@ Route::get('/sales_orders/create/client/{client}', 'SalesOrderController@create'
 Route::get('/sales_orders/{sales_order}', 'SalesOrderController@show');
 Route::post('/sales_orders', 'SalesOrderController@store');
 Route::post('/sales_orders/{sales_order}/post', 'SalesOrderController@post');
-Route::delete('/sales_orders/{sales_order}', 'SalesOrderController@destroy');
+Route::post('/sales_orders/{sales_order}/delete', 'SalesOrderController@destroy');
 
 //Management
 Route::get('/sms_promotions/create/', 'SMSPromotionController@create');

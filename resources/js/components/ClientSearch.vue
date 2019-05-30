@@ -1,7 +1,16 @@
 <template>
+    
     <div class="container">
-        <input v-show="mode == 'claim'" type="text" name="selected_give_others_id" v-model="selected_give_others" disabled>
+        <div class="form-group-row mb-4">
+            <input v-show="mode == 'claim'" type="text" class="form-control" name="selected_give_others_id" v-model="selected_give_others" disabled>
+        </div>
 
+        <table class= "table table-bordered table-fullwidth table-sm" v-show="mode == 'claim'">
+            <tr>
+                <th class="text-center bg-secondary text-white"><h5 class="mb-1 mt-1">Search for a Client</h5></th>
+            </tr>
+        </table>
+        
         <div class="form-group">
           <label for="usr">First Name:</label>
           <input ref="first" type="text" class="form-control" id="first_name" name="first_name" v-model="first_name">
@@ -21,10 +30,9 @@
 
     <input type="hidden" name="selected_give_others_id" v-model="selected_give_others_id">
     
-
     <table class="table table-bordered" v-if="search_results.length">
         <tr>
-            <td colspan="2">Name</td>
+            <td colspan="2">Results:</td>
         </tr>
 
         <tr v-for="x in search_results">

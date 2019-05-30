@@ -1806,6 +1806,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['min_char_first_name', 'min_char_last_name', 'mode'],
   data: function data() {
@@ -2394,6 +2402,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -48162,32 +48172,51 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("input", {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: _vm.mode == "claim",
-          expression: "mode == 'claim'"
-        },
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.selected_give_others,
-          expression: "selected_give_others"
-        }
-      ],
-      attrs: { type: "text", name: "selected_give_others_id", disabled: "" },
-      domProps: { value: _vm.selected_give_others },
-      on: {
-        input: function($event) {
-          if ($event.target.composing) {
-            return
+    _c("div", { staticClass: "form-group-row mb-4" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.mode == "claim",
+            expression: "mode == 'claim'"
+          },
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.selected_give_others,
+            expression: "selected_give_others"
           }
-          _vm.selected_give_others = $event.target.value
+        ],
+        staticClass: "form-control",
+        attrs: { type: "text", name: "selected_give_others_id", disabled: "" },
+        domProps: { value: _vm.selected_give_others },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.selected_give_others = $event.target.value
+          }
         }
-      }
-    }),
+      })
+    ]),
+    _vm._v(" "),
+    _c(
+      "table",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.mode == "claim",
+            expression: "mode == 'claim'"
+          }
+        ],
+        staticClass: "table table-bordered table-fullwidth table-sm"
+      },
+      [_vm._m(0)]
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c("label", { attrs: { for: "usr" } }, [_vm._v("First Name:")]),
@@ -48302,7 +48331,7 @@ var render = function() {
           "table",
           { staticClass: "table table-bordered" },
           [
-            _vm._m(0),
+            _vm._m(1),
             _vm._v(" "),
             _vm._l(_vm.search_results, function(x) {
               return _c("tr", [
@@ -48351,7 +48380,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [_c("td", { attrs: { colspan: "2" } }, [_vm._v("Name")])])
+    return _c("tr", [
+      _c("th", { staticClass: "text-center bg-secondary text-white" }, [
+        _c("h5", { staticClass: "mb-1 mt-1" }, [_vm._v("Search for a Client")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "2" } }, [_vm._v("Results:")])
+    ])
   }
 ]
 render._withStripped = true
@@ -49205,6 +49246,7 @@ var render = function() {
                         attrs: {
                           type: "number",
                           disabled: !_vm.payments[index].checked,
+                          step: "0.01",
                           required: ""
                         },
                         domProps: { value: _vm.payments[index].amount },
@@ -49352,6 +49394,7 @@ var render = function() {
                         attrs: {
                           type: "number",
                           disabled: !_vm.payments[index].checked,
+                          step: "0.01",
                           required: ""
                         },
                         domProps: { value: _vm.payments[index].amount },

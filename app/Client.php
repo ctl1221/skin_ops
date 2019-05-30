@@ -32,7 +32,8 @@ class Client extends Model
 
     public function sales_order_lines()
     {
-        return $this->hasManyThrough(SalesOrderLine::class, SalesOrder::class);
+        return $this->hasManyThrough(SalesOrderLine::class, SalesOrder::class)
+                ->orderBy('date','desc');
     }
 
     public function pricelist()
@@ -42,14 +43,14 @@ class Client extends Model
 
     public function histories()
     {
-        return $this->hasMany(History::class);
+        return $this->hasMany(History::class)->orderBy('date','desc');
     }
 
     public function last_visit()
     {
-        $last_visit = History::latest()->first()->date;
+        $last_visit = History::latest()->first();
 
-        return $last_visit;
+        return $last_visit ? $last_visit->date : '---';
     }
 
     public function memberships()
