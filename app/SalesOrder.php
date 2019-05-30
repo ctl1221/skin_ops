@@ -17,7 +17,7 @@ class SalesOrder extends Model
 
     public function getTotalpriceAttribute()
     {
-        return $this->total_price();
+        return $this->total_price() - $this->total_discount();
     }
 
     public function getPayableamountAttribute()
@@ -30,6 +30,10 @@ class SalesOrder extends Model
         $prefix = $this->is_posted ? "SO " : "DT ";
 
         return $prefix . $this->so_number;
+    }
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function sales_order_lines()

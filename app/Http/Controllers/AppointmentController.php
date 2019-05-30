@@ -8,6 +8,17 @@ use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index()
+    {
+        return view('appointments.index');
+    }
+
     public function store(Request $request)
     {
         $datetime_string = $request->date . ' ' . $request->time;

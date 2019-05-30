@@ -10,18 +10,16 @@
 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	
-	
-
 </head>
 
-<body>
+<body style="background-color: #FFFFFF">
 	@include('nav')
 	
 	<div id="app">
 		<body>
 
 			<div class="container">
-				<h1 class="mb-3">
+				<h1 class="mt-4 mb-3">
 					@yield('heading')
 				</h1>
 

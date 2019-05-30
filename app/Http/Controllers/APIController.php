@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class APIController extends Controller
 {
@@ -118,21 +119,22 @@ class APIController extends Controller
 
 		if($request->sort){
 			list($sortCol, $sortDir) = explode('|', $request->sort);
-			$sales_orders = \App\SalesOrder::orderBy($sortCol, $sortDir);
+			$sales_orders = \App\SalesOrder::with('client')->orderBy($sortCol, $sortDir);
 		}
 		else {
-			$sales_orders = \App\SalesOrder::orderBy('id', 'asc');
+			$sales_orders = \App\SalesOrder::with('client')->orderBy('id', 'asc');
 		}
 
 		if($request->filter)
 		{
-			$sales_orders->where('last_name','like','%' . $request->filter . '%')
-					->orWhere('first_name','like','%' . $request->filter . '%');
+			$sales_orders->where('so_number','like','%' . $request->filter . '%')
+					->orWhere('date','like','%' . $request->filter . '%')
+					->orWhere('clients.name','like','%' . $request->filter . '%');
 		}
 
 		$per_page = $request->per_page ? (int) $request->per_page : null;
 
-		return $sales_orders->with('client')->paginate($per_page);
+		return $sales_orders->paginate($per_page);
 	}
 
 	public function client_search(Request $request)

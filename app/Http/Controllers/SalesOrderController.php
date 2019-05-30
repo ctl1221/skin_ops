@@ -43,7 +43,7 @@ class SalesOrderController extends Controller
         ],
 
         [
-            'name' => 'reference',
+            'name' => 'so_number',
             'sortField' => 'so_number',
             'title' => 'Reference',
             'titleClass' => 'text-center',
@@ -52,7 +52,6 @@ class SalesOrderController extends Controller
 
         [
             'name' => 'fullname',
-            'sortField' => 'last_name',
             'title' => 'Client',
             'titleClass' => 'text-center',
             'dataClass' => 'text-center',
@@ -60,7 +59,6 @@ class SalesOrderController extends Controller
 
         [
             'name' => 'totalprice',
-            'sortField' => 'totalprice',
             'title' => 'Total Price',
             'titleClass' => 'text-center',
             'dataClass' => 'text-center',
@@ -68,7 +66,6 @@ class SalesOrderController extends Controller
 
         [
             'name' => 'payableamount',
-            'sortField' => 'payableamount',
             'title' => 'Payable Amount',
             'titleClass' => 'text-center',
             'dataClass' => 'text-center',

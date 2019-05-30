@@ -80,6 +80,10 @@ class ClientController extends Controller
 
     public function show(Client $client)
     {
+        $client_id = $client->id;
+
+        $client = Client::with('histories','sales_order_lines','payment_histories')->find($client_id);
+
         return view('clients.show', compact('client'));
     }
 

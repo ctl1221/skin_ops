@@ -46,6 +46,11 @@ class Client extends Model
         return $this->hasMany(History::class)->orderBy('date','desc');
     }
 
+    public function payment_histories()
+    {
+        return $this->hasMany(History::class)->orderBy('date','asc');
+    }
+
     public function last_visit()
     {
         $last_visit = History::latest()->first();

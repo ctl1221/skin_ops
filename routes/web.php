@@ -1,64 +1,22 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function(){
-
-    \Notification::send(App\SkinProSlack::find(1) , new App\Notifications\BugSubmitted);
-
-    return "Success2";
-
-});
-
-Route::get('/slack', function(){
-	$url = env('LOG_SLACK_WEBHOOK_URL');
-
-	$client = new GuzzleHttp\Client();
-	$attachments = [
-        		'title' => 'Plan a Vacation',
-        		'text' => 'I\'ve been working too hard, it\'s time for a break.',
-        		'color' => '#2eb886',
-        	];
-
-    $payload = [
-    	'text' => 'Robert De',
-    	'attachments' => [
-    		'json' => $attachments
-    	]
-    ];
-
-    $payload = json_encode(['text' => 'from api 3']);
-
-    $response = $client->post($url,[
-    	'form_params' => [
-    		'payload' => $payload
-    	]
-    ]);
-
+    return redirect('/dashboard');
 });
 
 Route::get('/dashboard', function(){
 	return view('dashboard');
-});
+})->middleware('auth');
 
 //Master Data
 Route::get('/clients/search', 'ClientController@search');
 Route::resource('clients', 'ClientController');
-
 Route::resource('products', 'ProductController');
 Route::resource('services', 'ServiceController');
 Route::resource('packages', 'PackageController');
 Route::resource('employees', 'EmployeeController');
 Route::resource('bugs', 'BugController');
+
 Route::resource('users', 'UserController');
 
 Route::get('/branches','BranchController@index');
@@ -146,9 +104,26 @@ Route::get('/api/sales_orders', 'APIController@sales_orders');
 Route::post('/api/clients/search', 'APIController@client_search');
 Route::post('/api/appointments', 'APIController@appointments');
 
+Route::get('/appointments', 'AppointmentController@index');
 Route::post('/appointments', 'AppointmentController@store');
 Route::post('/appointments/{appointment}/edit', 'AppointmentController@edit');
 Route::post('/appointments/{appointment}/delete', 'AppointmentController@delete');
 
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+
+// Authentication Routes...
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Registration Routes...
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
+
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+//Auth::routes();
+//Route::get('/home', 'HomeController@index')->name('home');
