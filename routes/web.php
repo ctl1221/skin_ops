@@ -59,6 +59,7 @@ Route::resource('services', 'ServiceController');
 Route::resource('packages', 'PackageController');
 Route::resource('employees', 'EmployeeController');
 Route::resource('bugs', 'BugController');
+Route::resource('users', 'UserController');
 
 Route::get('/branches','BranchController@index');
 Route::get('/branches/create','BranchController@create');

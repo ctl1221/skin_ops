@@ -26,8 +26,6 @@
 			<input type="file" class="form-control-file" id="file" name="file">
 		</div>
 		
-	<br>
-
 	<button type="submit" class="btn btn-primary">Create</button>
 
 	</form>
