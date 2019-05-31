@@ -10,7 +10,7 @@
 		@php
 			$rt = 0;
 		@endphp
-		@foreach($client->payment_histories as $x)
+		@foreach($payments as $x)
 			@if($x->parent_type == 'App\\SalesOrder')
 				<tr>
 					<td rowspan="3">

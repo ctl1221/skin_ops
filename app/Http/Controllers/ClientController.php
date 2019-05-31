@@ -7,8 +7,10 @@ use App\ClientClaim;
 use App\Pricelist;
 use App\ClientMembership;
 use App\SalesOrder;
+use App\History;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -84,7 +86,10 @@ class ClientController extends Controller
 
         $client = Client::with('histories','sales_order_lines','payment_histories')->find($client_id);
 
-        return view('clients.show', compact('client'));
+        $histories = History::with('parent')->where('client_id',$client->id)->orderBy('date','desc')->get();
+        $payments = History::with('parent')->where('client_id',$client->id)->orderBy('date','asc')->get();
+
+        return view('clients.show', compact('client','histories','payments'));
     }
 
     public function edit(Client $client)
@@ -123,15 +128,37 @@ class ClientController extends Controller
 
     public function claimPost(Client $client, Request $request)
     {
-        $client_claim = ClientClaim::findOrFail($request->selected_client_claim_id);
+        DB::transaction(function () use ($request, $client) {
 
-        if($request->selected_give_others_id && !$request->has('claim_for_myself'))
-            $client_claim->claimed_by_id = $request->selected_give_others_id;
-        else
-            $client_claim->claimed_by_id = $client->id;
-        $client_claim->save();
+            $client_claim = ClientClaim::findOrFail($request->selected_client_claim_id);
 
-        return redirect('/clients/' . $client->id );
+            History::create([
+                'client_id' => $client->id,
+                'date' => $request->claimed_by_date,
+                'parent_type' => 'App\\ClientClaim',
+                'parent_id' => $client_claim->id,
+            ]);
+
+            if($request->selected_give_others_id && !$request->has('claim_for_myself'))
+            {
+                $client_claim->claimed_by_id = $request->selected_give_others_id;
+
+                History::create([
+                    'client_id' => $request->selected_give_others_id->id,
+                    'date' => $request->claimed_by_date,
+                    'parent_type' => 'App\\ClientClaim',
+                    'parent_id' => $client_claim->id,
+                ]);
+            }
+            else
+            {
+                $client_claim->claimed_by_id = $client->id;
+            }
+
+            $client_claim->save();
+        });
+
+        return redirect('/clients/' . $client->id )->with(['message' => 'Claimed Package', 'message_type' => 'success']);;
     }
 
      public function deactivate(Client $client)

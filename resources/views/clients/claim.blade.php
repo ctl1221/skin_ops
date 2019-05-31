@@ -13,6 +13,8 @@
 		<form method="POST" action="/clients/{{ $client->id }}/claim">
 		@csrf
 
+			<input type="date" name="claimed_by_date" value="{{ /Carbon/Carbon::now() }}">
+
 		<div class="form-check">
 			<input class="form-check-input" type="checkbox" id="checkbox" name="claim_for_myself" v-model="claim_for_myself">
 			<label class="form-check-label" for="checkbox">Claim For Myself</label>
