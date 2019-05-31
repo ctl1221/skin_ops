@@ -21,6 +21,10 @@ class CreateClientClaimsTable extends Migration
             $table->morphs('parent');
             $table->morphs('sellable');
             $table->morphs('category');
+            $table->bigInteger('branch_id')->nullable()->unsigned()->index();
+            $table->bigInteger('treated_by_id')->nullable()->unsigned()->index();
+            $table->bigInteger('assisted_by_id')->nullable()->unsigned()->index();
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

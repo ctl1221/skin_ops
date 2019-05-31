@@ -1,4 +1,4 @@
-<table class="table table-sm table-bordered ">
+<table class="table table-sm table-bordered " style="background-color: white; box-shadow: 1px 1px #888888;">
 	<tr>
 		<td class="text-center align-middle" rowspan="5" style="width: 30%">
 			{{ $x->parent->branch->name }}
@@ -12,12 +12,12 @@
 	</tr>
 	<tr>
 		<td class="align-middle">
-			Bought/Availed &nbsp;
+			Bought/Availed:
 			@foreach($x->parent->sales_order_lines as $y)
 			@if($loop->count != 1 && $loop->last)
 			and
 			@endif
-			{{ $y->sellable->name }}
+			<u>{{ $y->sellable->name }}</u>
 			@if($loop->count != 1 && !$loop->last)
 			,&nbsp;
 			@endif
@@ -27,21 +27,21 @@
 
 	<tr>
 		<td>
-			@if( $x->parent->payments->count() )
+			@if( $x->parent->payments->whereIn('payment_type_id',[1,2,5,6])->count() )
 			@foreach( $x->parent->payments as $z)
 			@if($z->payment_type->is_subtractable)
 			Less: <u>{{ $z->payment_type->name }}</u> - <b>{{ number_format($z->amount,2) }}</b><br/>
 			@endif
 			@endforeach
 			@else
-			No Less
+			No Discounts
 			@endif
 		</td>
 	</tr>	
 
 	<tr>
 		<td>
-			@if( $x->parent->payments->count() )
+			@if( $x->parent->payments->whereIn('payment_type_id',[3, 4])->count() )
 				@foreach( $x->parent->payments as $z)
 					@if($z->payment_type->is_direct)
 						Paid: <u>{{ $z->payment_type->name }}</u> - 

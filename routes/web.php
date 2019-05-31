@@ -85,6 +85,9 @@ Route::post('/sales_orders', 'SalesOrderController@store');
 Route::post('/sales_orders/{sales_order}/post', 'SalesOrderController@post');
 Route::post('/sales_orders/{sales_order}/delete', 'SalesOrderController@destroy');
 
+Route::get('/payments/create/client/{client}', 'PaymentController@create');
+Route::post('/payments', 'PaymentController@store');
+
 //Management
 Route::get('/sms_promotions/create/', 'SMSPromotionController@create');
 Route::post('/sms_promotions', 'SMSPromotionController@store');

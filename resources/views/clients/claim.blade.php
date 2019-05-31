@@ -13,17 +13,51 @@
 		<form method="POST" action="/clients/{{ $client->id }}/claim">
 		@csrf
 
-			<input type="date" name="claimed_by_date" value="{{ /Carbon/Carbon::now() }}">
+		<div class="row">
+			<div class="form-group col">
+				<label for="date">Date:</label>
+				<input type="date" name="claimed_by_date" id="date" value="{{ \Carbon\Carbon::now()->toDateString() }}" required>
+			</div>
+
+			<div class="form-group col">
+				<label for="treated_by_id">Treated By:</label>
+				<select class="form-control" name="treated_by_id">
+					@foreach($treated_by as $x)
+						<option value="{{ $x->id }}">{{ $x->display_name() }}</option>
+					@endforeach
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col">
+				<label for="branch">Branch:</label>
+				<input type="text" class="form-control" id="branch" value="{{ Auth::user()->branch->name }}" disabled>
+			</div>
+
+			<input type="hidden" name="branch_id" value="{{ Auth::user()->branch->id }}">
+
+			<div class="form-group col">
+				<label for="assisted_by_id">Assisted By:</label>
+				<select class="form-control" name="assisted_by_id">
+					<option value="">---</option>
+					@foreach($assisted_by as $x)
+						<option value="{{ $x->id }}">{{ $x->display_name() }}</option>
+					@endforeach
+				</select>
+			</div>
+
+		</div>
+			
 
 		<div class="form-check">
 			<input class="form-check-input" type="checkbox" id="checkbox" name="claim_for_myself" v-model="claim_for_myself">
 			<label class="form-check-label" for="checkbox">Claim For Myself</label>
 		</div>
-
+		
 		<br/>
 
 		<div class="form-group">
-
 			<select class="form-control" name="selected_client_claim_id">
 				@foreach($client->to_claims() as $x)
 					@if(!$x->claimed_by_id)
@@ -31,16 +65,18 @@
 					@endif
 				@endforeach
 			</select>
-
-	 		<br/>
-
-			<button type="submit" class="btn btn-outline-success">Submit</button>
-			<a href="/clients/{{ $client->id }}"><button type="submit" class="btn btn-outline-danger">Cancel</button></a>
-
 		</div>
 
+	 	<div class="form-group">
+			<label for="notes">Notes:</label>
+			<textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+		</div>
+
+		<button type="submit" class="btn btn-outline-success">Submit</button>
+		<a href="/clients/{{ $client->id }}"><button type="submit" class="btn btn-outline-danger">Cancel</button></a>
+
 		<div class="container">
-			<table class= "table table-bordered table-fullwidth table-sm" v-show="!claim_for_myself">
+			<table class= "table table-bordered table-fullwidth table-sm mt-4" v-show="!claim_for_myself">
 	            <tr>
 	                <th class="text-center bg-secondary text-white"><h5 class="mb-1 mt-1">Claiming Client</h5></th>
 	            </tr>    

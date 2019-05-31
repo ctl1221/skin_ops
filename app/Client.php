@@ -69,6 +69,7 @@ class Client extends Model
 
         return \App\ClientClaim::where('parent_type','App\\SalesOrder')
                     ->whereIn('parent_id', $sales_orders_id)
+                    ->whereNull('claimed_by_id')
                     ->with('sellable')
                     ->get();
     }
@@ -98,7 +99,6 @@ class Client extends Model
                 }
             }
         }
-
-        return $payables - $payments;
+        return $payables - $payments - $payment;
     }
 }
