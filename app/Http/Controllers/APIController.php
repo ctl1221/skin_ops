@@ -137,6 +137,16 @@ class APIController extends Controller
 		return $sales_orders->paginate($per_page);
 	}
 
+	public function payments(Request $request)
+	{
+
+		$per_page = $request->per_page ? (int) $request->per_page : null;
+
+		$payments = \App\Payment::paginate($per_page);
+
+		return $payments;
+	}
+
 	public function client_search(Request $request)
 	{
 		$last_name = str_replace("%", "", $request->last_name);

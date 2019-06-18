@@ -40,28 +40,25 @@ class PaymentTypeController extends Controller
         
     }
 
-    public function edit()
+    public function edit(PaymentType $payment_type)
     {
-        $payment_types = PaymentType::all();
 
-        return view('payment_types.edit', compact('payment_types'));
+        return view('payment_types.edit', compact('payment_type'));
+
     }
 
-    public function update(Request $request)
+    public function update(Request $request, PaymentType $payment_type)
     {
-        $payment_types = PaymentType::all();
 
-        DB::transaction(function () use ($request, $payment_types) {
-            foreach ($payment_types as $x)
-            {
-                PaymentType::where('id', $x->id)
-                            ->update([
-                                'name' => $request[$x->id],
-                            ]);
-            }
-        });
+        $payment_type->name = $request->name;
+        $payment_type->is_direct = $request->is_direct ? 1 : 0;
+        $payment_type->is_external = $request->is_external ? 1 : 0;
+        $payment_type->is_addable = $request->is_addable ? 1 : 0;
+        $payment_type->is_subtractable = $request->is_subtractable ? 1 : 0;
+
+        $payment_type->save();
             
-        return redirect ('/payment_types');
+        return back()->with(['message' => 'Payment Type Updated', 'message_type' => 'info']);
     }
 
     public function deactivate(PaymentType $paymentType)

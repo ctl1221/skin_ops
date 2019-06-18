@@ -34,7 +34,7 @@
 				@if($x->parent->total_pay() && $x->parent->is_posted)
 					<tr>
 						<td>
-							Payed
+							Paid
 						</td>
 						<td>
 							PHP {{ number_format($x->parent->total_pay(),2) }}
@@ -51,7 +51,7 @@
 						{{ $x->date}}
 					</td>
 					<td>
-						Payed
+						Paid
 					</td>
 					<td>
 						PHP {{ number_format($x->parent->amount,2) }}

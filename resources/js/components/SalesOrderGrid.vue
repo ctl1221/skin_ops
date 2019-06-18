@@ -95,10 +95,17 @@ export default {
         treated_by_id: '',
         assisted_by_id: '',
       });
+
+      this.$emit('nonzeroed');
     },
 
     deleteLine: function(index){
       this.sales_order_lines.splice(index,1);
+
+      if(this.sales_order_lines.length == 0)
+      {
+        this.$emit('zeroed');
+      }
     },
 
     updateLine: function(index, event)

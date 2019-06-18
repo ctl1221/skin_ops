@@ -45,6 +45,8 @@ Create Transaction - <a href="/clients/{{ $client->id }}">{{ $client->display_na
 				</div>
 
 				<sales-order-grid 
+					@zeroed="submittable = false"
+					@nonzeroed="submittable = true"
 					:sellables="{{ $sellables }}"
 					:employees="{{ $employees }}"
 					:client_id="{{ $client->id }}"
@@ -97,8 +99,9 @@ Create Transaction - <a href="/clients/{{ $client->id }}">{{ $client->display_na
 
 				<div class="row mt-5">   
 					<div class="col-8 mr-0">
-						<input type="submit" value="Submit" class="btn btn-outline-success btn-block">
+						<input type="submit" value="Submit" class="btn btn-outline-success btn-block" :disabled="! submittable">
 					</div>
+
 					<div class="col-4 ml-0">
 						<a href="/clients/{{ $client->id }}">
 							<button type="button" class="btn btn-outline-danger btn-block">Cancel</button>
@@ -116,11 +119,12 @@ Create Transaction - <a href="/clients/{{ $client->id }}">{{ $client->display_na
 <script type="text/javascript">
 	var app = new Vue({
 		el: '#app', 
+		
 		data: { 
 			totalPrice: 0,
 			totalPay: 0,
+			submittable: true,
 		},
-
 	})
 </script>
 

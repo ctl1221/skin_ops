@@ -32,9 +32,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UsersSeeder::class);
 
-        $this->call(ItemsSeeder::class);
-        //$this->call(RealDataSeeder::class);
-        //$this->call(RealData2Seeder::class);
+        //$this->call(ItemsSeeder::class);
+        $this->call(RealDataSeeder::class);
+        $this->call(RealData2Seeder::class);
         factory(App\Client::class, 50)->create();
 
         PaymentType::create([
@@ -80,6 +80,15 @@ class DatabaseSeeder extends Seeder
             'name' => 'DT Number',
             'description' => 'Draft Number',
             'prefix' => 'DT',
+            'integer_value' => 10001,
+            'decimal_value' => 10001,
+            'text_value' => '10001'
+        ]);
+
+        Sequence::create([
+            'name' => 'PY Number',
+            'description' => 'Payment Number',
+            'prefix' => 'PY',
             'integer_value' => 10001,
             'decimal_value' => 10001,
             'text_value' => '10001'

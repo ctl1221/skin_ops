@@ -2671,9 +2671,14 @@ __webpack_require__.r(__webpack_exports__);
         treated_by_id: '',
         assisted_by_id: ''
       });
+      this.$emit('nonzeroed');
     },
     deleteLine: function deleteLine(index) {
       this.sales_order_lines.splice(index, 1);
+
+      if (this.sales_order_lines.length == 0) {
+        this.$emit('zeroed');
+      }
     },
     updateLine: function updateLine(index, event) {
       this.sales_order_lines[index].sellable_type = event.sellable_type;

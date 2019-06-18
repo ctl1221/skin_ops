@@ -5,8 +5,6 @@
 	List of Payment Types
 
 	<a href="/payment_types/create"><button type="button" class="btn btn-outline-success">+ New</button></a>
-	<a href="/payment_types/edit"><button type="button" class="btn btn-outline-warning">Edit</button></a>
-
 	
 @endsection
 
@@ -19,7 +17,8 @@
 			<tr>
 				<th>Name</th>
 				<th>Status</th>
-				<th>Edit Status</th>
+				<th>Status</th>
+				<th>Edit</th>
 			</tr>
 		</thead>
 
@@ -38,16 +37,21 @@
 			        	@if($x->is_active)
 							<form method="POST" action="/payment_types/{{$x->id}}/deactivate">
 								@csrf
-							<input type="submit" class="btn btn-outline-danger" value="Deactivate">
+							<input type="submit" class="btn btn-sm btn-outline-danger" value="Deactivate">
 							</form>
 		
 						@else
 							<form method="POST" action="/payment_types/{{$x->id}}/activate">
 								@csrf
-							<input type="submit" class="btn btn-outline-success" value="Activate">
+							<input type="submit" class="btn btn-sm btn-outline-success" value="Activate">
 							</form>
 						@endif
 					</td>
+
+					<td>
+						<a href="/payment_types/{{$x->id}}/edit"><button type="button" class="btn btn-sm btn-outline-warning">Edit</button></a>
+					</td>
+
 				</tr>
 
 			@endforeach

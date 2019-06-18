@@ -3,7 +3,7 @@
 		<td class="text-center align-middle" rowspan="6" style="width: 30%">
 			{{ $x->parent->branch->name }}
 			<br />
-			Payment : 
+			Payment : {{ $x->parent->py_number }}
 			<br />
 			PHP {{ number_format($x->parent->amount,2)}}
 			<br />
@@ -12,21 +12,19 @@
 	</tr>
 	<tr>
 		<td>
-			Payment Type
+			{{ $x->parent->payment_type->name }}
 		</td>
 	</tr>
 
 	<tr>
 		<td>
-			Reference
+			{{ $x->parent->reference ? $x->parent->reference : "No Reference" }}
 		</td>
 	</tr>	
 
 	<tr>
 		<td rowspan="3">
-			Notes
-			<br>
-			<br>
+			{{ $x->parent->notes ? $x->parent->notes : "No Notes" }}
 		</td>
 	</tr>	
 

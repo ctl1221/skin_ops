@@ -43,7 +43,7 @@ class SalesOrderController extends Controller
         ],
 
         [
-            'name' => 'so_number',
+            'name' => 'reference',
             'sortField' => 'so_number',
             'title' => 'Reference',
             'titleClass' => 'text-center',
@@ -148,6 +148,7 @@ class SalesOrderController extends Controller
             'amount' => $x->amount,
             'reference' => $x->reference,
             'payment_type_id' => $x->id,
+            'branch_id' => $request->branch_id,
           ]); 
         }
       }

@@ -5,12 +5,36 @@ Route::get('/', function(){
 });
 
 Route::get('/dashboard', function(){
-	return view('dashboard');
+
+	$appointments = \App\Appointment::whereDate('start', \Carbon\Carbon::today())
+				->whereDate('end', \Carbon\Carbon::today()) 
+				->where('branch_id', Auth::user()->branch_id)
+				->get();
+
+	return view('dashboard', compact('appointments'));
+
 })->middleware('auth');
 
+
 Route::get('/settings', function(){
-	return view('settings');
+
+	$branches = \App\Branch::all();
+
+	return view('settings', compact('branches'));
+
 })->middleware('auth');
+
+
+Route::post('/settings', function(){
+
+	$user = \App\User::find(Auth::id());
+	$user->branch_id = request()->branch_id;
+	$user->save();
+
+	return back()->with(['message' => 'Branch Updated', 'message_type' => 'info']);;
+});
+
+
 
 //Master Data
 Route::get('/clients/search', 'ClientController@search');
@@ -38,8 +62,8 @@ Route::post('/pricelists/update','PricelistController@update');
 Route::get('/payment_types','PaymentTypeController@index');
 Route::get('/payment_types/create','PaymentTypeController@create');
 Route::post('/payment_types','PaymentTypeController@store');
-Route::get('/payment_types/edit','PaymentTypeController@edit');
-Route::post('/payment_types/update','PaymentTypeController@update');
+Route::get('/payment_types/{payment_type}/edit','PaymentTypeController@edit');
+Route::patch('/payment_types/{payment_type}/update','PaymentTypeController@update');
 
 Route::get('/memberships','MembershipController@index');
 Route::get('/memberships/create','MembershipController@create');
@@ -98,8 +122,8 @@ Route::get('/sms_promotions', 'SMSPromotionController@index');
 Route::get('/sms_promotions/create/', 'SMSPromotionController@create');
 Route::post('/sms_promotions', 'SMSPromotionController@store');
 Route::get('/reports/create/', 'ReportController@create');
-
 Route::get('/reports', 'ReportController@index');
+Route::post('/reports', 'ReportController@store');
 Route::post('/reports/download', 'ReportController@download');
 
 //APIs
@@ -110,6 +134,7 @@ Route::get('/api/employees', 'APIController@employees');
 Route::get('/api/clients', 'APIController@clients');
 
 Route::get('/api/sales_orders', 'APIController@sales_orders');
+Route::get('/api/payments', 'APIController@payments');
 Route::post('/api/clients/search', 'APIController@client_search');
 Route::post('/api/appointments', 'APIController@appointments');
 
