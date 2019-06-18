@@ -79,9 +79,14 @@ class Client extends Model
         return $this->hasManyThrough(SalesOrderLine::class, SalesOrder::class);
     }
 
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'parent');
+    }
+
     public function payable_amount()
     {
-        $payments = 0;
+        $sales_payments = 0;
         $payables = 0;
 
         foreach($this->sales_orders as $x)
@@ -95,10 +100,16 @@ class Client extends Model
 
                 foreach($x->payments as $y)
                 {
-                    $payments += $y->amount;
+                    $sales_payments += $y->amount;
                 }
             }
         }
-        return $payables - $payments - $payment;
+
+        $client_payments = 0;
+        foreach($this->payments as $y)
+        {
+            $client_payments += $y->amount;
+        }
+        return $payables - $sales_payments - $client_payments;
     }
 }

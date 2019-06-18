@@ -15,6 +15,10 @@ class PaymentController extends Controller
     {
         $this->middleware('auth');
     }
+    public function index()
+    {
+    	return view('payments.index');
+    }
 
     public function create(Client $client)
     {
@@ -31,6 +35,7 @@ class PaymentController extends Controller
 	            'amount' => $request->amount,
 	            'reference' => $request->reference,
 	            'payment_type_id' => 3,
+	            'branch_id' => $request->branch_id,
 	         ]); 
 
 	        History::create([

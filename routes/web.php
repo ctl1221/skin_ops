@@ -8,6 +8,10 @@ Route::get('/dashboard', function(){
 	return view('dashboard');
 })->middleware('auth');
 
+Route::get('/settings', function(){
+	return view('settings');
+})->middleware('auth');
+
 //Master Data
 Route::get('/clients/search', 'ClientController@search');
 Route::resource('clients', 'ClientController');
@@ -85,10 +89,12 @@ Route::post('/sales_orders', 'SalesOrderController@store');
 Route::post('/sales_orders/{sales_order}/post', 'SalesOrderController@post');
 Route::post('/sales_orders/{sales_order}/delete', 'SalesOrderController@destroy');
 
+Route::get('/payments', 'PaymentController@index');
 Route::get('/payments/create/client/{client}', 'PaymentController@create');
 Route::post('/payments', 'PaymentController@store');
 
 //Management
+Route::get('/sms_promotions', 'SMSPromotionController@index');
 Route::get('/sms_promotions/create/', 'SMSPromotionController@create');
 Route::post('/sms_promotions', 'SMSPromotionController@store');
 Route::get('/reports/create/', 'ReportController@create');
@@ -119,8 +125,8 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Registration Routes...
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');
+// Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+// Route::post('register', 'Auth\RegisterController@register');
 
 // Password Reset Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');

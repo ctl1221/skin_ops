@@ -44,6 +44,22 @@
 						</td>
 					</tr>
 				@endif
+
+			@elseif($x->parent_type == 'App\\Payment')
+				<tr>
+					<td>
+						{{ $x->date}}
+					</td>
+					<td>
+						Payed
+					</td>
+					<td>
+						PHP {{ number_format($x->parent->amount,2) }}
+					</td>
+					<td>
+						PHP {{ number_format($rt -= $x->parent->amount,2) }}
+					</td>
+				</tr>
 			@endif
 		@endforeach
 		</table>

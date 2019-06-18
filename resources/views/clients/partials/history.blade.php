@@ -8,6 +8,10 @@
 			@if($x->parent_type == 'App\\ClientClaim')
 				@include('clients.partials.history_claims')
 			@endif
+
+			@if($x->parent_type == 'App\\Payment')
+				@include('clients.partials.history_client_payments')
+			@endif
 		@endforeach
 	</div>
 </div>

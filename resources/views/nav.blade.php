@@ -17,6 +17,7 @@
           <a class="dropdown-item" href="/clients/search">Search Client</a>
           <a class="dropdown-item" href="/clients/create">New Client</a>
           <a class="dropdown-item" href="/sales_orders">Sales Orders</a>
+          <a class="dropdown-item" href="/payments">Client Payments</a>
           <a class="dropdown-item" href="/appointments">Calendar</a>
         </div>
     </li>
@@ -31,6 +32,8 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/reports">Reports</a>
           <a class="dropdown-item" href="/sms_promotions">SMS Promotions</a>
+          <a class="dropdown-item" href="/memberships">Memberships</a>
+          <a class="dropdown-item" href="/payment_types">Payment Types</a>
         </div>
     </li>
     @endRole
@@ -42,14 +45,12 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/clients">Clients</a>
-          <a class="dropdown-item" href="/memberships">Memberships</a>
           <a class="dropdown-item" href="/services">Services</a>
           <a class="dropdown-item" href="/products">Products</a>
           <a class="dropdown-item" href="/packages">Packages</a>
           <a class="dropdown-item" href="/employees">Employees</a>
           <a class="dropdown-item" href="/pricelists">Pricelists</a>
           <a class="dropdown-item" href="/branches">Branches</a>
-          <a class="dropdown-item" href="/payment_types">Payment Types</a>
         </div>
      </li>
      @endRole

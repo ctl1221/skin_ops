@@ -20,6 +20,7 @@ class CreatePaymentsTable extends Migration
             $table->double('amount',2);
             $table->string('reference')->nullable();
             $table->bigInteger('payment_type_id')->unsigned()->index();
+            $table->bigInteger('branch_id')->unsigned()->index();
             $table->timestamps();
         });
     }

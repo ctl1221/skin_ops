@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Jobs\SendSingleSms;
 use App\SMSEagle;
+use App\SMSPromotion;
 
 class SMSPromotionController extends Controller
 {
@@ -13,6 +14,13 @@ class SMSPromotionController extends Controller
         $this->middleware('auth');
     }
     
+    public function index()
+    {
+        $sms_promotions = SMSPromotion::all();
+
+        return view('sms_promotions.index', compact('sms_promotions'));
+    }
+
     public function create()
     {
     	return view('sms_promotions.create');

@@ -12,4 +12,9 @@ class Payment extends Model
     {
     	return $this->belongsTo(PaymentType::class); 
     }
+
+    public function branch()
+    {
+    	return $this->belongsTo(Branch::class); 
+    }
 }
