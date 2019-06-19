@@ -39,20 +39,61 @@ Route::post('/settings', function(){
 //Master Data
 Route::get('/clients/search', 'ClientController@search');
 
-Route::resource('clients', 'ClientController');
+// Route::resource('clients', 'ClientController');
 Route::get('/clients','ClientController@index');
 Route::get('/clients/create','ClientController@create');
 Route::post('/clients','ClientController@store');
-Route::get('/clients/edit','ClientController@edit');
-Route::post('/clients/update','ClientController@update');
+Route::get('/clients/{client}','ClientController@show');
+Route::get('/clients/{client}/edit','ClientController@edit');
+Route::patch('/clients/{client}','ClientController@update');
 
-Route::resource('products', 'ProductController');
-Route::resource('services', 'ServiceController');
-Route::resource('packages', 'PackageController');
-Route::resource('employees', 'EmployeeController');
-Route::resource('bugs', 'BugController');
+// Route::resource('products', 'ProductController');
+Route::get('/products','ProductController@index');
+Route::get('/products/create','ProductController@create');
+Route::post('/products','ProductController@store');
+Route::get('/products/{product}','ProductController@show');
+Route::get('/products/{product}/edit','ProductController@edit');
+Route::patch('/products/{product}','ProductController@update');
 
-Route::resource('users', 'UserController');
+// Route::resource('services', 'ServiceController');
+Route::get('/services','ServiceController@index');
+Route::get('/services/create','ServiceController@create');
+Route::post('/services','ServiceController@store');
+Route::get('/services/{service}','ServiceController@show');
+Route::get('/services/{service}/edit','ServiceController@edit');
+Route::patch('/services/{service}','ServiceController@update');
+
+// Route::resource('packages', 'PackageController');
+Route::get('/packages','PackageController@index');
+Route::get('/packages/create','PackageController@create');
+Route::post('/packages','PackageController@store');
+Route::get('/packages/{package}','PackageController@show');
+Route::get('/packages/{package}/edit','PackageController@edit');
+Route::patch('/packages/{package}','PackageController@update');
+
+// Route::resource('employees', 'EmployeeController');
+Route::get('/employees','EmployeeController@index');
+Route::get('/employees/create','EmployeeController@create');
+Route::post('/employees','EmployeeController@store');
+Route::get('/employees/{employee}','EmployeeController@show');
+Route::get('/employees/{employee}/edit','EmployeeController@edit');
+Route::patch('/employees/{employee}','EmployeeController@update');
+
+// Route::resource('bugs', 'BugController');
+Route::get('/bugs','BugController@index');
+Route::get('/bugs/create','BugController@create');
+Route::post('/bugs','BugController@store');
+Route::get('/bugs/{bug}','BugController@show');
+Route::get('/bugs/{bug}/edit','BugController@edit');
+Route::patch('/bugs/{bug}','BugController@update');
+
+// Route::resource('users', 'UserController');
+Route::get('/users','UserController@index');
+Route::get('/users/create','UserController@create');
+Route::post('/users','UserController@store');
+Route::get('/users/{user}','UserController@show');
+Route::get('/users/{user}/edit','UserController@edit');
+Route::patch('/users/{user}','UserController@update');
 
 Route::get('/branches','BranchController@index');
 Route::get('/branches/create','BranchController@create');
