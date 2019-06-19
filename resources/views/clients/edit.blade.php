@@ -59,6 +59,13 @@
 		    @endforeach
 	  	</select>
 	</div>
+
+	<div class="form-check">
+	  <input class="form-check-input" type="checkbox" id="opt_out" name="opt_out" value="1" {{ $client->opt_out ? "checked": ""}}>
+	  <label class="form-check-label" for="out_out">
+	    Opt Out of SMS Blast
+	  </label>
+	</div>
 	
 	<br/>
 

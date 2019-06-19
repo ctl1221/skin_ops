@@ -38,7 +38,14 @@ Route::post('/settings', function(){
 
 //Master Data
 Route::get('/clients/search', 'ClientController@search');
+
 Route::resource('clients', 'ClientController');
+Route::get('/clients','ClientController@index');
+Route::get('/clients/create','ClientController@create');
+Route::post('/clients','ClientController@store');
+Route::get('/clients/edit','ClientController@edit');
+Route::post('/clients/update','ClientController@update');
+
 Route::resource('products', 'ProductController');
 Route::resource('services', 'ServiceController');
 Route::resource('packages', 'PackageController');
@@ -114,6 +121,7 @@ Route::post('/sales_orders/{sales_order}/post', 'SalesOrderController@post');
 Route::post('/sales_orders/{sales_order}/delete', 'SalesOrderController@destroy');
 
 Route::get('/payments', 'PaymentController@index');
+Route::get('/payments/{payment}', 'PaymentController@show');
 Route::get('/payments/create/client/{client}', 'PaymentController@create');
 Route::post('/payments', 'PaymentController@store');
 
@@ -143,7 +151,6 @@ Route::get('/appointments', 'AppointmentController@index');
 Route::post('/appointments', 'AppointmentController@store');
 Route::post('/appointments/{appointment}/edit', 'AppointmentController@edit');
 Route::post('/appointments/{appointment}/delete', 'AppointmentController@delete');
-
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
