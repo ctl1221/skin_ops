@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UsersSeeder::class);
         $this->call(PaymentTypesSeeder::class);
+        $this->call(SequencesSeeder::class);
 
         Pricelist::create([
             'name' => 'Regular',

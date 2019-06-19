@@ -24,42 +24,42 @@ class PaymentController extends Controller
         $per_page = 10;
 
         $fields = json_encode([
-        [
-            'name' => 'date',
-            'sortField' => 'date',
-            'title' => 'Date',
-            'titleClass' => 'text-center',
-            'dataClass' => 'text-left',
-        ],
+            [
+                'name' => 'date',
+                'sortField' => 'date',
+                'title' => 'Date',
+                'titleClass' => 'text-center',
+                'dataClass' => 'text-center',
+            ],
 
-        [
-            'name' => 'doc_reference',
-            'sortField' => 'py_number',
-            'title' => 'Reference',
-            'titleClass' => 'text-center',
-            'dataClass' => 'text-center',
-        ],
+            [
+                'name' => 'doc_reference',
+                'sortField' => 'py_number',
+                'title' => 'Reference',
+                'titleClass' => 'text-center',
+                'dataClass' => 'text-center',
+            ],
 
-        [
-            'name' => 'fullname',
-            'title' => 'Client',
-            'titleClass' => 'text-center',
-            'dataClass' => 'text-center',
-        ],
+            [
+                'name' => 'fullname',
+                'title' => 'Client',
+                'titleClass' => 'text-center',
+                'dataClass' => 'text-center',
+            ],
 
-        [
-            'name' => 'amount',
-            'title' => 'Amount',
-            'titleClass' => 'text-center',
-            'dataClass' => 'text-center',
-        ],
+            [
+                'name' => 'amount',
+                'title' => 'Amount',
+                'titleClass' => 'text-center',
+                'dataClass' => 'text-center',
+            ],
 
-        [
-            'name' => 'p_type',
-            'title' => 'Payment Type',
-            'titleClass' => 'text-center',
-            'dataClass' => 'text-center',
-        ],
+            [
+                'name' => 'p_type',
+                'title' => 'Payment Type',
+                'titleClass' => 'text-center',
+                'dataClass' => 'text-center',
+            ],
 
         // [
         //     'name' => 'id',
@@ -68,9 +68,9 @@ class PaymentController extends Controller
         //     'dataClass' => 'text-center',
         //     'callback' => 'linkify',
         // ],
-    ]);
+        ]);
 
-      return view('payments.index', compact('index_url', 'api_url', 'per_page', 'fields'));
+        return view('payments.index', compact('index_url', 'api_url', 'per_page', 'fields'));
 
     }
 
@@ -78,39 +78,39 @@ class PaymentController extends Controller
     {
         $payment_types = PaymentType::where('is_direct', 1)->get();
 
-    	return view('payments.create', compact('client', 'payment_types'));
+        return view('payments.create', compact('client', 'payment_types'));
     }
 
     public function store(Request $request)
     {
     	DB::transaction(function () use ($request) {
 
-        $py_number = Sequence::where('name','PY Number')->firstOrFail();
-              $current_py_number = $py_number->text_value;
-              $py_number->integer_value++;
-              $py_number->decimal_value++;
-              $py_number->text_value = $py_number->integer_value;
+            $py_number = Sequence::where('name','PY Number')->firstOrFail();
+            $current_py_number = $py_number->text_value;
+            $py_number->integer_value++;
+            $py_number->decimal_value++;
+            $py_number->text_value = $py_number->integer_value;
 
-              $py_number->save();
+            $py_number->save();
 
-	    	$payment = Payment::create([
-	            'date' => $request->date,
-	            'parent_type' => 'App\\Client',
-	            'parent_id' => $request->client_id,
-	            'amount' => $request->amount,
-	            'reference' => $request->reference,
-                'notes' => $request->notes,
-	            'payment_type_id' => $request->payment_type_id,
-	            'branch_id' => $request->branch_id,
-                'py_number' => $current_py_number,
-	         ]); 
+            $payment = Payment::create([
+               'date' => $request->date,
+               'parent_type' => 'App\\Client',
+               'parent_id' => $request->client_id,
+               'amount' => $request->amount,
+               'reference' => $request->reference,
+               'notes' => $request->notes,
+               'payment_type_id' => $request->payment_type_id,
+               'branch_id' => $request->branch_id,
+               'py_number' => $current_py_number,
+           ]); 
 
-	        History::create([
-	            'client_id' => $request->client_id,
-	            'date' => $request->date,
-	            'parent_type' => 'App\\Payment',
-	            'parent_id' => $payment->id,
-	        ]);
+            History::create([
+               'client_id' => $request->client_id,
+               'date' => $request->date,
+               'parent_type' => 'App\\Payment',
+               'parent_id' => $payment->id,
+           ]);
         });
 
     	return redirect('/clients/' . $request->client_id)->with(['message' => 'Payment Created', 'message_type' => 'success']);
