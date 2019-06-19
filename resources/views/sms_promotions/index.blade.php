@@ -18,15 +18,17 @@
 
 		<thead>
 			<tr>
-				<th>Name</th> 
-				<th>Branch</th>
-				<th>Email</th>
+				<th>Date</th> 
+				<th>Details</th>
+				<th>Type</th>
 		</thead>
 
 		<tbody>
 			@foreach ($sms_promotions as $x)
 				<tr>
-					<td></td>
+					<td>{{ $x->created_at->toFormattedDateString() }}</td>
+					<td>{!! nl2br($x->details) !!}</td>
+					<td>{{ $x->type }}</td>
 				</tr>
 			@endforeach
 		</tbody>

@@ -23,6 +23,7 @@ class CreateClientsTable extends Migration
             $table->string('email')->nullable();
             $table->string('address')->nullable();
             $table->string('mobile_number')->nullable();
+            $table->boolean('opt_out')->default(0);
             $table->string('gender')->default('unspecified');
             $table->timestamps();
         });

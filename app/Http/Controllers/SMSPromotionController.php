@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Jobs\SendSingleSms;
+
 use App\SMSEagle;
 use App\SMSPromotion;
+use App\Client;
 
 class SMSPromotionController extends Controller
 {
@@ -28,8 +30,40 @@ class SMSPromotionController extends Controller
 
     public function store(Request $request)
     {
-        SendSingleSms::dispatch($mobile_no = $request->mobile_no, $details = $request->details);
-      
-		return back();
+        if($request->sms_type == 'Single')
+        {
+            $content = str_replace('%Name%', \Auth::user()->name, $request->details);
+
+            SendSingleSms::dispatch($mobile_no = $request->mobile_no, $details = $content);
+        }
+
+        elseif($request->sms_type == 'Opt')
+        {
+            $clients = Client::where('opt_out',0)->get();
+
+            foreach($clients as $client)
+            {
+                $content = str_replace('%Name%', $client->first_name, $request->details);
+                SendSingleSms::dispatch($mobile_no = $client->mobile_number, $details = $content);
+            }
+
+        }
+        
+        else
+        {
+            $clients = Client::all();
+            foreach($clients as $client)
+            {
+                $content = str_replace('%Name%', $client->first_name, $request->details);
+                SendSingleSms::dispatch($mobile_no = $client->mobile_number, $details = $content);
+            }
+        }
+
+        SMSPromotion::create([
+            'details' => $request->details,
+            'type' => $request->sms_type,
+        ]);
+        
+		return redirect('/sms_promotions');
     }
 }

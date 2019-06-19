@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(ItemsSeeder::class);
         $this->call(RealDataSeeder::class);
         $this->call(RealData2Seeder::class);
-        factory(App\Client::class, 50)->create();
+        //factory(App\Client::class, 50)->create();
 
         PaymentType::create([
             'name' => 'Promotions',
@@ -64,6 +64,11 @@ class DatabaseSeeder extends Seeder
 
         PaymentType::create([
             'name' => 'Freebies GC',
+            'is_subtractable' => 1,
+        ]);
+
+        PaymentType::create([
+            'name' => 'Owner Price Waived',
             'is_subtractable' => 1,
         ]);
 
