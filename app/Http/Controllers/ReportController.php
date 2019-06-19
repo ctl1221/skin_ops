@@ -13,6 +13,11 @@ use App\Branch;
 
 class ReportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
     	$reports = Report::latest()->paginate(20);

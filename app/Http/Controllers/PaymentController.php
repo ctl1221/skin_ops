@@ -17,6 +17,7 @@ class PaymentController extends Controller
     {
         $this->middleware('auth');
     }
+    
     public function index()
     {
         $index_url = "/payments";
