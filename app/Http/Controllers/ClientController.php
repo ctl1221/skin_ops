@@ -76,6 +76,7 @@ class ClientController extends Controller
                 'email' => $request->email,
                 'address' => $request->address,
                 'mobile_number' => $request->mobile_no,
+                'opt_out' => -> $request-> opt_out ? 1 : 0,
                 ]);
 
         return redirect('/clients'); 
@@ -112,6 +113,7 @@ class ClientController extends Controller
                                 'email' => $request->email,
                                 'address' => $request->address,
                                 'mobile_number' => $request->mobile_no,
+                                'opt_out' => -> $request-> opt_out ? 1 : 0,
                             ]);
 
         return redirect('/clients/' . $client->id);

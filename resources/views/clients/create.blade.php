@@ -60,6 +60,13 @@
 	  	</select>
 	</div>
 
+	<div class="form-check">
+	  <input class="form-check-input" type="checkbox" id="opt_out" name="opt_out">
+	  <label class="form-check-label" for="out_out">
+	    Opt Out of SMS Blast
+	  </label>
+	</div>
+	
 	<br/>
 
   	<button type="submit" class="btn btn-primary">Create</button>
