@@ -1,7 +1,7 @@
 @extends ('master')
 
 @section('heading')
-	Pay: <u>{{ $client->display_name() }}</u>
+	To Change Pay: <u>{{ $client->display_name() }}</u>
 @endsection
 
 @section('contents')
