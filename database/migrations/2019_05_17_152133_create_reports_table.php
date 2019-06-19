@@ -18,6 +18,10 @@ class CreateReportsTable extends Migration
             $table->string('name');
             $table->date('from');
             $table->date('to');
+            $table->string('type');
+            $table->string('rt_number')->nullable();
+            $table->string('branch');
+            $table->boolean('is_generated')->default(0);
             $table->bigInteger('user_id')->unsigned()->index();
             $table->timestamps();
 

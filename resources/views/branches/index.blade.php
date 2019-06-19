@@ -36,13 +36,13 @@
 			        	@if($x->is_active)
 							<form method="POST" action="/branches/{{$x->id}}/deactivate">
 							@csrf
-							<input type="submit" class="btn btn-outline-danger" value="Deactivate">
+							<input type="submit" class="btn btn-outline-danger btn-sm" value="Deactivate">
 							</form>
 		
 						@else
 							<form method="POST" action="/branches/{{$x->id}}/activate">
 								@csrf
-								<input type="submit" class="btn btn-outline-success" value="Activate">
+								<input type="submit" class="btn btn-outline-success btn-sm" value="Activate">
 							</form>
 						@endif
 					</td>

@@ -24,6 +24,7 @@
 	<br>
 
 	<button type="submit" class="btn btn-primary">Create</button>
+	<a href="/sms_promotions"><button type="button" class="btn btn-danger">Cancel</button>
 
 	</form>
 	

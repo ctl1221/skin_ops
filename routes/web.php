@@ -125,6 +125,7 @@ Route::get('/reports/create/', 'ReportController@create');
 Route::get('/reports', 'ReportController@index');
 Route::post('/reports', 'ReportController@store');
 Route::post('/reports/download', 'ReportController@download');
+Route::delete('/reports/{rt_number}/delete', 'ReportController@delete');
 
 //APIs
 Route::get('/api/services', 'APIController@services');

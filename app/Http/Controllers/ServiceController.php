@@ -42,7 +42,7 @@ class ServiceController extends Controller
         
         [
             'name' => 'id',
-            'title' => 'View',
+            'title' => 'Details',
             'titleClass' => 'text-center',
             'dataClass' => 'text-center',
             'callback' => 'linkify',

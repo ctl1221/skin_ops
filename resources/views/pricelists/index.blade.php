@@ -6,6 +6,7 @@
 
 	<a href="/pricelists/create"><button type="button" class="btn btn-outline-success">+ New</button></a> 
 	<a href="/pricelists/edit"><button type="button" class="btn btn-outline-warning">Edit</button></a>
+	
 @endsection
 
 @section('contents')

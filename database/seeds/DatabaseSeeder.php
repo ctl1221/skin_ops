@@ -94,6 +94,15 @@ class DatabaseSeeder extends Seeder
             'text_value' => '10001'
         ]);
 
+        Sequence::create([
+            'name' => 'RT Number',
+            'description' => 'Report Number',
+            'prefix' => 'RT',
+            'integer_value' => 10001,
+            'decimal_value' => 10001,
+            'text_value' => '10001'
+        ]);
+
         SkinProSlack::create();
 
     }
