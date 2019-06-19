@@ -1,7 +1,8 @@
 @extends ('master')
 
 @section('heading')
-Create Transaction - <a href="/clients/{{ $client->id }}">{{ $client->display_name() }}</a>
+	Create Transaction - <a href="/clients/{{ $client->id }}">{{ $client->display_name() }}</a>
+
 @endsection
 
 @section('contents')
@@ -66,18 +67,7 @@ Create Transaction - <a href="/clients/{{ $client->id }}">{{ $client->display_na
 			</form>
 		</div>
 	</div>
+</div>
 
-</div>	
-
-@endsection
-
-@section('scripts')
-
-<script type="text/javascript">
-	var app = new Vue({
-		el: '#app', 
-		data: {},
-	})
-</script>
 
 @endsection

@@ -39,7 +39,7 @@ class SalesOrderController extends Controller
             'sortField' => 'date',
             'title' => 'Date',
             'titleClass' => 'text-center',
-            'dataClass' => 'text-left',
+            'dataClass' => 'text-center',
         ],
 
         [

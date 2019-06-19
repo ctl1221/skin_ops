@@ -56,6 +56,25 @@ class Payment extends Model
     	return $this->belongsTo(PaymentType::class); 
     }
 
+    public function client_name()
+    {
+        if($this->parent_type == 'App\\Client')
+        {
+            return $this->parent->display_name();
+        }
+
+        elseif($this->parent_type == 'App\\SalesOrder')
+        {
+            return $this->parent->client->display_name();
+        }
+
+        else
+        {
+            return "---";
+        }
+
+    }
+
     public function branch()
     {
     	return $this->belongsTo(Branch::class); 

@@ -3,7 +3,7 @@
 		<td class="text-center align-middle" rowspan="6" style="width: 30%">
 			{{ $x->parent->branch->name }}
 			<br />
-			Payment : {{ $x->parent->py_number }}
+			Payment : <a href="/payments/{{ $x->parent_id }}">{{ $x->parent->py_number }}</a>
 			<br />
 			PHP {{ number_format($x->parent->amount,2)}}
 			<br />
@@ -24,7 +24,7 @@
 
 	<tr>
 		<td rowspan="3">
-			{{ $x->parent->notes ? $x->parent->notes : "No Notes" }}
+			{!! nl2br($x->parent->notes ? $x->parent->notes : "No Notes") !!}
 		</td>
 	</tr>	
 

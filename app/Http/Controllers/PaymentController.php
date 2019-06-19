@@ -61,18 +61,15 @@ class PaymentController extends Controller
                 'titleClass' => 'text-center',
                 'dataClass' => 'text-center',
             ],
-
-        // [
-        //     'name' => 'id',
-        //     'title' => 'View',
-        //     'titleClass' => 'text-center',
-        //     'dataClass' => 'text-center',
-        //     'callback' => 'linkify',
-        // ],
         ]);
 
         return view('payments.index', compact('index_url', 'api_url', 'per_page', 'fields'));
 
+    }
+
+    public function show(Payment $payment)
+    {
+        return view('payments.show', compact('payment'));
     }
 
     public function create(Client $client)

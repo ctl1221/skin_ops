@@ -17,8 +17,7 @@
 	
 	<div id="app">
 		<body>
-
-			<div class="container">
+			<div class="container-fluid px-5 pb-5 mb-5">
 				<h1 class="mt-4 mb-3">
 					@yield('heading')
 				</h1>
