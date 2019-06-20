@@ -5,6 +5,7 @@ Route::get('/dashboard','UserController@dashboard');
 Route::get('/settings','UserController@settings');
 Route::post('/settings','UserController@postSettings');
 Route::post('/userpass','UserController@updatePassword');
+Route::post('/userroles','UserController@updateRoles');
 
 //Master Data
 Route::get('/clients/search', 'ClientController@search');

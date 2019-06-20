@@ -71,11 +71,14 @@ class UserController extends Controller
 
     public function postSettings(Request $request)
     {
+
         $user = User::find(\Auth::id());
+        $user->name = $request->name;
+        $user->email = $request->email;
         $user->branch_id = $request->branch_id;
         $user->save();
 
-        return back()->with(['message' => 'Branch Updated', 'message_type' => 'info']);
+        return back()->with(['message' => 'Settings Updated', 'message_type' => 'success']);
     }
 
     public function updatePassword(Request $request)
@@ -86,5 +89,29 @@ class UserController extends Controller
         $user->save();
 
         return back()->with(['message' => 'Password Updated', 'message_type' => 'info']);
+    }
+
+    public function updateRoles(Request $request)
+    {
+       $user = User::find($request->user_id);
+        
+        if($request->sales)
+            $user->roles()->attach(1);
+        else
+            $user->roles()->detach(1);
+
+        if($request->management)
+            $user->roles()->attach(2);
+        else
+            $user->roles()->detach(2);
+
+        if($request->admin)
+            $user->roles()->attach(3);
+        else
+            $user->roles()->detach(3);
+
+        $user->save();
+
+        return back()->with(['message' => 'Roles Updated', 'message_type' => 'success']);
     }
 }

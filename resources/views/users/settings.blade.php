@@ -9,23 +9,30 @@
 
 @section ('contents')
 	
-<form class="form-inline" method="POST" action="/settings">
+<form method="POST" action="/settings">
 
   @csrf
 
-    <div class="form-group mx-sm-3 mb-2">
-      <label for="branch">Update Current User Branch:</label>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" name="name" id="name" value="{{ auth()->user()->name }}">
     </div>
 
-    <div class="form-group mx-sm-3">
-        <select class="form-control" name="branch_id">
-          @foreach($branches as $x)
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" class="form-control" name="email" id="email" value="{{ auth()->user()->email }}">
+    </div>
+
+    <div class="form-group">
+      <label for="user_branch">Current User Branch:</label>
+      <select class="form-control" id="user_branch" name="branch_id">
+         @foreach($branches as $x)
             <option value="{{ $x->id }}" {{ $x->id == auth()->user()->branch_id ? 'selected' : '' }}>{{ $x->name }}</option>
           @endforeach
-        </select>
+      </select>
     </div>
-    
-    <button type="submit" class="btn btn-primary">Update</button>
+
+    <button type="submit" class="btn btn-warning">Update</button>
 
 </form>
 
