@@ -22,7 +22,9 @@
 
 			<div class="form-group">
 				<label for="branch">Client:</label>
-				<input type="text" class="form-control" id="branch" value="{!! $payment->client_name() !!}" disabled>
+				<a href="/clients/{{$payment->parent_id}}">
+					<input type="text" class="form-control" id="branch" value="{!! $payment->client_name() !!}" disabled>
+				</a>
 			</div>
 
 			<div class="form-group">

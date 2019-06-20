@@ -21,7 +21,7 @@
 					<tr>
 						<td class="text-center">{{ \Carbon\Carbon::parse ($x->sales_order->date) ->toFormattedDateString() }}</td>
 						<td class="text-center">{{ "SO " . $x->sales_order->so_number }}</td>
-						<td class="text-center">---</td>
+						<td class="text-center">{{ $x->sales_order->branch->name }}</td>
 						<td class="text-center">{{ $x->sellable->name }}</td>
 						<td class="text-center">{{ "PHP " . number_format($x->price, 2) }}</td>
 						<td class="text-center">{{ "PHP " . number_format($x->sales_order->total_price(), 2) }}</td>

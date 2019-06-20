@@ -7,6 +7,7 @@ use App\MembershipBreakdown;
 use App\PricelistSellable;
 use App\Pricelist;
 use App\Sellable;
+use App\Product;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,8 +29,9 @@ class MembershipController extends Controller
     public function create()
     {
     	$sellables = Sellable::everything();
+        $membership_product = Product::find(1)->name;
 
-    	return view('memberships.create', compact('sellables'));
+    	return view('memberships.create', compact('sellables','membership_product'));
     }
 
     public function store(Request $request)

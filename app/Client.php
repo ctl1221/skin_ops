@@ -8,11 +8,16 @@ class Client extends Model
 {
 	protected $guarded = [];
 
-    protected $appends = ['fullname'];
+    protected $appends = ['fullname', 'pricelist_name'];
 
     public function getFullnameAttribute()
     {
         return $this->display_name();
+    }
+
+    public function getPricelistNameAttribute()
+    {
+        return $this->pricelist->name;
     }
 	
     public function display_name()
@@ -53,9 +58,18 @@ class Client extends Model
 
     public function last_visit()
     {
-        $last_visit = History::latest()->first();
+        $latest_visits = History::where('client_id',$this->id)->orderBy('date','desc')->get();
 
-        return $last_visit ? $last_visit->date : '---';
+        foreach($latest_visits as $x)
+        {
+            if($x->parent->claimed_by_id == $x->client_id)
+            {
+                $last_visit = $x->date;
+                break;
+            }
+        }
+
+        return $last_visit ? $last_visit : '---';
     }
 
     public function memberships()

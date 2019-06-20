@@ -26,7 +26,7 @@ class EmployeeController extends Controller
             'sortField' => 'last_name',
             'title' => 'Name',
             'titleClass' => 'text-center',
-            'dataClass' => 'text-left',
+            'dataClass' => 'text-center',
         ],
 
         [    
@@ -34,7 +34,7 @@ class EmployeeController extends Controller
             'sortField' => 'branch_id',
             'title' => 'Branch',
             'titleClass' => 'text-center',
-            'dataClass' => 'text-left',
+            'dataClass' => 'text-center',
         ],
 
         [

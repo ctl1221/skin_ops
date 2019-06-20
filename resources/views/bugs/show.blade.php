@@ -40,7 +40,7 @@
 
 		<tr>
 			<th>Image:</th>
-			<td class="text-center"><img src="{{ Storage::url($bug->filepath) }}"></td>
+			<td class="text-center"><img src="{{ Storage::url($bug->filepath) }}" width="80%"></td>
 		</tr>
 
 	</table>

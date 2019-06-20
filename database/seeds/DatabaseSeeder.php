@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 
 use App\Branch;
 use App\PaymentType;
+use App\Product;
 use App\Sequence;
 use App\SkinProSlack;
 use App\Pricelist;
@@ -28,6 +29,10 @@ class DatabaseSeeder extends Seeder
 
         Pricelist::create([
             'name' => 'Member',
+        ]);
+
+        Pricelist::create([
+            'name' => 'Membership',
         ]);
 
         $this->call(ItemsSeeder::class);

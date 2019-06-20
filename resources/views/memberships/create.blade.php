@@ -17,7 +17,16 @@
 		    <input type="text" class="form-control" id="membership_name" name="membership_name" required>
 		  </div>
 
-		  <package-grid :sellables="{{ $sellables }}"></package-grid>
+		  <package-grid :sellables="{{ $sellables }}">
+		  	<template v-slot:insert>
+				<tr>
+				  	<td class="text-left">&nbsp;&nbsp;Product</td>
+				  	<td class="text-left">&nbsp;&nbsp;{{ $membership_product }}</td>
+				  	<td class="text-left">&nbsp;&nbsp;&nbsp;1</td>
+				  	<td class="text-left"></td>
+				</tr>
+			</template>
+		  </package-grid>
 
 		  <br/>
 		  

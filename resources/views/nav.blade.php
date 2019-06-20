@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #8BE796">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #5EC6C2">
   <a class="navbar-brand" href="/dashboard">{{ config('app.name', 'Laravel') }}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -70,8 +70,6 @@
     @endRole
 
   </ul>
-
- 
 
     <ul class="navbar-nav ml-auto">
       @guest

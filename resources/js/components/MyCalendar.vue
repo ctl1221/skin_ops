@@ -40,11 +40,12 @@
                                 <input type="text" class="form-control" id="title" v-model="title">
                             </div>
                             <div class="form-group">
-                                <label for="start">Details:</label>
+                                <label for="content">Details:</label>
                                 <input type="text" class="form-control" id="content" v-model="content">
                             </div>
-                            <div>
-                                <select v-model="color">
+                            <div class="form-group">
+                                <label for="color">Color:</label>
+                                <select id="color" class="form-control" v-model="color">
                                     <option>Blue</option>
                                     <option>Green</option>
                                     <option>Orange</option>

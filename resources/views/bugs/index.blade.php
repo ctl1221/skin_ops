@@ -17,7 +17,7 @@
 				<th>Title</th>
 				<th>Details</th>
 				<th>Status</th>
-				<th>View</th>
+				<th>Details</th>
 				{{-- <th>Image</th> --}}
 		</thead>
 

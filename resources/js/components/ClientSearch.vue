@@ -39,7 +39,7 @@
             <td v-if="mode == 'search'"><a :href="'/clients/' + x.id">
                 {{ x.last_name + ', ' + x.first_name }}</a>
             </td>
-            <td v-if="mode == 'claim'"><button @click.prevent="selectClient(x)">
+            <td v-if="mode == 'claim'"><button class="btn btn-link" @click.prevent="selectClient(x)">
                 {{ x.last_name + ', ' + x.first_name }}</button>
             </td>
         </tr>
@@ -85,13 +85,17 @@
             clearResults: function () {
                this.first_name = '';
                this.last_name = '';
+                this.selected_give_others_id = '';
+                this.selected_give_others = '';
                this.search_results = [];
+               this.$emit('clear_search');
             },
 
             selectClient: function(client)
             {
                 this.selected_give_others = client.last_name + ', ' + client.first_name;
                 this.selected_give_others_id = client.id;
+                this.$emit('clientselected');
             }
         },
         mounted() {

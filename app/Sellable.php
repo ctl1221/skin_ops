@@ -18,13 +18,16 @@ class Sellable extends Model
     	$products = DB::table('products')
     				->select('id as sellable_id')
     				->addSelect('name')
-    				->addSelect(DB::raw("'Product' as sellable_type"));
+    				->addSelect(DB::raw("'Product' as sellable_type"))
+                    ->orderBy('name', 'asc');
 
     	$services = DB::table('services')
     				->select('id as sellable_id')
     				->addSelect('name')
     				->addSelect(DB::raw("'Service' as sellable_type"))
+                    ->orderBy('name', 'asc')
     				->union($products)
+                    ->orderBy('name', 'asc')
     				->get();
 
     	return $services;

@@ -29,13 +29,16 @@
 				class="btn btn-outline-success">Claim</a>
 		@endif
 		<a href="/clients/{{ $client->id }}/edit" class="btn btn-outline-warning">Edit</a> 
-	 	@if($client->is_active)
-			<a href="/clients/{{ $client->id }}/deactivate" 
-				class="btn btn-outline-danger">Deactivate</a> 
-		@else
-			<a href="/clients/{{ $client->id }}/activate" 
-				class="btn btn-outline-success">Activate</a> 
-		@endif
+
+		@role('management')
+		 	@if($client->is_active)
+				<a href="/clients/{{ $client->id }}/deactivate" 
+					class="btn btn-outline-danger">Deactivate</a> 
+			@else
+				<a href="/clients/{{ $client->id }}/activate" 
+					class="btn btn-outline-success">Activate</a> 
+			@endif
+		@endRole
 
 	</div>
 	

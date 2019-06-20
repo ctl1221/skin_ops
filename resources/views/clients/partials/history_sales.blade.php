@@ -18,7 +18,7 @@
 			and
 			@endif
 			<u>{{ $y->sellable->name }}</u>
-			@if($loop->count != 1 && !$loop->last)
+			@if($loop->count != 1 && !$loop->last && $loop->count != 2)
 			,&nbsp;
 			@endif
 			@endforeach

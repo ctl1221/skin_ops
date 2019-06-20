@@ -1,5 +1,8 @@
 <div class="card">
 	<div class="card-body bg-light">
+		@if(!$payments->count())
+			<center>No Records Found</center>
+		@else
 		<table class="table table-bordered table-sm text-center align-middle my_table_shadow">
 			<tr>
 				<th>Date</th>
@@ -13,8 +16,8 @@
 		@foreach($payments as $x)
 			@if($x->parent_type == 'App\\SalesOrder')
 				<tr>
-					<td rowspan="3">
-						{{ $x->date}}
+					<td rowspan="3" class="align-middle">
+						{{ $x->date }}
 					</td>
 				</tr>
 				@if($x->parent->totalprice && $x->parent->is_posted)
@@ -63,5 +66,6 @@
 			@endif
 		@endforeach
 		</table>
+		@endif
 	</div>
 </div>

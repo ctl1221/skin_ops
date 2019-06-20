@@ -26,7 +26,7 @@ class AppointmentController extends Controller
     	Appointment::create([
     		'start' => $datetime_string,
     		'end' => $start->addHour(1),
-    		'branch_id' => 1,
+    		'branch_id' => \Auth::user()->branch_id,
     		'title' => $request->title,
     		'content' => $request->content,
     		'class' => $request->color,

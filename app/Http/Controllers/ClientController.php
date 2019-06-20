@@ -32,7 +32,15 @@ class ClientController extends Controller
             'sortField' => 'last_name',
             'title' => 'Name',
             'titleClass' => 'text-center',
-            'dataClass' => 'text-left',
+            'dataClass' => 'text-center',
+        ],
+
+                [
+            'name' => 'pricelist_name',
+            'sortField' => 'pricelist_id',
+            'title' => 'Member',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-center',
         ],
 
         [
@@ -89,7 +97,10 @@ class ClientController extends Controller
         $client = Client::with('histories','sales_orders','sales_order_lines','payment_histories')->find($client_id);
 
         $histories = History::with('parent')->where('client_id',$client->id)->orderBy('date','desc')->orderBy('id','desc')->get();
-        $payments = History::with('parent')->where('client_id',$client->id)->orderBy('date','asc')->get();
+
+        $payments = History::with('parent')->where('client_id',$client->id)
+                    ->whereIn('parent_type',['App\\SalesOrder','App\\Payment'])
+                    ->orderBy('date','asc')->get();
 
         $sales_order_ids = $client->sales_orders->pluck('id');
 

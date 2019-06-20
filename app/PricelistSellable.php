@@ -12,7 +12,7 @@ class PricelistSellable extends Model
 
     public function sellable()
     {
-    	return $this->morphTo();
+    	return $this->morphTo()->orderBy('name');
     }
 
     public function pricelist()

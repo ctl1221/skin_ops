@@ -30,7 +30,7 @@ List of Users
 					<form method="post" action="userpass" class="form-inline justify-content-center">
 						@csrf
 						<input type="hidden" name="user_id" value="{{ $x->id }}">
-						<input type="text" name="new_password" class="form-control-sm">
+						<input type="password" name="new_password" class="form-control-sm">
 
 						<button class="btn btn-sm btn-warning">Update</button>
 					</form>

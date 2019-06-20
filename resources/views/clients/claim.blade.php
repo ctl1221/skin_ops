@@ -73,7 +73,7 @@
 			<textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
 		</div>
 
-		<button type="submit" class="btn btn-outline-success">Submit</button>
+		<button type="submit" class="btn btn-outline-success" :disabled="!submittable">Submit</button>
 		<a href="/clients/{{ $client->id }}" class="btn btn-outline-danger">Cancel</a>
 
 		<div class="container">
@@ -85,10 +85,12 @@
         </div>
 
 		<client-search 
-				v-show="!claim_for_myself"
-				min_char_first_name = 3
-				min_char_last_name = 2
-				mode="claim"
+			@clientselected="client_selected = true"
+			@clear_search="client_selected = false"
+			v-show="!claim_for_myself"
+			min_char_first_name = 3
+			min_char_last_name = 2
+			mode="claim"
 		/>
 
 		</form>
@@ -107,7 +109,23 @@ var app = new Vue({
   el: '#app', 
   data: {
   	claim_for_myself: true,
+  	client_selected:false,
   },
+  computed: {
+  	submittable: function ()
+  	{
+  		if(!this.claim_for_myself)
+  		{
+  			if(this.client_selected)
+  				return true;
+  			return false;
+  		}
+  		else
+  		{
+  			return true;
+  		}
+  	}
+  }
 })
 
 </script>

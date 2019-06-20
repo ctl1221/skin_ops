@@ -67,7 +67,7 @@ class ReportController extends Controller
         }
         else
         {
-            return "No Report Yet";
+            return redirect('/reports');
         }
 
         return redirect('/reports');

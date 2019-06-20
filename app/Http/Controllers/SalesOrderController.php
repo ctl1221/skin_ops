@@ -80,9 +80,10 @@ class SalesOrderController extends Controller
   public function create(Client $client)
   {
 
+
     $sellables = PricelistSellable::where('pricelist_id',$client->pricelist_id)
-    ->with('sellable')
-    ->get();
+                ->with('sellable')
+                ->get();
 
     $employees = Employee::where('is_active',1)->orderBy('last_name','asc')->get();
 

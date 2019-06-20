@@ -4,7 +4,17 @@
         
         <input type="hidden" name="package_grid_lines" :value="JSON.stringify(package_grid_lines)">
 
-        <table class="table table-bordered">
+        <table class="table table-sm table-bordered text-center">
+            
+            <tr>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+
+            <slot name="insert"></slot>
+
             <gridline 
             v-for="(x,index) in package_grid_lines"
             :sellables="sellables" 
@@ -12,10 +22,16 @@
             @lineupdated="updateLine(index, $event)"
             @linedeleted="deleteLine(index)"
             ></gridline>
+
+            <tr>
+                <td colspan="4" class="justify-content-center">
+                    <button class="btn btn-info btn-sm" @click.prevent="addLine">Add Item</button>
+                </td>
+            </tr>
+
         </table>
 
-        <button @click.prevent="addLine">Add Item</button>
-
+        
     </div>
 
 </template>

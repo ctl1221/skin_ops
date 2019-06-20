@@ -9,6 +9,7 @@
 					<th>Reference</th>
 					<th>Claim Date</th>
 					<th>Service</th>
+					<th>Claimed By</th>
 					<th>Treated By</th>
 				</tr>
 			</thead>
@@ -20,7 +21,8 @@
 					</td>
 					<td>{{ $x->claimed_by_date ? $x->claimed_by_date : '---'}}</td>
 					<td>{{ $x->sellable->name }}</td>
-					<td>{{ $x->treated_by_id ? $x->treated_by_id : '---'}}</td>
+					<td>{{ $x->claimed_by_id ? $x->claimed_by->display_name() : '---'}}</td>
+					<td>{{ $x->treated_by_id ? $x->treated_by->display_name() : '---'}}</td>
 				</tr>
 				@endforeach
 			</tbody>
