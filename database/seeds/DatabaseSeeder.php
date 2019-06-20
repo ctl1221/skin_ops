@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Membership',
         ]);
 
-        $this->call(ItemsSeeder::class);
+        //$this->call(ItemsSeeder::class);
         //$this->call(RealDataSeeder::class);
         //$this->call(RealData2Seeder::class);
         //factory(App\Client::class, 50)->create();
