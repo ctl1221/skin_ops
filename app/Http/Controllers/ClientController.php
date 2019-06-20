@@ -91,7 +91,14 @@ class ClientController extends Controller
         $histories = History::with('parent')->where('client_id',$client->id)->orderBy('date','desc')->orderBy('id','desc')->get();
         $payments = History::with('parent')->where('client_id',$client->id)->orderBy('date','asc')->get();
 
-        return view('clients.show', compact('client','histories','payments'));
+        $sales_order_ids = $client->sales_orders->pluck('id');
+
+        $claims = ClientClaim::with('branch','category','sellable','parent','claimed_by')
+            ->where('parent_type','App\\SalesOrder')
+            ->whereIn('parent_id', $sales_order_ids)
+            ->get();
+
+        return view('clients.show', compact('client','histories','payments','claims'));
     }
 
     public function edit(Client $client)

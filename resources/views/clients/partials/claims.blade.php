@@ -1,12 +1,30 @@
 <div class="card">
 	<div class="card-body bg-light">
-		<table class="table table-bordered table-sm text-center align-middle">
-			<tr>
-				<th>Reference</th>
-				<th>Claim Date</th>
-				<th>Service</th>
-				<th>Treated By</th>
-			</tr>
+		@if(!$claims->count())
+			<center>No Records Found</center>
+		@else
+		<table class="table table-bordered table-sm text-center align-middle my_table_shadow">
+			<thead>
+				<tr>
+					<th>Reference</th>
+					<th>Claim Date</th>
+					<th>Service</th>
+					<th>Treated By</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach($claims as $x)
+				<tr>
+					<td>
+						<a href="/sales_orders/{{$x->parent->id}}">SO {{ $x->parent->so_number }}</a>
+					</td>
+					<td>{{ $x->claimed_by_date ? $x->claimed_by_date : '---'}}</td>
+					<td>{{ $x->sellable->name }}</td>
+					<td>{{ $x->treated_by_id ? $x->treated_by_id : '---'}}</td>
+				</tr>
+				@endforeach
+			</tbody>
 		</table>
+		@endif
 	</div>
 </div>

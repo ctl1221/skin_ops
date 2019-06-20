@@ -15,8 +15,9 @@
 
 		<div class="row">
 			<div class="form-group col">
-				<label for="date">Date:</label>
-				<input type="date" name="claimed_by_date" id="date" value="{{ \Carbon\Carbon::now()->toDateString() }}" required>
+				<label for="claimed_by_date">Date:</label>
+				<input class="form-control" type="date" name="claimed_by_date" id="claimed_by_date" 
+					value="{{ \Carbon\Carbon::now()->toDateString() }}" required>
 			</div>
 
 			<div class="form-group col">
@@ -73,7 +74,7 @@
 		</div>
 
 		<button type="submit" class="btn btn-outline-success">Submit</button>
-		<a href="/clients/{{ $client->id }}"><button type="submit" class="btn btn-outline-danger">Cancel</button></a>
+		<a href="/clients/{{ $client->id }}" class="btn btn-outline-danger">Cancel</a>
 
 		<div class="container">
 			<table class= "table table-bordered table-fullwidth table-sm mt-4" v-show="!claim_for_myself">
