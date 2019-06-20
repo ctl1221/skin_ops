@@ -122,14 +122,19 @@ class APIController extends Controller
 			$sales_orders = \App\SalesOrder::with('client')->orderBy($sortCol, $sortDir);
 		}
 		else {
-			$sales_orders = \App\SalesOrder::with('client')->orderBy('id', 'asc');
+			$sales_orders = \App\SalesOrder::with('client')->orderBy('id', 'desc');
 		}
 
 		if($request->filter)
 		{
 			$sales_orders->where('so_number','like','%' . $request->filter . '%')
 					->orWhere('date','like','%' . $request->filter . '%')
-					->orWhere('clients.name','like','%' . $request->filter . '%');
+					->orWhereHas('client', function ($query) use ($request) {
+						$query->where('first_name','like','%' . $request->filter . '%');
+					})
+					->orWhereHas('client', function ($query) use ($request) {
+						$query->where('last_name','like','%' . $request->filter . '%');
+					});
 		}
 
 		$per_page = $request->per_page ? (int) $request->per_page : null;
@@ -139,12 +144,29 @@ class APIController extends Controller
 
 	public function payments(Request $request)
 	{
+		if($request->sort){
+			list($sortCol, $sortDir) = explode('|', $request->sort);
+			$payments = \App\Payment::with('parent','payment_type')->orderBy($sortCol, $sortDir);
+		}
+		else {
+			$payments = \App\Payment::with('parent','payment_type')->orderBy('id', 'desc');
+		}
 
 		$per_page = $request->per_page ? (int) $request->per_page : null;
 
-		$payments = \App\Payment::paginate($per_page);
+		if($request->filter)
+		{
+			$payments->where('py_number','like','%' . $request->filter . '%')
+					->orWhere('date','like','%' . $request->filter . '%')
+					->orWhere('amount','like','%' . $request->filter . '%')
+					->orWhereHas('payment_type', function ($query) use ($request) {
+						$query->where('name','like','%' . $request->filter . '%');
+					});
+		}
 
-		return $payments;
+		$per_page = $request->per_page ? (int) $request->per_page : null;
+
+		return $payments->paginate($per_page);
 	}
 
 	public function client_search(Request $request)

@@ -1,4 +1,4 @@
-<table class="table table-sm table-bordered" style="background-color: white; box-shadow: 1px 1px #888888;">
+<table class="table table-sm table-bordered my_table_shadow">
 
 	<tr>
 		<td class="text-center align-middle" rowspan="5" style="width: 30%">

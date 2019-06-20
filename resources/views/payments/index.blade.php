@@ -13,6 +13,7 @@
 	    :fields="{{ $fields }}"
 	    api_url="{{ $api_url }}"
 	    per_page="{{ $per_page }}"
+	    hints="Search: [Date],[Reference],[Amount],[Payment Type], Sort: [Date],[Reference],[Amount],[Payment Type]"
     ></my-vuetable>	
 
 @endsection

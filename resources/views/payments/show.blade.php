@@ -1,17 +1,22 @@
 @extends ('master')
 
 @section('heading')
+
+<div class="container">
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="/payments">Payments</a></li>
-		<li class="breadcrumb-item active" aria-current="page">PY{{ " "}}</li>
+		<li class="breadcrumb-item active" aria-current="page">
+			{{ $payment->py_number ? 'PY ' . $payment->py_number : 'SO ' . $payment->parent->so_number }}
+		</li>
 	</ol>
 </nav> 
+</div>
 @endsection
 
 @section('contents')
 
-<div class="container mb-5">
+<div class="container">
 	<div class="card">
 		<div class="card-body">
 

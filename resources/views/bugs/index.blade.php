@@ -8,7 +8,6 @@
 
 @section('contents')
 
-<div class="container">
 	<table class="table table-striped table-bordered table-sm" id="bug_list">
 
 		<thead>
@@ -45,7 +44,6 @@
 		</tbody>
 
 	</table>
-</div>
 
 {{ $bugs->links() }}
 

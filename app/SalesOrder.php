@@ -12,7 +12,9 @@ class SalesOrder extends Model
 
     public function getFullnameAttribute()
     {
-        return $this->client->display_name();
+        return '<a href="/clients/' . $this->client_id . '">' . 
+            $this->client->display_name() . 
+            "</a>";
     }
 
     public function getTotalpriceAttribute()
@@ -29,7 +31,9 @@ class SalesOrder extends Model
     {
         $prefix = $this->is_posted ? "SO " : "DT ";
 
-        return $prefix . $this->so_number;
+        return '<a href="/sales_orders/' . $this->id . '">' . 
+            $prefix . $this->so_number . 
+            "</a>";
     }
     public function branch()
     {

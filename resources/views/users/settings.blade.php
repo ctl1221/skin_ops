@@ -20,7 +20,7 @@
     <div class="form-group mx-sm-3">
         <select class="form-control" name="branch_id">
           @foreach($branches as $x)
-            <option value="{{ $x->id }}">{{ $x->name }}</option>
+            <option value="{{ $x->id }}" {{ $x->id == auth()->user()->branch_id ? 'selected' : '' }}>{{ $x->name }}</option>
           @endforeach
         </select>
     </div>

@@ -51,12 +51,14 @@ class PaymentController extends Controller
             [
                 'name' => 'amount',
                 'title' => 'Amount',
+                'sortField' => 'amount',
                 'titleClass' => 'text-center',
                 'dataClass' => 'text-center',
             ],
 
             [
                 'name' => 'p_type',
+                'sortField' => 'payment_type_id',
                 'title' => 'Payment Type',
                 'titleClass' => 'text-center',
                 'dataClass' => 'text-center',

@@ -22,13 +22,11 @@
 					@yield('heading')
 				</h1>
 
-				<div class="row mb-3 justify-content-center">
+{{-- 				<div class="row mb-3 justify-content-center">
 					@yield('subcontent')
-				</div>
+				</div> --}}
 
-				<div class="row">
 					@yield('contents')
-				</div>
 			</div>
 		</body>
 	</div>

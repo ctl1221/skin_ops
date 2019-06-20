@@ -14,7 +14,7 @@
 
 @section ('contents')
 
-	<table class="table table-bordered table-sm">
+	<table class="table table-striped table-bordered table-sm text-center">
 		
 		<thead>
 			<tr>
@@ -31,18 +31,18 @@
 		<tbody>
 			@foreach($reports as $x)
 			<tr>
-				<td>RT {{ $x->rt_number }}</td>
-				<td>{{ $x->name }}
-				<td>{{ \Carbon\Carbon::parse($x->from)->toFormattedDateString() }} 
+				<td class="align-middle">RT {{ $x->rt_number }}</td>
+				<td class="align-middle">{{ $x->name }}
+				<td class="align-middle">{{ \Carbon\Carbon::parse($x->from)->toFormattedDateString() }} 
 					-
 					{{ \Carbon\Carbon::parse($x->to)->toFormattedDateString() }}
 				</td>
-				<td>{{ $x->branch }}</td>
-				<td>{{ $x->type }}</td>
-				<td>{{ $x->user->name }}</td>
-				<td>
+				<td class="align-middle">{{ $x->branch }}</td>
+				<td class="align-middle">{{ $x->type }}</td>
+				<td class="align-middle">{{ $x->user->name }}</td>
+				<td class="align-middle">
 					@if($x->is_generated)
-						<span class="form-inline">
+						<span class="form-inline justify-content-center">
 							<form method="post" action="/reports/download">
 								@csrf
 								<input type="hidden" name="file_name" value="{{$x->rt_number}}">
@@ -56,7 +56,7 @@
 							</form>
 						</span>
 					@else
-						<span class=btn btn-link">Generating...</span>
+						<span class="btn btn-link">Generating...</span>
 					@endif					
 				</td>
 			</tr>

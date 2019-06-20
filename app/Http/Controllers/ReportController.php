@@ -28,7 +28,15 @@ class ReportController extends Controller
     public function create()
     {
         $branches = Branch::all();
-        $report_id = Report::latest()->first()->id + 1;
+        if(Report::latest()->first())
+        {
+            $report_id = Report::latest()->first()->id + 1;
+        }
+
+        else
+        {
+            $report_id = 1;
+        }
         $default_name = 'Report ' . $report_id;
 
         return view('reports.create', compact('branches','default_name'));

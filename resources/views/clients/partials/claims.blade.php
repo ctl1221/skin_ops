@@ -1,5 +1,5 @@
 <div class="card">
-	<div class="card-body">
+	<div class="card-body bg-light">
 		<table class="table table-bordered table-sm text-center align-middle">
 			<tr>
 				<th>Reference</th>

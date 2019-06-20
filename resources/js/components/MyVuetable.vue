@@ -1,10 +1,12 @@
 <template>
-  <div class="container">
+  <div>
       <div class="row">
         <div class="col-4">
            <filter-bar 
            @filter-set="onFilterSet($event)"
            @filter-reset="onFilterReset()"
+           @show-hint="showHint = true"
+           @hide-hint="showHint = false"
            ></filter-bar>
         </div>
 
@@ -26,13 +28,16 @@
       :per-page="parseInt(per_page)"
       pagination-path=""
       @vuetable:pagination-data="onPaginationData"
-
       ></vuetable>
 
       <vuetable-pagination-info 
         ref="paginationInfo"
         info-class="pagination-info">    
       </vuetable-pagination-info>
+
+      <div class="alert alert-light" role="alert" v-if="showHint && hints">
+        {{ hints | br }}
+      </div>
 </div>
 </template>
 
@@ -50,16 +55,21 @@ export default {
     VuetablePaginationInfo,
     FilterBar,
   },
-  props: ['index_url', 'api_url','per_page','fields'],
+  props: ['index_url', 'api_url','per_page','fields','hints'],
   data () {
     return {
       moreParams: {},
       css: CssConfig,
+      showHint:false,
     }
   },
   methods: {
     allcap (value) {
       return value.toUpperCase();
+    },
+
+    currency (value) {
+      return value.toLocaleString('en-PH',{minimumFractionDigits: 2, maximumFractionDigits: 2});
     },
 
     linkify (value) {
@@ -91,7 +101,7 @@ export default {
     onFilterReset () {
       this.moreParams = {}
       Vue.nextTick( () => this.$refs.vuetable.refresh())
-    }
+    },
   },
 };
 

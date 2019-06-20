@@ -10,15 +10,13 @@
 
 @section('contents')
 
-<div class="container">
-	<table class="table table-bordered table-sm">
+	<table class="table table-bordered table-sm text-center">
 
 		<thead class="thead-light">
 			<tr>
 				<th>Name</th>
 				<th>Status</th>
-				<th>Status</th>
-				<th>Edit</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 
@@ -34,6 +32,7 @@
 		        	</td>
 
 		        	<td>
+		        		<span class="justify-content-center form-inline">
 			        	@if($x->is_active)
 							<form method="POST" action="/payment_types/{{$x->id}}/deactivate">
 								@csrf
@@ -46,10 +45,8 @@
 							<input type="submit" class="btn btn-sm btn-outline-success" value="Activate">
 							</form>
 						@endif
-					</td>
-
-					<td>
 						<a href="/payment_types/{{$x->id}}/edit"><button type="button" class="btn btn-sm btn-outline-warning">Edit</button></a>
+						</span>
 					</td>
 
 				</tr>
@@ -58,6 +55,4 @@
 		</tbody>
 
 	</table>
-</div>
-
 @endsection

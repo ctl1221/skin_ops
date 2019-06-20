@@ -16,7 +16,7 @@ class PaymentTypeController extends Controller
     
     public function index()
     {
-        $payment_types = PaymentType::all();
+        $payment_types = PaymentType::orderBy('name')->get();
 
         return view('payment_types.index', compact('payment_types'));
     }

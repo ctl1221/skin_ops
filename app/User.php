@@ -38,4 +38,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Branch::class);
     }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\ResetPasswordNotification($token, $this->email));
+    }
+
+    public function routeNotificationForSlack($notification)
+    {
+        return env('SLACK_WEBHOOK_URL');
+    }
 }

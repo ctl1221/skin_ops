@@ -62,6 +62,7 @@ class SalesOrderController extends Controller
             'title' => 'Total Price',
             'titleClass' => 'text-center',
             'dataClass' => 'text-center',
+            'callback' => 'currency',
         ],
 
         [
@@ -69,14 +70,7 @@ class SalesOrderController extends Controller
             'title' => 'Payable Amount',
             'titleClass' => 'text-center',
             'dataClass' => 'text-center',
-        ],
-
-        [
-            'name' => 'id',
-            'title' => 'View',
-            'titleClass' => 'text-center',
-            'dataClass' => 'text-center',
-            'callback' => 'linkify',
+            'callback' => 'currency',
         ],
     ]);
 

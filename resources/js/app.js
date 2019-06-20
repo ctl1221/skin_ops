@@ -22,6 +22,10 @@ Vue.component('my-calendar', require('./components/MyCalendar.vue').default);
 Vue.filter('currencyFormat', function (value) {
 	return value.toLocaleString('en-PH',{minimumFractionDigits: 2, maximumFractionDigits: 2});
 });
+
+Vue.filter('br', function (value) {
+	return value.replace(/<br\s*\/?>/mg,"\n");
+});
 // const app = new Vue({
 //     el: '#app'
 // });

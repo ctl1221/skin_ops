@@ -22,7 +22,7 @@
 
 	  	<div class="form-group" v-show="sms_type == 'Single'">
 	    	<label for="mobile_no">Mobile Number:</label>
-	    	<input type="text" class="form-control" id="mobile_no" name="mobile_no">
+	    	<input type="text" class="form-control" id="mobile_no" name="mobile_no" :required="sms_type == 'Single'">
 	  	</div>
 
 	  	<div class="form-group">

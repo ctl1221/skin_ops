@@ -1,6 +1,6 @@
 <div class="card">
-	<div class="card-body">
-		<table class="table table-bordered table-sm text-center align-middle">
+	<div class="card-body bg-light">
+		<table class="table table-bordered table-sm text-center align-middle my_table_shadow">
 			<tr>
 				<th>Date</th>
 				<th>Type</th>

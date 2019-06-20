@@ -1,40 +1,10 @@
 <?php
 
-Route::get('/', function(){
-    return redirect('/dashboard');
-});
-
-Route::get('/dashboard', function(){
-
-	$appointments = \App\Appointment::whereDate('start', \Carbon\Carbon::today())
-				->whereDate('end', \Carbon\Carbon::today()) 
-				->where('branch_id', Auth::user()->branch_id)
-				->get();
-
-	return view('dashboard', compact('appointments'));
-
-})->middleware('auth');
-
-
-Route::get('/settings', function(){
-
-	$branches = \App\Branch::all();
-
-	return view('settings', compact('branches'));
-
-})->middleware('auth');
-
-
-Route::post('/settings', function(){
-
-	$user = \App\User::find(Auth::id());
-	$user->branch_id = request()->branch_id;
-	$user->save();
-
-	return back()->with(['message' => 'Branch Updated', 'message_type' => 'info']);;
-});
-
-
+Route::get('/','UserController@home');
+Route::get('/dashboard','UserController@dashboard');
+Route::get('/settings','UserController@settings');
+Route::post('/settings','UserController@postSettings');
+Route::post('/userpass','UserController@updatePassword');
 
 //Master Data
 Route::get('/clients/search', 'ClientController@search');
@@ -203,10 +173,14 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 // Route::post('register', 'Auth\RegisterController@register');
 
 // Password Reset Routes...
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+// Email Verification Routes...
+Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
+Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
 //Auth::routes();
-//Route::get('/home', 'HomeController@index')->name('home');

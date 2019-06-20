@@ -40,15 +40,27 @@ class Payment extends Model
         return $this->payment_type->name;
     }
 
+
+    
+        
+
     public function getDocReferenceAttribute()
     {
     	if($this->parent_type == "App\\SalesOrder")
     	{
-    		$x = \App\SalesOrder::find($this->parent_id);
-    		return $x->is_posted ? "SO " . $x->so_number : "DT " . $x->so_number;
+            $x = \App\SalesOrder::find($this->parent_id);
+            $prefix = $x->is_posted ? "SO " : "DT ";
+
+    		return '<a href="/sales_orders/' . $this->id . '">' . 
+                $prefix . $x->so_number . 
+                "</a>";
     	}
+
         else if($this->parent_type == "App\\Client")
-        	return "PY " . $this->py_number;
+
+            return '<a href="/payments/' . $this->id . '">' . 
+                "PY " . $this->py_number . 
+                "</a>";
     }
 
     public function payment_type()
