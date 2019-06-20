@@ -2,10 +2,8 @@
 
 @section('heading')
 
-	<span class="mr-5"> 
-		{{ $client->display_name() }}
-	</span>
-	
+	{{ $client->display_name() }}
+
 	<div class="btn-group mr-2">
 		<div class="input-group-prepend">
 	      <div class="input-group-text">Create</div>
@@ -25,7 +23,6 @@
 	 	<a href="/payments" class="btn btn-outline-primary">Payments</a>
 	</div>
 
-	<span class="float-right">
 	<div class="btn-group">
 		@if( $client->to_claims()->count())
 			<a href="/clients/{{ $client->id }}/claim" 
@@ -41,9 +38,6 @@
 		@endif
 
 	</div>
-
-	</span>
-
 	
 @endsection
 
