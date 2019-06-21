@@ -144,6 +144,7 @@ class SalesOrderController extends Controller
             'reference' => $x->reference,
             'payment_type_id' => $x->id,
             'branch_id' => $request->branch_id,
+            'receptionist_id' => $request->receptionist_id,
           ]); 
         }
       }

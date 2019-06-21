@@ -53,7 +53,7 @@
 				<div class="form-group col">
 					<label for="receptionist">Receptionist:</label>
 					<input type="text" class="form-control" 
-					id="name" name="receptionist" value="{{ Auth::user()->name }}" disabled>
+					id="name" name="receptionist" value="{{ $sales_order->receptionist->name }}" disabled>
 				</div>
 			</div>
 

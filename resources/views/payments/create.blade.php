@@ -17,6 +17,12 @@
 
 				<input type="hidden" name="client_id" value="{{ $client->id }}">
 				<input type="hidden" name="branch_id" value="{{ Auth::user()->branch->id }}">
+				<input type="hidden" name="receptionist_id" value="{{ Auth::user()->id }}">
+
+				<div class="form-group">
+					<label for="receptionist">Receptionist:</label>
+					<input type="text" class="form-control" id="receptionist" value="{{ Auth::user()->name }}" disabled>
+				</div>
 
 				<div class="form-group">
 					<label for="branch">Branch:</label>

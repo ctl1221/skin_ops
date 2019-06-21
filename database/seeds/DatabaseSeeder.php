@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Member',
         ]);
 
-        Pricelist::create([
+        Product::create([
             'name' => 'Membership',
         ]);
 

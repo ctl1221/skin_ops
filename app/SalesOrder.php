@@ -17,6 +17,11 @@ class SalesOrder extends Model
             "</a>";
     }
 
+    public function receptionist()
+    {
+        return $this->belongsTo(User::class, 'receptionist_id');
+    }
+
     public function getTotalpriceAttribute()
     {
         return $this->total_price() - $this->total_discount();

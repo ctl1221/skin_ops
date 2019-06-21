@@ -12,7 +12,9 @@ class Client extends Model
 
     public function getFullnameAttribute()
     {
-        return $this->display_name();
+        return '<a href="/clients/' . $this->id . '">' . 
+            $this->display_name() . 
+            "</a>";
     }
 
     public function getPricelistNameAttribute()
@@ -59,6 +61,8 @@ class Client extends Model
     public function last_visit()
     {
         $latest_visits = History::where('client_id',$this->id)->orderBy('date','desc')->get();
+
+        $last_visit = 0;
 
         foreach($latest_visits as $x)
         {

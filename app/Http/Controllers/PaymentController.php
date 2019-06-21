@@ -103,6 +103,7 @@ class PaymentController extends Controller
                'payment_type_id' => $request->payment_type_id,
                'branch_id' => $request->branch_id,
                'py_number' => $current_py_number,
+               'receptionist_id' => $request->receptionist_id,
            ]); 
 
             History::create([

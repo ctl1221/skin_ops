@@ -30,7 +30,7 @@ class SMSPromotionController extends Controller
 
     public function store(Request $request)
     {
-        if($request->sms_type == 'Single')
+        if($request->sms_type == 'Single' && $request->mobile_no)
         {
             $content = str_replace('%Name%', \Auth::user()->name, $request->details);
 
@@ -43,8 +43,12 @@ class SMSPromotionController extends Controller
 
             foreach($clients as $client)
             {
-                $content = str_replace('%Name%', $client->first_name, $request->details);
-                SendSingleSms::dispatch($mobile_no = $client->mobile_number, $details = $content);
+                if($client->mobile_no)
+                {
+                    $content = str_replace('%Name%', $client->first_name, $request->details);
+                    SendSingleSms::dispatch($mobile_no = $client->mobile_number, $details = $content);
+                }
+                
             }
 
         }
@@ -54,8 +58,11 @@ class SMSPromotionController extends Controller
             $clients = Client::all();
             foreach($clients as $client)
             {
-                $content = str_replace('%Name%', $client->first_name, $request->details);
-                SendSingleSms::dispatch($mobile_no = $client->mobile_number, $details = $content);
+                if($client->mobile_no)
+                {
+                    $content = str_replace('%Name%', $client->first_name, $request->details);
+                    SendSingleSms::dispatch($mobile_no = $client->mobile_number, $details = $content);
+                }
             }
         }
 

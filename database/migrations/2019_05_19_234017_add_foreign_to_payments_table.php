@@ -15,6 +15,7 @@ class AddForeignToPaymentsTable extends Migration
     {
         Schema::table('payments', function (Blueprint $table) {
             $table->foreign('payment_type_id')->references('id')->on('payment_types')->onDelete('cascade');
+            $table->foreign('receptionist_id')->references('id')->on('users');
         });
     }
 
@@ -26,7 +27,7 @@ class AddForeignToPaymentsTable extends Migration
     public function down()
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->dropForeign(['payment_type_id']);
+            $table->dropForeign(['payment_type_id','receptionist_id']);
         });
     }
 }

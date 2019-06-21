@@ -144,7 +144,7 @@ class APIController extends Controller
 
 		$per_page = $request->per_page ? (int) $request->per_page : null;
 
-		return $sales_orders->paginate($per_page);
+		return $sales_orders->where('branch_id',\Auth::user()->branch_id)->paginate($per_page);
 	}
 
 	public function payments(Request $request)
@@ -171,7 +171,7 @@ class APIController extends Controller
 
 		$per_page = $request->per_page ? (int) $request->per_page : null;
 
-		return $payments->paginate($per_page);
+		return $payments->where('branch_id',\Auth::user()->branch_id)->paginate($per_page);
 	}
 
 	public function client_search(Request $request)

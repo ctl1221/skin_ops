@@ -52,13 +52,13 @@ class ClientController extends Controller
             'callback' => 'badgify',
         ],
         
-        [
-            'name' => 'id',
-            'title' => 'Details',
-            'titleClass' => 'text-center',
-            'dataClass' => 'text-center',
-            'callback' => 'linkify',
-        ],
+        // [
+        //     'name' => 'id',
+        //     'title' => 'Details',
+        //     'titleClass' => 'text-center',
+        //     'dataClass' => 'text-center',
+        //     'callback' => 'linkify',
+        // ],
     ]);
 
         return view('clients.index', compact('index_url', 'api_url', 'per_page', 'fields'));
