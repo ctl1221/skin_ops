@@ -15,7 +15,7 @@ class CreateSMSPromotionsTable extends Migration
     {
         Schema::create('s_m_s_promotions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('details');
+            $table->text('details');
             $table->string('type');
             $table->timestamps();
         });
