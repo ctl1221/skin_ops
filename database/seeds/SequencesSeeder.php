@@ -42,5 +42,14 @@ class SequencesSeeder extends Seeder
             'decimal_value' => 10001,
             'text_value' => '10001'
         ]);
+
+        Sequence::create([
+            'name' => 'Date Lock End',
+            'description' => 'Date Lock End',
+            'prefix' => 'DL',
+            'integer_value' => 10001,
+            'decimal_value' => 10001,
+            'text_value' => '2019-06-01'
+        ]);
     }
 }

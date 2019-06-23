@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Appointment;
 use App\Branch;
+use App\Sequence;
 Use Carbon\Carbon;
 
 use Validator;
@@ -68,6 +69,25 @@ class UserController extends Controller
 
         return view('users.settings', compact('branches'));
     }
+
+    public function systemSettings()
+    {
+
+        $date = Sequence::where('name','Date Lock End')->first()->text_value;
+
+        return view('users.system_settings', compact('date'));
+    }
+
+    public function postSystemSettings(Request $request)
+    {
+        $date = Sequence::where('name','Date Lock End')->first();
+        $date->text_value = $request->date;
+        $date->save();
+
+        return back()->with(['message' => 'System Settings Updated', 'message_type' => 'success']);
+    }
+
+
 
     public function postSettings(Request $request)
     {

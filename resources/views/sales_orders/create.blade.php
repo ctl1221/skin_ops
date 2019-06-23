@@ -19,7 +19,10 @@ Create Transaction - <a href="/clients/{{ $client->id }}">{{ $client->display_na
 					<div class="form-group col">
 						<label for="date">Date:</label>
 						<input type="date" class="form-control" 
-						id="date" name="date" value="{{\ Carbon\Carbon::now()->toDateString() }}"required>
+						id="date" name="date" 
+						value="{{\ Carbon\Carbon::now()->toDateString() }}" 
+						min="{{ $min_date }}"
+						required>
 					</div>
 
 					<div class="form-group col">

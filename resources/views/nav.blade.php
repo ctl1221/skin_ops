@@ -34,6 +34,7 @@
           <a class="dropdown-item" href="/sms_promotions">SMS Promotions</a>
           <a class="dropdown-item" href="/memberships">Memberships</a>
           <a class="dropdown-item" href="/payment_types">Payment Types</a>
+          <a class="dropdown-item" href="/system_settings">System Settings</a>
         </div>
     </li>
     @endRole

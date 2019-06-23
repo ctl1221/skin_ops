@@ -7,6 +7,9 @@ Route::post('/settings','UserController@postSettings');
 Route::post('/userpass','UserController@updatePassword');
 Route::post('/userroles','UserController@updateRoles');
 
+Route::get('/system_settings','UserController@systemSettings')->middleware('role:management');
+Route::post('/system_settings','UserController@postSystemSettings')->middleware('role:management');
+
 //Master Data
 Route::get('/clients/search', 'ClientController@search')->middleware('role:sales');
 

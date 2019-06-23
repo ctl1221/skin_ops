@@ -89,7 +89,9 @@ class SalesOrderController extends Controller
 
     $payment_types = PaymentType::where('is_active', '=' , 1)->get();
 
-    return view('sales_orders.create', compact('sellables', 'client', 'payment_types','employees'));
+    $min_date = Sequence::where('name','Date Lock End')->first()->text_value;
+
+    return view('sales_orders.create', compact('sellables', 'client', 'payment_types','employees','min_date'));
 
   }
 

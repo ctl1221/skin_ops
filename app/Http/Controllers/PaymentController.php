@@ -78,7 +78,9 @@ class PaymentController extends Controller
     {
         $payment_types = PaymentType::where('is_direct', 1)->get();
 
-        return view('payments.create', compact('client', 'payment_types'));
+        $min_date = Sequence::where('name','Date Lock End')->first()->text_value;
+
+        return view('payments.create', compact('client', 'payment_types','min_date'));
     }
 
     public function store(Request $request)
