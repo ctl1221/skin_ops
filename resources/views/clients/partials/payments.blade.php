@@ -19,9 +19,7 @@
 					<td rowspan="2" class="align-middle">
 						{{ $x->date }}
 					</td>
-				</tr>
 				@if($x->parent->totalprice && $x->parent->is_posted)
-					<tr>
 						<td>
 							Billed
 						</td>
@@ -31,8 +29,8 @@
 						<td>
 							PHP {{ number_format($rt += $x->parent->totalprice,2) }}
 						</td>
-					</tr>
 				@endif
+				</tr>
 
 				@if($x->parent->total_pay() && $x->parent->is_posted)
 					<tr>
