@@ -92,7 +92,7 @@ class ClientController extends Controller
 
     public function show(Client $client)
     {
-        $client = Client::with('histories','sales_orders','sales_order_lines','payment_histories')->find($$client->id);
+        $client = Client::with('histories','sales_orders','sales_order_lines','payment_histories')->find($client->id);
 
         $histories = History::with('parent')->where('client_id',$client->id)->orderBy('date','desc')->orderBy('id','desc')->get();
 
