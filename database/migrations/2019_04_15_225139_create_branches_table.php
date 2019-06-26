@@ -17,6 +17,7 @@ class CreateBranchesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->boolean('is_active')->default(1);
+            $table->string('color')->default('#888888');
             $table->timestamps();
         });
     }

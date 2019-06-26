@@ -16,7 +16,7 @@
 		@foreach($payments as $x)
 			@if($x->parent_type == 'App\\SalesOrder')
 				<tr>
-					<td rowspan="3" class="align-middle">
+					<td rowspan="2" class="align-middle">
 						{{ $x->date }}
 					</td>
 				</tr>
