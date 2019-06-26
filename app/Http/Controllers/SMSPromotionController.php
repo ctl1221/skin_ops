@@ -43,7 +43,7 @@ class SMSPromotionController extends Controller
 
             foreach($clients as $client)
             {
-                if($client->mobile_no)
+                if($client->mobile_number)
                 {
                     $content = str_replace('%Name%', $client->first_name, $request->details);
                     SendSingleSms::dispatch($mobile_no = $client->mobile_number, $details = $content);
@@ -58,7 +58,7 @@ class SMSPromotionController extends Controller
             $clients = Client::all();
             foreach($clients as $client)
             {
-                if($client->mobile_no)
+                if($client->mobile_number)
                 {
                     $content = str_replace('%Name%', $client->first_name, $request->details);
                     SendSingleSms::dispatch($mobile_no = $client->mobile_number, $details = $content);
