@@ -66,7 +66,14 @@ class Client extends Model
 
         foreach($latest_visits as $x)
         {
-            if($x->parent->claimed_by_id == $x->client_id)
+
+            if($x->parent_type == 'App\\SalesOrder')
+            {
+                $last_visit = $x->date;
+                break;
+            }
+
+            elseif($x->parent_type == 'App\\ClientClaim' && $x->parent->claimed_by_id == $x->client_id)
             {
                 $last_visit = $x->date;
                 break;
