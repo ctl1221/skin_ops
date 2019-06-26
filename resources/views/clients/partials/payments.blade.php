@@ -14,12 +14,11 @@
 			$rt = 0;
 		@endphp
 		@foreach($payments as $x)
-			@if($x->parent_type == 'App\\SalesOrder')
+			@if($x->parent_type == 'App\\SalesOrder' && $x->parent->is_posted)
 				<tr>
 					<td rowspan="2" class="align-middle">
 						{{ $x->date }}
 					</td>
-				@if($x->parent->totalprice && $x->parent->is_posted)
 						<td>
 							Billed
 						</td>
@@ -29,10 +28,8 @@
 						<td>
 							PHP {{ number_format($rt += $x->parent->totalprice,2) }}
 						</td>
-				@endif
 				</tr>
 
-				@if($x->parent->total_pay() && $x->parent->is_posted)
 					<tr>
 						<td>
 							Paid
@@ -44,7 +41,6 @@
 							PHP {{ number_format($rt -= $x->parent->total_pay(),2) }}
 						</td>
 					</tr>
-				@endif
 
 			@elseif($x->parent_type == 'App\\Payment')
 				<tr>
