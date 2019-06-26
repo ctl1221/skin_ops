@@ -1,5 +1,7 @@
-<table class="table table-sm table-bordered " style="background-color: white; box-shadow: 1px 1px #888888;">
+<table class="table table-sm table-bordered my_table_shadow">
 	<tr>
+		<td rowspan="5" width="1%" bgcolor="{{ $x->parent->branch->color }}"></td>
+		<td rowspan="5" width="1%" bgcolor="{{ $colors['Sales Color'] }}"></td>
 		<td class="text-center align-middle" rowspan="5" style="width: 30%">
 			{{ $x->parent->branch->name }}
 			<br />
@@ -44,7 +46,7 @@
 			@if( $x->parent->payments->whereIn('payment_type_id',[3, 4])->count() )
 				@foreach( $x->parent->payments as $z)
 					@if($z->payment_type->is_direct)
-						Paid: <u>{{ $z->payment_type->name }}</u> - 
+						Paid by <u>{{ $z->payment_type->name }}</u> : 
 						<b>{{ number_format($z->amount,2) }}</b>
 					@endif
 				@endforeach
@@ -59,5 +61,7 @@
 			Payables: {{ number_format($x->parent->payableamount, 2) }}
 		</td>
 	</tr>	
+
+
 
 </table>

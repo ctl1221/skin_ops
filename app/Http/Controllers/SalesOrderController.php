@@ -176,12 +176,30 @@ class SalesOrderController extends Controller
 
             $membership = Membership::findOrFail($x->sellable_id);
 
-            ClientMembership::create([
-              'client_id' => $sales_order->client->id,
-              'membership_id' => $x->sellable_id,
-              'date_start' => $sales_order->date,
-              'date_end' => Carbon::parse($sales_order->date)->addDays($membership->days_valid),
-            ]);
+              ClientMembership::create([
+                'client_id' => $sales_order->client->id,
+                'membership_id' => $x->sellable_id,
+                'date_start' => $sales_order->date,
+                'date_end' => Carbon::parse($sales_order->date)->addDays($membership->days_valid),
+              ]);
+
+              foreach($x->sellable->breakdowns as $y)
+              {
+                if($y->sellable_type == 'App\\Service')
+                {
+                  for($i = 0; $i < $y->quantity; $i++)
+                  {
+                    ClientClaim::create([
+                      'parent_type' => 'App\\SalesOrder',
+                      'parent_id' => $sales_order->id,
+                      'sellable_type' => $y->sellable_type,
+                      'sellable_id' => $y->sellable_id,
+                      'category_type' => 'App\\Membership',
+                      'category_id' => $x->sellable_id,
+                    ]);
+                  }
+                }
+              }
           }
 
           if($x->sellable_type == 'App\\Package')

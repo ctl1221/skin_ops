@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
 
         Product::create([
             'name' => 'Membership',
+            'is_active' => 0,
         ]);
 
         //$this->call(ItemsSeeder::class);

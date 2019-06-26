@@ -119,4 +119,21 @@ class PaymentController extends Controller
     	return redirect('/clients/' . $request->client_id)->with(['message' => 'Payment Created', 'message_type' => 'success']);
     }
 
+    public function destroy(Payment $payment, Request $request)
+    {
+        DB::transaction(function () use ($payment, $request) {
+            $payment->delete();
+
+            History::where([
+               'client_id' => $request->client_id,
+               'parent_type' => 'App\\Payment',
+               'parent_id' => $payment->id,
+           ])->delete();
+
+        });
+
+
+        return redirect('/clients/' . $request->client_id)->with(['message' => 'Payment Deleted', 'message_type' => 'danger']);
+    }
+
 }

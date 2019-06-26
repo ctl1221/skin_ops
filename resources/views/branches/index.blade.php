@@ -5,8 +5,7 @@
 	List of Branches 
 
 	<a href="/branches/create"><button type="button" class="btn btn-outline-success">+ New</button></a> 
-	<a href="/branches/edit"><button type="button" class="btn btn-outline-warning">Edit</button></a>
-	
+
 @endsection
 
 @section('contents')
@@ -17,6 +16,7 @@
 				<th>Name</th>
 				<th>Status</th>
 				<th>Edit Status</th>
+				<th>Color</th>
 			</tr>
 		</thead>	
 	
@@ -33,6 +33,9 @@
 			        </td>
 
 			        <td>
+			        	<span class="form-inline">
+			        	<a href="/branches/{{$x->id}}/edit"><button type="button" class="btn btn-outline-warning btn-sm">Edit</button></a>
+			        	&nbsp;&nbsp;
 			        	@if($x->is_active)
 							<form method="POST" action="/branches/{{$x->id}}/deactivate">
 							@csrf
@@ -45,7 +48,9 @@
 								<input type="submit" class="btn btn-outline-success btn-sm" value="Activate">
 							</form>
 						@endif
+					</span>
 					</td>
+					<td bgcolor="{{ $x->color }}"></td>
 				</tr>
 			@endforeach
 

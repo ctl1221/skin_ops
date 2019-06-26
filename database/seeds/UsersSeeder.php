@@ -35,8 +35,16 @@ class UsersSeeder extends Seeder
             'system' => 0
         ]);
 
+        $it_role_id = Role::create([
+            'name' => 'IT',
+            'slug' => 'it',
+            'description' => 'IT Access',
+            'system' => 0
+        ]);
+
         $admin_user->roles()->attach($sales_role_id);
         $admin_user->roles()->attach($management_role_id);
         $admin_user->roles()->attach($admin_role_id);
+        $admin_user->roles()->attach($it_role_id);
     }
 }

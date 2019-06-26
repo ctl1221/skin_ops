@@ -9,6 +9,7 @@ use App\Pricelist;
 use App\ClientMembership;
 use App\SalesOrder;
 use App\History;
+use App\Sequence;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -73,21 +74,19 @@ class ClientController extends Controller
 
     public function store(Request $request)
     {
-        $clients = Client::all();
-
-        Client::create([
+        $client = Client::create([
                 'last_name' => $request->last_name, 
                 'first_name' => $request->first_name,
                 'birthday' => $request->birthday,
                 'gender' => $request->gender,
-                'pricelist_id' => $request->pricelist_id,
+                'pricelist_id' => $request->pricelist_id ? 1 : 1,
                 'email' => $request->email,
                 'address' => $request->address,
                 'mobile_number' => $request->mobile_no,
-                'opt_out' => $request-> opt_out ? 1 : 0,
-                ]);
+                'opt_out' => $request->opt_out ? 1 : 0,
+            ]);
 
-        return redirect('/clients'); 
+        return redirect('/clients/' . $client->id); 
     }
 
     public function show(Client $client)
@@ -107,7 +106,9 @@ class ClientController extends Controller
             ->whereIn('parent_id', $sales_order_ids)
             ->get();
 
-        return view('clients.show', compact('client','histories','payments','claims'));
+        $colors = Sequence::colors();
+
+        return view('clients.show', compact('client','histories','payments','claims','colors'));
     }
 
     public function edit(Client $client)

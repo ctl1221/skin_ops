@@ -17,7 +17,7 @@ class CreateClientsTable extends Migration
             $table->bigIncrements('id');
             $table->string('last_name');
             $table->string('first_name');
-            $table->bigInteger('pricelist_id')->unsigned()->index()->default(1);
+            $table->bigInteger('pricelist_id')->default(1);
             $table->boolean('is_active')->default(1);
             $table->date('birthday')->nullable();
             $table->string('email')->nullable();

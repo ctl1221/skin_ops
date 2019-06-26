@@ -8,31 +8,45 @@
 
 	<div class="container">
 
-		<form method="post" action="/branches/update">
+		<form method="post" action="/branches/{{$branch->id}}">
 
 		@csrf
 
 		<form class = "form-horizontal">
 
-		@foreach($branches as $x)
-
 			<div class="form-group">
-			    <label for="branch_name">Current Name: {{ $x->name }}</label>
-
-			    <div>
-			    <input type="text" class="form-control" id="{{ $x->name }}" name="{{ $x->id }}" value="{{ $x->name }}" required>
-				</div>
+			    <label for="name">Name:</label>
+			    <input type="text" class="form-control" id="name" name="name" value="{{ $branch->name }}" required>
 			</div>
 
-		@endforeach
+			<color-picker v-model="colors"></color-picker>
+			<input type="hidden" name="color" v-model="colors.hex">
 
 		<br>
 
 		<button type="submit" class="btn btn-warning">Update</button>
-		<a href="/branches"><button type="button" class="btn btn-danger">Cancel</button>
-		
+		<a href="/branches" class="btn btn-danger">Cancel</a>
+
 		</form>
 
+
+
 	</div>
+
+@endsection
+
+@section('scripts')
+
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app', 
+		
+		data: {
+			colors: {
+			  hex: '{{ $branch->color }}',
+			}
+		}
+	})
+</script>
 
 @endsection

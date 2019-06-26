@@ -70,8 +70,8 @@ Route::patch('/users/{user}','UserController@update')->middleware('role:admin');
 Route::get('/branches','BranchController@index')->middleware('role:management');
 Route::get('/branches/create','BranchController@create')->middleware('role:management');
 Route::post('/branches','BranchController@store')->middleware('role:management');
-Route::get('/branches/edit','BranchController@edit')->middleware('role:management');
-Route::post('/branches/update','BranchController@update')->middleware('role:management');
+Route::get('/branches/{branch}/edit','BranchController@edit')->middleware('role:management');
+Route::post('/branches/{branch}','BranchController@update')->middleware('role:management');
 
 Route::get('/pricelists','PricelistController@index')->middleware('role:management');
 Route::get('/pricelists/create','PricelistController@create')->middleware('role:management');
@@ -137,6 +137,7 @@ Route::get('/payments', 'PaymentController@index')->middleware('role:sales');
 Route::get('/payments/{payment}', 'PaymentController@show')->middleware('role:sales');
 Route::get('/payments/create/client/{client}', 'PaymentController@create')->middleware('role:sales');
 Route::post('/payments', 'PaymentController@store')->middleware('role:sales');
+Route::post('/payments/{payment}', 'PaymentController@destroy')->middleware('role:management');
 
 //Management
 Route::get('/sms_promotions', 'SMSPromotionController@index')->middleware('role:management');

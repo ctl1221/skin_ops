@@ -72,22 +72,46 @@ class UserController extends Controller
 
     public function systemSettings()
     {
-
         $date = Sequence::where('name','Date Lock End')->first()->text_value;
+        $salesColor = Sequence::where('name','Sales Color')->first()->text_value;
+        $claimColor = Sequence::where('name','Claim Color')->first()->text_value;
+        $gaveColor = Sequence::where('name','Gave Color')->first()->text_value;
+        $receivedColor = Sequence::where('name','Received Color')->first()->text_value;
+        $paymentColor = Sequence::where('name','Payment Color')->first()->text_value;
 
-        return view('users.system_settings', compact('date'));
+        return view('users.system_settings', compact('date','salesColor','gaveColor','claimColor','receivedColor','paymentColor'));
     }
 
     public function postSystemSettings(Request $request)
     {
+
         $date = Sequence::where('name','Date Lock End')->first();
         $date->text_value = $request->date;
         $date->save();
 
+        $color = Sequence::where('name','Sales Color')->first();
+        $color->text_value = $request->sales_color;
+        $color->save();
+
+        $color = Sequence::where('name','Payment Color')->first();
+        $color->text_value = $request->payment_color;
+        $color->save();
+
+        $color = Sequence::where('name','Claim Color')->first();
+        $color->text_value = $request->claim_color;
+        $color->save();
+
+        $color = Sequence::where('name','Gave Color')->first();
+        $color->text_value = $request->gave_color;
+        $color->save();
+
+        $color = Sequence::where('name','Received Color')->first();
+        $color->text_value = $request->received_color;
+        $color->save();
+
+
         return back()->with(['message' => 'System Settings Updated', 'message_type' => 'success']);
     }
-
-
 
     public function postSettings(Request $request)
     {
@@ -129,6 +153,11 @@ class UserController extends Controller
             $user->roles()->attach(3);
         else
             $user->roles()->detach(3);
+
+        if($request->it)
+            $user->roles()->attach(4);
+        else
+            $user->roles()->detach(4);
 
         $user->save();
 

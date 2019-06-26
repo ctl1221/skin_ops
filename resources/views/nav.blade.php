@@ -64,8 +64,10 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/users">Users</a>
-          <a class="dropdown-item" href="/bugs">Bugs</a>
-          <a class="dropdown-item" href="/horizon" target="_blank">Laravel Horizon</a>
+          @role('it')
+            <a class="dropdown-item" href="/bugs">Bugs</a>
+            <a class="dropdown-item" href="/horizon" target="_blank">Laravel Horizon</a>
+          @endRole
         </div>
     </li>
     @endRole

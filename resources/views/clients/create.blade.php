@@ -51,6 +51,7 @@
 	  	</select>
 	</div>
 
+	@role('management')
 	<div class="form-group">
   		<label for="select_pricelist">Select Pricelist:</label>
   		<select class="form-control" id="select_pricelist" name="pricelist_id">
@@ -59,6 +60,7 @@
 		    @endforeach
 	  	</select>
 	</div>
+	@endRole
 
 	<div class="form-check">
 	  <input class="form-check-input" type="checkbox" id="opt_out" name="opt_out">

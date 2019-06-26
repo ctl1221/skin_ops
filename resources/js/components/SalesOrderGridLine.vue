@@ -1,7 +1,7 @@
-<template>
+    <template>
     <tr>
         <td>
-            <select v-model="sel_sellable_type">
+            <select v-model="sel_sellable_type" class="form-control-sm">
                 <option value="App\Product">Products</option>
                 <option value="App\Service">Services</option>
                 <option value="App\Package">Packages</option>
@@ -10,7 +10,7 @@
         </td>
 
         <td>
-            <select v-model="sel_sellable_id">
+            <select v-model="sel_sellable_id" class="form-control-sm">
                 <option v-for="(x, index) in sellables" 
                         v-if="x.sellable_type == sel_sellable_type && x.sellable.is_active == 1" 
                         :value="x.sellable_id">{{x.sellable.name}}
@@ -19,11 +19,11 @@
         </td>
 
         <td>
-            <input type="number" v-model="sel_price" min="0" :disabled="price_disable">
+            <vue-numeric v-model="sel_price" min="0" :disabled="price_disable" class="text-center"></vue-numeric>
         </td>
 
         <td>
-            <select v-model="sel_sold_by_id">
+            <select v-model="sel_sold_by_id" class="form-control-sm">
                 <option value="">----------------------</option>
                 <option v-for="(x, index) in employees" 
                         :value="x.id">{{x.last_name + ', ' + x.first_name }}
@@ -33,7 +33,7 @@
 
         <template v-if="sel_sellable_type == 'App\\Service'">
             <td>
-                <select v-model="sel_treated_by_id">
+                <select v-model="sel_treated_by_id" class="form-control-sm"> 
                     <option value="">----------------------</option>
                     <option v-for="(x, index) in employees" 
                             v-if="x.is_aesthetician == 1 || x.is_doctor == 1"
@@ -43,7 +43,7 @@
             </td>
 
             <td>
-                <select v-model="sel_assisted_by_id">
+                <select v-model="sel_assisted_by_id" class="form-control-sm">
                     <option value="">----------------------</option>
                     <option v-for="(x, index) in employees" 
                             v-if="x.is_aesthetician == 1"

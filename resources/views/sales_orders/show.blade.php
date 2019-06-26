@@ -109,7 +109,7 @@
 						<tr>
 							<td>{{ substr($x->sellable_type, 4)}}</td>
 							<td>{{ $x->sellable->name}}</td>
-							<td>{{ $x->price }}</td>
+							<td>{{ number_format($x->price,2) }}</td>
 							<td>{{ $x->seller ? $x->seller->display_name() : '---' }}</td>
 							<td>{{ $x->treater ? $x->treater->display_name() : '---' }}</td>
 							<td>{{ $x->assistant ? $x->assistant->display_name() : '---' }}</td>
@@ -182,7 +182,7 @@
 						@if($x->payment_type->is_direct || $x->payment_type->is_external)
 						<tr>
 							<td>{{ $x->payment_type->name }}</td>
-							<td>{{ $x->amount }}</td>
+							<td>{{ number_format($x->amount,2) }}</td>
 							<td>{{ $x->reference }}</td>
 						</tr>
 						@endif
@@ -205,7 +205,7 @@
 								Total Bill
 							</td>
 							<td>
-								{{ $a = $sales_order->total_price() }}
+								{{ number_format($a = $sales_order->total_price(), 2) }}
 							</td>
 						</tr>
 						<tr>
@@ -213,7 +213,7 @@
 								Less: Discounts 
 							</td>
 							<td>
-								{{ $b = $sales_order->total_discount() }}
+								{{ number_format($b = $sales_order->total_discount(), 2) }}
 							</td>
 						</tr>
 						<tr>
@@ -222,7 +222,7 @@
 								Total Pay
 							</td>
 							<td>
-								{{ $c = $sales_order->total_pay() }}
+								{{ number_format($c = $sales_order->total_pay(), 2) }}
 							</td>
 						</tr>
 						<tr>
@@ -230,7 +230,7 @@
 								Remaining Balance
 							</td>
 							<td>
-								{{ $a - $b - $c }}
+								{{ number_format($a - $b - $c,2) }}
 							</td>
 						</tr>
 					</table>

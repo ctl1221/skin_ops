@@ -1,6 +1,20 @@
 <table class="table table-sm table-bordered my_table_shadow">
 
 	<tr>
+		<td rowspan="5" width="1%" bgcolor="{{ $x->parent->branch->color }}"></td>
+
+		@if($x->parent->claimed_by_id == $client->id && $x->parent->parent->client_id == $client->id)
+		<td rowspan="5" width="1%" bgcolor="{{ $colors['Claim Color'] }}"></td>
+
+		@elseif($x->parent->claimed_by_id == $client->id && $x->parent->parent->client_id != $client->id)
+
+		<td rowspan="5" width="1%" bgcolor="{{ $colors['Received Color'] }}"></td>
+
+		@else
+
+		<td rowspan="5" width="1%" bgcolor="{{ $colors['Gave Color'] }}"></td>
+
+		@endif
 		<td class="text-center align-middle" rowspan="5" style="width: 30%">
 			{{ $x->parent->branch->name }} <br/>
 

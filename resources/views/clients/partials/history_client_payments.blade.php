@@ -1,5 +1,7 @@
-<table class="table table-sm table-bordered " style="background-color: white; box-shadow: 1px 1px #888888;">
+<table class="table table-sm table-bordered my_table_shadow">
 	<tr>
+		<td rowspan="6" width="1%" bgcolor="{{ $x->parent->branch->color }}"></td>
+		<td rowspan="6" width="1%" bgcolor="{{ $colors['Payment Color'] }}"></td>
 		<td class="text-center align-middle" rowspan="6" style="width: 30%">
 			{{ $x->parent->branch->name }}
 			<br />

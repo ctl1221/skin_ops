@@ -11,6 +11,8 @@
 		</li>
 	</ol>
 </nav> 
+
+
 </div>
 @endsection
 
@@ -58,6 +60,16 @@
 			</div>
 		</div>
 	</div>
+
+	@role('management')
+	<div class="mt-3">
+		<form method="post" action="/payments/{{ $payment->id }}">
+			@csrf
+			<input type="hidden" name="client_id" value="{{ $payment->parent_id }}">
+			<input type="submit" value="Delete" class="btn btn-outline-danger btn-block">
+		</form>
+	</div>
+	@endRole
 </div>
 
 @endsection

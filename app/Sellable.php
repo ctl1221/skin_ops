@@ -32,4 +32,26 @@ class Sellable extends Model
 
     	return $services;
     }
+
+    public static function active()
+    {
+        $products = DB::table('products')
+                    ->select('id as sellable_id')
+                    ->addSelect('name')
+                    ->addSelect(DB::raw("'Product' as sellable_type"))
+                    ->where('is_active',1)
+                    ->orderBy('name', 'asc');
+
+        $services = DB::table('services')
+                    ->select('id as sellable_id')
+                    ->addSelect('name')
+                    ->addSelect(DB::raw("'Service' as sellable_type"))
+                    ->where('is_active',1)
+                    ->orderBy('name', 'asc')
+                    ->union($products)
+                    ->orderBy('name', 'asc')
+                    ->get();
+
+        return $services;
+    }
 }

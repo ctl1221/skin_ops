@@ -69,7 +69,7 @@
         default-view="week"
         :disable-views="['years','year']"
 
-        :time-from="12 * 60" 
+        :time-from="9 * 60" 
         :time-to="22 * 60" 
         :time-step="30"
 

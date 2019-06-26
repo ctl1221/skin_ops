@@ -54,7 +54,11 @@ List of Users
 						<div class="form-check form-check-inline">
 						  <input class="form-check-input" type="checkbox" id="admin" name="admin" {{ $x->hasRole('admin') ? "checked" : ""}}>
 						  <label class="form-check-label" for="admin">Admin</label>
-						  
+						</div>
+
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="checkbox" id="it" name="it" {{ $x->hasRole('it') ? "checked" : ""}}>
+						  <label class="form-check-label" for="it">IT</label>
 						</div>
 
 						<button class="btn btn-sm btn-warning">Update</button>

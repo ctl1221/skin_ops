@@ -28,7 +28,7 @@ class MembershipController extends Controller
 
     public function create()
     {
-    	$sellables = Sellable::everything();
+    	$sellables = Sellable::active();
         $membership_product = Product::find(1)->name;
 
     	return view('memberships.create', compact('sellables','membership_product'));
