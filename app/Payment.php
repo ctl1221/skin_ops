@@ -51,7 +51,7 @@ class Payment extends Model
             $x = \App\SalesOrder::find($this->parent_id);
             $prefix = $x->is_posted ? "SO " : "DT ";
 
-    		return '<a href="/sales_orders/' . $this->id . '">' . 
+    		return '<a href="/sales_orders/' . $this->parent_id . '">' . 
                 $prefix . $x->so_number . 
                 "</a>";
     	}

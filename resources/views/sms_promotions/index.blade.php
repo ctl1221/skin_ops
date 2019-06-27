@@ -26,7 +26,7 @@ List of SMS Promotions Sent
 			@foreach ($sms_promotions as $x)
 			<tr>
 				<td class="align-middle" width="15%">{
-					{ $x->created_at->toFormattedDateString() }}
+					{{ $x->created_at->toFormattedDateString() }}
 				</td>
 				<td class="text-left" width="70%">{!! nl2br($x->details) !!}</td>
 				<td class="align-middle" width="15%">{{ $x->type }}</td>
