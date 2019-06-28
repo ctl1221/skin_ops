@@ -57,9 +57,10 @@ import gridline from './SalesOrderGridLine.vue'
 
 export default {
   components: { gridline },
-  props: ['sellables','employees','client_id','price_disable'],
+  props: ['u_sellables','employees','client_id','price_disable','ordered_ids'],
   data() {
     return {
+      sellables:[],
       sales_order_lines: [],
       next_id: 1,
     };
@@ -119,7 +120,25 @@ export default {
     },
   },
 
-  mounted() {
+  created() {
+    let type = ['App\\Service','App\\Product','App\\Package','App\\Membership'];
+    for(var i = 0; i < type.length; i++)
+    {
+      for(var j = 0; j < this.ordered_ids[type[i]].length; j++)
+      {
+        for(var k = 0; k < this.u_sellables.length; k++)
+        {
+          if(this.u_sellables[k].sellable_type == type[i])
+          {
+            if(this.ordered_ids[type[i]][j] == this.u_sellables[k].sellable_id)
+            {
+              this.sellables.push(this.u_sellables[k]);
+              break;
+            }
+          }
+        }
+      }
+    }
     this.addLine();
   }
 }

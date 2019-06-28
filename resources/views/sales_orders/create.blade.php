@@ -50,10 +50,11 @@ Create Transaction - <a href="/clients/{{ $client->id }}">{{ $client->display_na
 				<sales-order-grid 
 					@zeroed="submittable = false"
 					@nonzeroed="submittable = true"
-					:sellables="{{ $sellables }}"
+					:u_sellables="{{ $sellables }}"
 					:employees="{{ $employees }}"
 					:client_id="{{ $client->id }}"
 					:price_disable="true"
+					:ordered_ids="{{ $ordered_ids }}"
 					@totalpricechanged = "totalPrice = $event.totalPrice"
 				></sales-order-grid>
 

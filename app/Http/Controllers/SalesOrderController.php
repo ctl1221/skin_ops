@@ -79,11 +79,21 @@ class SalesOrderController extends Controller
 
   public function create(Client $client)
   {
-
-
     $sellables = PricelistSellable::where('pricelist_id',$client->pricelist_id)
                 ->with('sellable')
                 ->get();
+
+    //For Alphabetizing
+    $o_service_ids = \App\Service::orderBy('name')->pluck('id');
+    $o_product_ids = \App\Product::orderBy('name')->pluck('id');
+    $o_package_ids = \App\Package::orderBy('name')->pluck('id');
+    $o_membership_ids = \App\Membership::orderBy('name')->pluck('id');
+    $ordered_ids['App\\Service'] = $o_service_ids;
+    $ordered_ids['App\\Product'] = $o_product_ids;
+    $ordered_ids['App\\Package'] = $o_package_ids;
+    $ordered_ids['App\\Membership'] = $o_membership_ids;
+
+    $ordered_ids = json_encode($ordered_ids);
 
     $employees = Employee::where('is_active',1)->orderBy('last_name','asc')->get();
 
@@ -91,7 +101,7 @@ class SalesOrderController extends Controller
 
     $min_date = Sequence::where('name','Date Lock End')->first()->text_value;
 
-    return view('sales_orders.create', compact('sellables', 'client', 'payment_types','employees','min_date'));
+    return view('sales_orders.create', compact('sellables', 'client', 'payment_types','employees','min_date','ordered_ids'));
 
   }
 
