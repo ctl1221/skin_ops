@@ -19,7 +19,7 @@
         </td>
 
         <td>
-            <vue-numeric v-model="sel_price" :disabled="sel_price_disabled" class="text-center"></vue-numeric>
+            <vue-numeric v-model="sel_price" :disabled="sel_price_disabled" class="text-center" precision="2"></vue-numeric>
         </td>
 
         <td>
