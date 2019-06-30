@@ -88,7 +88,7 @@ Route::patch('/payment_types/{payment_type}/update','PaymentTypeController@updat
 Route::get('/memberships','MembershipController@index')->middleware('role:management');
 Route::get('/memberships/create','MembershipController@create')->middleware('role:management');
 Route::post('/memberships','MembershipController@store')->middleware('role:management');
-Route::get('/memberships/edit','MembershipController@edit')->middleware('role:management');
+Route::get('/memberships/{membership}/edit','MembershipController@edit')->middleware('role:management');
 Route::post('/memberships/update','MembershipController@update')->middleware('role:management');
 
 //Modify

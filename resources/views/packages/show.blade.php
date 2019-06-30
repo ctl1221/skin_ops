@@ -43,5 +43,19 @@
 				@endforeach	
 			</table>
 		</div>
+
+		<h3>
+			@if($package->is_active)
+				<span class="badge badge-success">Active</span>
+			@else
+				<span class="badge badge-danger">Inactive</span>
+			@endif
+
+			@if($package->price_edit_enabled)
+				<span class="badge badge-warning">Price Edit Enabled</span>
+			@else
+				<span class="badge badge-primary">Price Edit Disabled</span>
+			@endif
+		</h3>
 	</div>
 @endsection 

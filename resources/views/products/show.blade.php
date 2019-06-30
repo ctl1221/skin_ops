@@ -30,6 +30,20 @@
 			</tr>
 			@endforeach
 		</table>
+
+		<h3>
+			@if($product->is_active)
+				<span class="badge badge-success">Active</span>
+			@else
+				<span class="badge badge-danger">Inactive</span>
+			@endif
+
+			@if($product->price_edit_enabled)
+				<span class="badge badge-warning">Price Edit Enabled</span>
+			@else
+				<span class="badge badge-primary">Price Edit Disabled</span>
+			@endif
+		</h3>
 		
 	</div>
 

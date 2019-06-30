@@ -48,6 +48,9 @@ List of Memberships
 				<span class="badge {{ $x->is_active ? 'badge-success': 'badge-danger' }}">
 					{{ $x->is_active ? 'Active' : 'Inactive' }} 
 				</span>
+				<span class="badge {{ $x->price_edit_enabled ? 'badge-warning': 'badge-primary' }}">
+					{{ $x->is_active ? 'Price Edit Enabled' : 'Price Edit Disabled' }} 
+				</span>
 			</td>
 			@endif
 		</tr>	

@@ -26,6 +26,14 @@ Edit Product: {{ $product->name }}
 		</div>
 		@endforeach
 
+		<div class="form-check">
+		  <input class="form-check-input" type="checkbox" id="price_edit_enabled" name="price_edit_enabled" value="1" 
+		  {{ $product->price_edit_enabled ? "checked": ""}}>
+		  <label class="form-check-label" for="price_edit_enabled">
+		    Price Editing Enabled
+		  </label>
+		</div>
+
 		<br/>
 
 		<button type="submit" class="btn btn-warning">Update</button>

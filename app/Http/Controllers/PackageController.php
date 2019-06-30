@@ -42,6 +42,15 @@ class PackageController extends Controller
             'dataClass' => 'text-center',
             'callback' => 'badgify',
         ],
+
+        [
+            'name' => 'price_edit_enabled',
+            'sortField' => 'price_edit_enabled',
+            'title' => 'Price Edit',
+            'titleClass' => 'text-center',
+            'dataClass' => 'text-center',
+            'callback' => 'edify',
+        ],
         
         [
             'name' => 'id',
@@ -118,6 +127,7 @@ class PackageController extends Controller
 
         DB::transaction(function () use ($request, $package, $pricelists) {
             $package->name = $request->package_name;
+            $package->price_edit_enabled = $request->price_edit_enabled ? 1 : 0;
             $package->save();
 
             foreach ($pricelists as $x)

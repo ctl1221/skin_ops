@@ -31,7 +31,21 @@
 			</tr>
 			@endforeach
 		</table>
-		
+
+		<h3>
+			@if($service->is_active)
+				<span class="badge badge-success">Active</span>
+			@else
+				<span class="badge badge-danger">Inactive</span>
+			@endif
+
+			@if($service->price_edit_enabled)
+				<span class="badge badge-warning">Price Edit Enabled</span>
+			@else
+				<span class="badge badge-primary">Price Edit Disabled</span>
+			@endif
+		</h3>
+
 	</div>
 
 @endsection

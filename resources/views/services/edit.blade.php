@@ -18,8 +18,6 @@ Edit Service: {{ $service->name }}
 			<input type="text" class="form-control" id="service_name" name="service_name" value="{{ $service->name }}" required>
 		</div>
 
-		<br/>
-
 		@foreach($service->pricelists as $x)
 		<div class="form-group">
 			<label for="{{ $x->pricelist->name }}">{{ $x->pricelist->name }} Price:</label>
@@ -27,7 +25,17 @@ Edit Service: {{ $service->name }}
 		</div>
 		@endforeach
 
-		<br/>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" id="price_edit_enabled" name="price_edit_enabled" value="1" 
+			  {{ $service->price_edit_enabled ? "checked": ""}}>
+			<label class="form-check-label" for="price_edit_enabled">
+		    	Price Editing Enabled
+		  	</label>
+		</div>
+
+		<br>
+
+		
 
 		<button type="submit" class="btn btn-warning">Update</button>
 		<a href="/services"><button type="button" class="btn btn-danger">Cancel</button>

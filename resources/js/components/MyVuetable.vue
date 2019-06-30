@@ -82,6 +82,12 @@ export default {
         : '<span class="badge badge-danger">Inactive</span>'
     },
 
+    edify (value) {
+      return value == 1
+        ? '<span class="badge badge-primary">Enabled</span>'
+        : '<span class="badge badge-success">Disabled</span>'
+    },
+
     onPaginationData (paginationData) {
       this.$refs.pagination.setPaginationData(paginationData);
       this.$refs.paginationInfo.setPaginationData(paginationData);
