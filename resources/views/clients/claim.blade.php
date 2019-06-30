@@ -16,7 +16,11 @@
 		<div class="row">
 			<div class="form-group col">
 				<label for="claimed_by_date">Date:</label>
-				<input class="form-control" type="date" name="claimed_by_date" id="claimed_by_date" 
+				<input class="form-control" 
+				type="date" 
+				name="claimed_by_date" 
+				id="claimed_by_date" 
+				min="{{ $min_date }}"
 					value="{{ \Carbon\Carbon::now()->toDateString() }}" required>
 			</div>
 

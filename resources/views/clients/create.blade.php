@@ -72,7 +72,21 @@
 	<br/>
 
   	<button type="submit" class="btn btn-primary">Create</button>
+
+  	@php
+  		$showAllClients = false;
+  	@endphp
+  	@hasRole('management')
+  	@php
+  		$showAllClients = true;
+  	@endphp
+  	@endHasRole
+
+  	@if($showAllClients)
   	<a href="/clients"><button type="button" class="btn btn-danger">Cancel</button>
+  	@else
+  	<a href="/clients/search"><button type="button" class="btn btn-danger">Cancel</button>
+  	@endif
 
 	</form>
 </div>

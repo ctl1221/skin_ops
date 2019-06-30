@@ -19,7 +19,7 @@
         </td>
 
         <td>
-            <vue-numeric v-model="sel_price" :disabled="price_disable" class="text-center"></vue-numeric>
+            <vue-numeric v-model="sel_price" :disabled="sel_price_disabled" class="text-center"></vue-numeric>
         </td>
 
         <td>
@@ -78,7 +78,7 @@
 <script>
 
     export default {
-        props: ['sellables','employees','price_disable'],
+        props: ['sellables','employees'],
         
         data() {
             return {
@@ -88,6 +88,7 @@
                 sel_sold_by_id: '',
                 sel_treated_by_id: '',
                 sel_assisted_by_id: '',
+                sel_price_disabled: true,
             };
         },
 
@@ -120,6 +121,7 @@
                         this.sellables[i].sellable_id == newVal)
                     {
                         this.sel_price = this.sellables[i].price;
+                        this.sel_price_disabled = this.sellables[i].sellable.price_edit_enabled ? false : true;
                         return;
                     }
                 }

@@ -18,6 +18,7 @@ class CreateMembershipsTable extends Migration
             $table->string('name');
             $table->integer('days_valid')->default(365);
             $table->boolean('is_active')->default(1);
+            $table->boolean('price_edit_enabled')->default(0);
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ class CreatePackagesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->boolean('is_active')->default(1);
+            $table->boolean('price_edit_enabled')->default(0);
             $table->timestamps();
         });
     }

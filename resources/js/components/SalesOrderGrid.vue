@@ -57,7 +57,7 @@ import gridline from './SalesOrderGridLine.vue'
 
 export default {
   components: { gridline },
-  props: ['u_sellables','employees','client_id','price_disable','ordered_ids'],
+  props: ['u_sellables','employees','client_id','ordered_ids'],
   data() {
     return {
       sellables:[],

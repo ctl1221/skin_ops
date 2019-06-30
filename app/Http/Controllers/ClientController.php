@@ -120,19 +120,22 @@ class ClientController extends Controller
 
     public function update(Request $request, Client $client)
     {
-        Client::where('id', $client->id)
-                            ->update([
-                                'last_name' => $request->last_name, 
-                                'first_name' => $request->first_name,
-                                'birthday' => $request->birthday,
-                                'gender' => $request->gender,
-                                'pricelist_id' => $request->pricelist_id,
-                                'email' => $request->email,
-                                'address' => $request->address,
-                                'mobile_number' => $request->mobile_no,
-                                'opt_out' => $request-> opt_out ? 1 : 0,
-                            ]);
+        $client->last_name = $request->last_name;
+        $client->first_name = $request->first_name;
+        $client->birthday = $request->birthday;
+        $client->gender = $request->gender;
+        $client->email = $request->email;
+        $client->address = $request->address;
+        $client->mobile_number = $client->mobile_no;
+        $client->opt_out = $request->opt_out ? 1 : 0;
 
+        if($request->pricelist_id)
+        {
+            $client->pricelist_id = $request->pricelist_id;
+        }
+
+        $client->save();
+        
         return redirect('/clients/' . $client->id);
     }
 
@@ -154,7 +157,9 @@ class ClientController extends Controller
             ->orderBy('last_name', 'asc')
             ->get();
 
-        return view('clients.claim', compact('client', 'treated_by', 'assisted_by'));
+        $min_date = Sequence::where('name','Date Lock End')->first()->text_value;
+
+        return view('clients.claim', compact('client', 'treated_by', 'assisted_by','min_date'));
     }
 
     public function claimPost(Client $client, Request $request)
