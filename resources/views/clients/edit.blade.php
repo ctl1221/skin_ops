@@ -34,7 +34,7 @@
 
 	<div class="form-group">
 		<label for="mobile_no">Mobile Number:</label>
-		<input type="tel" class="form-control" id="mobile_no" name="mobile_no" value="{{ $client->mobile_number }}" placeholder="+639xxxxxxxxxx number format">
+		<input type="tel" class="form-control" id="mobile_no" name="mobile_no" value="{{ $client->mobile_number }}" placeholder="639xxxxxxxxxx number format">
 	</div>
 
 	<div class="form-group">
