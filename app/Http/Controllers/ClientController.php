@@ -126,7 +126,7 @@ class ClientController extends Controller
         $client->gender = $request->gender;
         $client->email = $request->email;
         $client->address = $request->address;
-        $client->mobile_number = $client->mobile_no;
+        $client->mobile_number = $request->mobile_no;
         $client->opt_out = $request->opt_out ? 1 : 0;
 
         if($request->pricelist_id)
