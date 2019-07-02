@@ -57,7 +57,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="createEvent" :disabled="! canCreateEvent">Save changes</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="createEvent" :disabled="! canCreateEvent">Book</button>
                     </div>
 
                 </div>

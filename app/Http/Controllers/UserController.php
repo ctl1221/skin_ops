@@ -6,6 +6,7 @@ use App\User;
 use App\Appointment;
 use App\Branch;
 use App\Sequence;
+use App\SalesOrder;
 Use Carbon\Carbon;
 
 use Validator;
@@ -60,7 +61,12 @@ class UserController extends Controller
                 ->where('branch_id',\Auth::user()->branch_id)
                 ->get();
 
-        return view('users.dashboard', compact('appointments'));
+        $quota = config('to_be_changed',600000);
+    
+        $current = 50000/$quota;
+        $over = $current > 1 ? ($current - 1) : 0;
+
+        return view('users.dashboard', compact('appointments','quota', 'current','over'));
     }
 
     public function settings()
