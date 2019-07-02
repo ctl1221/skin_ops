@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
         $schedule->command('membership:check')->everyMinute();   
+        $schedule->command('report:daily_sales')->dailyAt('22:30'); 
 
     }
 
