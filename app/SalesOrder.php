@@ -78,7 +78,7 @@ class SalesOrder extends Model
 
         foreach($this->payments as $x)
         {
-            if($x->payment_type->is_direct)
+            if($x->payment_type->is_direct || $x->payment_type->is_external)
             {
                 $total += $x->amount;
             }

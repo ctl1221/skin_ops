@@ -19,13 +19,17 @@ My Dashboard
         <b>Under Construction...</b>
         <br>
 
-        Base
-        <div class="progress mb-2">
-          <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $current * 100 }}%" aria-valuenow="{{ $current * 100 }}" aria-valuemin="0" aria-valuemax="100"></div>
+        Base - {{ number_format($current * $quota) }} / {{ number_format($quota) }}
+        <div class="progress mb-2" style="height: 30px;">
+          <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $current * 100 }}%" aria-valuenow="{{ $current * 100 }}" aria-valuemin="0" aria-valuemax="100">
+              {{ number_format($current * 100 > 100 ? 100 : $current * 100) }}%
+          </div>
         </div>
-        Over
-        <div class="progress mb-2">
-          <div class="progress-bar bg-success" role="progressbar" style="width: {{ $over * 100 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="{{ $over * 100 }}"></div>
+        Over - {{ number_format($over * $quota) }}
+        <div class="progress mb-2" style="height: 30px;">
+          <div class="progress-bar bg-success" role="progressbar" style="width: {{ $over * 100 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="{{ $over * 100 }}">
+            {{ number_format($over * 100) }}%
+          </div>
         </div>
         <br/>
       </div>
