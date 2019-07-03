@@ -11,6 +11,7 @@
 					<th>Service</th>
 					<th>Claimed By</th>
 					<th>Treated By</th>
+					<th>Branch</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,6 +24,7 @@
 					<td>{{ $x->sellable->name }}</td>
 					<td>{{ $x->claimed_by_id ? $x->claimed_by->display_name() : '---'}}</td>
 					<td>{{ $x->treated_by_id ? $x->treated_by->display_name() : '---'}}</td>
+					<td>{{ $x->branch->name }}</td>
 				</tr>
 				@endforeach
 			</tbody>
