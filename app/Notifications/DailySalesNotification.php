@@ -42,7 +42,7 @@ class DailySalesNotification extends Notification
             }
 
             $field[$branch->name] = "₱ " . number_format($total,2);
-            $field[$branch->name . ' (CUMM)'] = "₱ " . number_format($branch->currentMonthlySales(),2);
+            $field[$branch->name . ' (' . $date->format("M 'y") . ')'] = "₱ " . number_format($branch->currentMonthlySales(),2);
         }
 
         return (new SlackMessage)
