@@ -29,7 +29,8 @@ class BranchController extends Controller
     public function store(Request $request)
     {
         Branch::create([
-                'name' => $request->branch_name, 
+                'name' => $request->name, 
+                'quota' => $request->quota,
                 ]);
 
         return redirect('/branches'); 
@@ -43,6 +44,7 @@ class BranchController extends Controller
     public function update(Branch $branch, Request $request)
     {
         $branch->name = $request->name;
+        $branch->quota = $request->quota;
         $branch->color =$request->color;
 
         $branch->save();
