@@ -24,7 +24,7 @@
 					<td>{{ $x->sellable->name }}</td>
 					<td>{{ $x->claimed_by_id ? $x->claimed_by->display_name() : '---'}}</td>
 					<td>{{ $x->treated_by_id ? $x->treated_by->display_name() : '---'}}</td>
-					<td>{{ $x->branch->name ? $x->branch->name : '---' }}</td>
+					<td>{{ $x->branch ? $x->branch->name : '---' }}</td>
 				</tr>
 				@endforeach
 			</tbody>
