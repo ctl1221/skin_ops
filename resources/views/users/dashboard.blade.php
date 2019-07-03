@@ -16,9 +16,6 @@ My Dashboard
         Monthly Branch Quota  - PHP {{ number_format($quota) }}
       </div>
       <div class="card-body">
-        <b>Under Construction...</b>
-        <br>
-
         Base - {{ number_format($current * $quota) }} / {{ number_format($quota) }}
         <div class="progress mb-2" style="height: 30px;">
           <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $current * 100 }}%" aria-valuenow="{{ $current * 100 }}" aria-valuemin="0" aria-valuemax="100">

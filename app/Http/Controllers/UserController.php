@@ -56,14 +56,16 @@ class UserController extends Controller
 
     public function dashboard()
     {
+        $branch = Branch::findOrFail(\Auth::user()->branch_id);
+
         $appointments = Appointment::whereDate('start', Carbon::today())
                 ->whereDate('end', Carbon::today()) 
-                ->where('branch_id',\Auth::user()->branch_id)
+                ->where('branch_id', $branch->id)
                 ->get();
 
-        $quota = config('to_be_changed',600000);
+        $quota = $branch->quota;
     
-        $current = 650000/$quota;
+        $current = $branch->currentMonthlySales()/$quota;
         $over = $current > 1 ? ($current - 1) : 0;
 
         return view('users.dashboard', compact('appointments','quota', 'current','over'));
