@@ -125,22 +125,25 @@ class APIController extends Controller
 		$branch_id = \Auth::user()->branch_id;
 		if($request->sort){
 			list($sortCol, $sortDir) = explode('|', $request->sort);
-			$sales_orders = \App\SalesOrder::with('client')->where('branch_id',$branch_id)->orderBy($sortCol, $sortDir);
+			$sales_orders = \App\SalesOrder::with('client')->orderBy($sortCol, $sortDir);
 		}
 		else {
-			$sales_orders = \App\SalesOrder::with('client')->where('branch_id',$branch_id)->orderBy('id', 'desc');
+			$sales_orders = \App\SalesOrder::with('client')->orderBy('id', 'desc');
 		}
 
 		if($request->filter)
 		{
-			$sales_orders->where('so_number','like','%' . $request->filter . '%')
-					->orWhere('date','like','%' . $request->filter . '%')
-					->orWhereHas('client', function ($query) use ($request) {
+			$sales_orders
+				->where(function ($query) {
+	                $query->where('so_number','like','%' . $request->filter . '%')
+					$query->orWhere('date','like','%' . $request->filter . '%')
+					$query->orWhereHas('client', function ($query) use ($request) {
 						$query->where('first_name','like','%' . $request->filter . '%');
 					})
-					->orWhereHas('client', function ($query) use ($request) {
+					$query->orWhereHas('client', function ($query) use ($request) {
 						$query->where('last_name','like','%' . $request->filter . '%');
 					});
+	            });
 		}
 
 		$per_page = $request->per_page ? (int) $request->per_page : null;
