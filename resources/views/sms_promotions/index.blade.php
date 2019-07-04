@@ -13,8 +13,8 @@ List of SMS Promotions Sent
 
 @section('contents')
 
+*** {{ $client_numbers_available }} clients to send to... ***
 <table class="table table-striped table-bordered table-sm text-center" id="user_list">
-
 	<thead>
 		<tr>
 			<th>Date</th> 
