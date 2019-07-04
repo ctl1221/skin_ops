@@ -102,7 +102,7 @@ class SalesOrder extends Model
         return $total;
     }
 
-    public function not_included_quota()
+    public function quota_included()
     {
         $total = 0;
         $not_included_quota_amount = 0;
