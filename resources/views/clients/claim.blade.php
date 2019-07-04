@@ -27,6 +27,7 @@
 			<div class="form-group col">
 				<label for="treated_by_id">Treated By:</label>
 				<select class="form-control" name="treated_by_id">
+					<option value="">---</option>
 					@foreach($treated_by as $x)
 						<option value="{{ $x->id }}">{{ $x->display_name() }}</option>
 					@endforeach
