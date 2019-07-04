@@ -23,7 +23,7 @@ class DailySalesNotification extends Notification
 
     public function toSlack($notifiable)
     {
-        $date = \Carbon\Carbon::now();
+        $date = \Carbon\Carbon::now()->addDay(-1);
         $date_string = $date->toFormattedDateString();
 
         $branches = \App\Branch::where('is_active', 1)->get();
@@ -32,7 +32,6 @@ class DailySalesNotification extends Notification
         {
             $total = 0;
 
-            $date->addDay(-1)->toDateString();
             $sales_orders = \App\SalesOrder::where('branch_id', $branch->id)
                             ->where('date', $date->toDateString())
                             ->get();
