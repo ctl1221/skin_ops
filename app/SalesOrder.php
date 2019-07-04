@@ -102,4 +102,27 @@ class SalesOrder extends Model
         return $total;
     }
 
+    public function not_included_quota()
+    {
+        $total = 0;
+        $not_included_quota_amount = 0;
+        foreach($this->sales_order_lines as $x)
+        {
+            if($x->sellable_type == 'App\\Service' && $x->sellable_id == 98)
+            {
+                $not_included_quota_amount += $x->price;
+            }
+        }
+
+        foreach($this->payments as $x)
+        {
+            if($x->payment_type->is_direct)
+            {
+                $total += $x->amount;
+            }
+        }
+
+        return $total - $not_included_quota_amount;
+    }
+
 }

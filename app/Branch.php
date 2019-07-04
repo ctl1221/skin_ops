@@ -24,7 +24,7 @@ class Branch extends Model
 
 		foreach($sales_orders as $sales_order)
 		{
-			$total += $sales_order->total_pay();
+			$total += $sales_order->quota_included();
 		}
 
     	return $total;
