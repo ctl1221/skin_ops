@@ -165,12 +165,15 @@ class APIController extends Controller
 
 		if($request->filter)
 		{
-			$payments->where('py_number','like','%' . $request->filter . '%')
-					->orWhere('date','like','%' . $request->filter . '%')
-					->orWhere('amount','like','%' . $request->filter . '%')
-					->orWhereHas('payment_type', function ($query) use ($request) {
-						$query->where('name','like','%' . $request->filter . '%');
-					});
+			$payments
+				->where(function ($query) use ($request) {
+					$query->where('py_number','like','%' . $request->filter . '%')
+						->orWhere('date','like','%' . $request->filter . '%')
+						->orWhere('amount','like','%' . $request->filter . '%')
+						->orWhereHas('payment_type', function ($q) use ($request) {
+							$q->where('name','like','%' . $request->filter . '%');
+						});
+				});
 		}
 
 		$per_page = $request->per_page ? (int) $request->per_page : null;
