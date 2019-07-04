@@ -11,9 +11,11 @@ class DailySalesNotification extends Notification
 {
     use Queueable;
 
-    public function __construct()
+    private $date;
+
+    public function __construct($date)
     {
-        //
+        $this->date = $date;
     }
 
     public function via($notifiable)
@@ -23,7 +25,7 @@ class DailySalesNotification extends Notification
 
     public function toSlack($notifiable)
     {
-        $date = \Carbon\Carbon::now()->addDay(-1);
+        $date = new \Carbon\Carbon($this->date);
         $date_string = $date->toFormattedDateString();
 
         $branches = \App\Branch::where('is_active', 1)->get();
