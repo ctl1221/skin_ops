@@ -108,7 +108,7 @@ class SalesOrder extends Model
         $not_included_quota_amount = 0;
         foreach($this->sales_order_lines as $x)
         {
-            if($x->sellable_type == 'App\\Service' && $x->sellable_id == 98)
+            if($x->sellable_type == 'App\\Service' && $x->sellable_id == 98 && $x->sales_order->is_posted)
             {
                 $not_included_quota_amount += $x->price;
             }
@@ -116,7 +116,7 @@ class SalesOrder extends Model
 
         foreach($this->payments as $x)
         {
-            if($x->payment_type->is_direct)
+            if($x->payment_type->is_direct && $x->parent->is_posted)
             {
                 $total += $x->amount;
             }
