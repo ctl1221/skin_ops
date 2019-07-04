@@ -190,6 +190,7 @@ class APIController extends Controller
 		{
 			$clients = \App\Client::where('last_name', 'like', '%' . $last_name . '%')
 				->where('first_name', 'like', '%' . $first_name . '%')
+				->where('is_active',1)
 				->get();
 		}
 
