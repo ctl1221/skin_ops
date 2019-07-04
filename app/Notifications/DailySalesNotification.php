@@ -32,6 +32,7 @@ class DailySalesNotification extends Notification
         {
             $total = 0;
 
+            $date->addDay(-1)->toDateString();
             $sales_orders = \App\SalesOrder::where('branch_id', $branch->id)
                             ->where('date', $date->toDateString())
                             ->get();
@@ -39,6 +40,7 @@ class DailySalesNotification extends Notification
             foreach($sales_orders as $sales_order)
             {
                 $total += $sales_order->sales_order_lines->sum('price');
+                $total -= $sales_order->total_discount();
             }
 
             $field[$branch->name] = "₱ " . number_format($total,2);
