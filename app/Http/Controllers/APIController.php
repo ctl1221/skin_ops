@@ -134,14 +134,14 @@ class APIController extends Controller
 		if($request->filter)
 		{
 			$sales_orders
-				->where(function ($query) {
+				->where(function ($query) use ($request) {
 	                $query->where('so_number','like','%' . $request->filter . '%')
 					$query->orWhere('date','like','%' . $request->filter . '%')
-					$query->orWhereHas('client', function ($query) use ($request) {
-						$query->where('first_name','like','%' . $request->filter . '%');
+					$query->orWhereHas('client', function ($q) use ($request) {
+						$q->where('first_name','like','%' . $request->filter . '%');
 					})
-					$query->orWhereHas('client', function ($query) use ($request) {
-						$query->where('last_name','like','%' . $request->filter . '%');
+					$query->orWhereHas('client', function ($q) use ($request) {
+						$q->where('last_name','like','%' . $request->filter . '%');
 					});
 	            });
 		}
