@@ -122,12 +122,13 @@ class APIController extends Controller
 	public function sales_orders(Request $request)
 	{
 
+		$branch_id = \Auth::user()->branch_id;
 		if($request->sort){
 			list($sortCol, $sortDir) = explode('|', $request->sort);
-			$sales_orders = \App\SalesOrder::with('client')->orderBy($sortCol, $sortDir);
+			$sales_orders = \App\SalesOrder::with('client')->where('branch_id',$branch_id)->orderBy($sortCol, $sortDir);
 		}
 		else {
-			$sales_orders = \App\SalesOrder::with('client')->orderBy('id', 'desc');
+			$sales_orders = \App\SalesOrder::with('client')->where('branch_id',$branch_id)->orderBy('id', 'desc');
 		}
 
 		if($request->filter)
