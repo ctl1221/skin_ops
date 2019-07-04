@@ -50,7 +50,7 @@ class DailySalesNotification extends Notification
         return (new SlackMessage)
             ->success()
             ->to('#daily_sales')
-            ->content('Daily Report - ' . $date_string)
+            ->content('Daily Sales Report - ' . $date_string)
             ->attachment(function ($attachment) use ($field) {
                     $attachment->fields($field);
             });
