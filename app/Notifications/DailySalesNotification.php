@@ -23,7 +23,7 @@ class DailySalesNotification extends Notification
 
     public function toSlack($notifiable)
     {
-        $date = \Carbon\Carbon::now();
+        $date = \Carbon\Carbon::now()->addDay(-1);
         $date_string = $date->toFormattedDateString();
 
         $branches = \App\Branch::where('is_active', 1)->get();
@@ -38,8 +38,7 @@ class DailySalesNotification extends Notification
 
             foreach($sales_orders as $sales_order)
             {
-                $total += $sales_order->sales_order_lines->sum('price');
-                $total -= $sales_order->total_discount();
+                $total += $sales_order->total_pay();
             }
 
             $field[$branch->name] = "₱ " . number_format($total,2);

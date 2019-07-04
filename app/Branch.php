@@ -24,8 +24,7 @@ class Branch extends Model
 
 		foreach($sales_orders as $sales_order)
 		{
-			$total += $sales_order->sales_order_lines->sum('price');
-            $total -= $sales_order->total_discount();
+			$total += $sales_order->total_pay();
 		}
 
     	return $total;
