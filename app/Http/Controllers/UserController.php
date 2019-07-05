@@ -65,7 +65,8 @@ class UserController extends Controller
 
         $quota = $branch->quota;
     
-        $current = $branch->currentMonthlySales()/$quota;
+        $date_to = new Carbon('last day of this month');
+        $current = $branch->currentMonthlySales($date_to)/$quota;
         $over = $current > 1 ? ($current - 1) : 0;
 
         $items =  $branch->monthlyItemSalesCount();

@@ -11,12 +11,11 @@ class Branch extends Model
 {
     protected $guarded = [];
 
-    public function currentMonthlySales()
+    public function currentMonthlySales($date_to)
     {
     	$total = 0;
 
     	$date_from = new Carbon('first day of this month');
-    	$date_to = new Carbon('last day of this month');
 
     	$sales_orders = SalesOrder::where('branch_id', $this->id)
 							->where('date','>=',$date_from->toDateString())
