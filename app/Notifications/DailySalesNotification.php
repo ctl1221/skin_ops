@@ -38,7 +38,7 @@ class DailySalesNotification extends Notification
                             ->where('date', $date->toDateString())
                             ->get();
 
-            $payments = Payment::where('branch_id', $branch->id)
+            $payments = \App\Payment::where('branch_id', $branch->id)
                         ->where('parent_type', 'App\\Client')
                         ->where('date', $date->toDateString())
                         ->get();
