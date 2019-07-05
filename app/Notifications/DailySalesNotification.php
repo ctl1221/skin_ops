@@ -38,9 +38,22 @@ class DailySalesNotification extends Notification
                             ->where('date', $date->toDateString())
                             ->get();
 
+            $payments = Payment::where('branch_id', $branch->id)
+                        ->where('parent_type', 'App\\Client')
+                        ->where('date', $date->toDateString())
+                        ->get();
+
             foreach($sales_orders as $sales_order)
             {
                 $total += $sales_order->quota_included();
+            }
+
+            foreach($payments as $payment)
+            {
+                if($payment->payment_type->is_direct)
+                {
+                    $total += $payment->amount;
+                }
             }
 
             $field[$branch->name] = "₱ " . number_format($total,2);
