@@ -6,6 +6,7 @@ use App\Client;
 use App\ClientClaim;
 use App\Employee;
 use App\Pricelist;
+use App\Service;
 use App\ClientMembership;
 use App\SalesOrder;
 use App\History;
@@ -159,7 +160,9 @@ class ClientController extends Controller
 
         $min_date = Sequence::where('name','Date Lock End')->first()->text_value;
 
-        return view('clients.claim', compact('client', 'treated_by', 'assisted_by','min_date'));
+        $services = Service::where('is_active',1)->where('name','!=','Make Your Own')->get();
+
+        return view('clients.claim', compact('client', 'treated_by', 'assisted_by','min_date','services'));
     }
 
     public function claimPost(Client $client, Request $request)
@@ -197,6 +200,12 @@ class ClientController extends Controller
             $client_claim->assisted_by_id = $request->assisted_by_id;
             $client_claim->claimed_by_date = $request->claimed_by_date;
             $client_claim->notes = $request->notes;
+
+            if($request->make_your_own == "true")
+            {
+                $client_claim->sellable_id = $request->service_id;
+            }
+
             $client_claim->save();
         });
 
@@ -217,5 +226,12 @@ class ClientController extends Controller
         $client->save();
 
         return back();
+    }
+
+    public function make_your_own(Client $client)
+    {
+        $min_date = Sequence::where('name','Date Lock End')->first()->text_value;
+
+        return view('clients.makeyourown', compact('client','min_date'));
     }
 }

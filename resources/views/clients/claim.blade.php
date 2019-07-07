@@ -64,11 +64,22 @@
 		<br/>
 
 		<div class="form-group">
-			<select class="form-control" name="selected_client_claim_id">
+			<select class="form-control" name="selected_client_claim_id" v-model="selected_client_claim_id">
 				@foreach($client->to_claims() as $x)
 					@if(!$x->claimed_by_id)
 						<option value="{{ $x->id }}">{{ $x->sellable->name }}</option>
 					@endif
+				@endforeach
+			</select>
+		</div>
+
+
+		<input type="hidden" v-model="make_your_own" name="make_your_own">
+		<div class="form-group" v-if="make_your_own">
+			Change Make Your Own To:
+			<select class="form-control" name="service_id">
+				@foreach($services as $x)
+					<option value="{{ $x->id }}">{{ $x->name }}</option>
 				@endforeach
 			</select>
 		</div>
@@ -115,6 +126,8 @@ var app = new Vue({
   data: {
   	claim_for_myself: true,
   	client_selected:false,
+  	client_claims: {!! $client->to_claims() !!},
+  	selected_client_claim_id: "",
   },
   computed: {
   	submittable: function ()
@@ -129,7 +142,28 @@ var app = new Vue({
   		{
   			return true;
   		}
+  	},
+
+  	make_your_own: function () {
+  		for(var i = 0; i < this.client_claims.length; i++)
+  		{
+  			if(this.client_claims[i].id == this.selected_client_claim_id)
+  			{
+  				if(this.client_claims[i].sellable.name == "Make Your Own")
+  				{
+  					return true;
+  				}
+  				else
+  				{
+  					return false;
+  				}
+  			}
+  		}
   	}
+  },
+
+  mounted() {
+  	this.selected_client_claim_id = this.client_claims[0].id;
   }
 })
 
