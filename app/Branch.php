@@ -64,6 +64,15 @@ class Branch extends Model
         foreach($sales_orders as $sales_order)
         {
             $total += $sales_order->quota_included();
+
+            foreach($sales_order->payments as $x)
+            {
+                if($x->payment_type->name == 'Booky Card' || 
+                $x->payment_type->name == 'Booky Cash')
+                {
+                    $total -= $payment->amount;
+                }
+            }
         }
 
         foreach($payments as $payment)
@@ -71,12 +80,6 @@ class Branch extends Model
             if($payment->payment_type->is_direct)
             {
                 $total += $payment->amount;
-            }
-
-            if($payment->payment_type->name == 'Booky Card' || 
-                $payment->payment_type->name == 'Booky Cash')
-            {
-                $total -= $payment->amount;
             }
         }
 
