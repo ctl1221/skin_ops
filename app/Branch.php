@@ -72,6 +72,12 @@ class Branch extends Model
             {
                 $total += $payment->amount;
             }
+
+            if($payment->payment_type->name == 'Booky Card' || 
+                $payment->payment_type->name == 'Booky Card')
+            {
+                $total -= $payment->amount;
+            }
         }
 
         return $total;
