@@ -228,10 +228,4 @@ class ClientController extends Controller
         return back();
     }
 
-    public function make_your_own(Client $client)
-    {
-        $min_date = Sequence::where('name','Date Lock End')->first()->text_value;
-
-        return view('clients.makeyourown', compact('client','min_date'));
-    }
 }
