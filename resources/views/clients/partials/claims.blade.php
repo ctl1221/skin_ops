@@ -21,7 +21,13 @@
 						<a href="/sales_orders/{{$x->parent->id}}">SO {{ $x->parent->so_number }}</a>
 					</td>
 					<td>
-						<a href="/claims/{{$x->id}}">{{ $x->claimed_by_date ? $x->claimed_by_date : '---'}}</a>
+						@role('management')
+							<a href="/claims/{{$x->id}}">
+						@endRole
+								{{ $x->claimed_by_date ? $x->claimed_by_date : '---'}}
+						@role('management')
+							</a>
+						@endRole
 					</td>
 					<td>{{ $x->sellable->name }}</td>
 					<td>{{ $x->claimed_by_id ? $x->claimed_by->display_name() : '---'}}</td>
