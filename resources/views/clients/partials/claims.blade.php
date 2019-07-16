@@ -20,7 +20,9 @@
 					<td>
 						<a href="/sales_orders/{{$x->parent->id}}">SO {{ $x->parent->so_number }}</a>
 					</td>
-					<td>{{ $x->claimed_by_date ? $x->claimed_by_date : '---'}}</td>
+					<td>
+						<a href="/claims/{{$x->id}}">{{ $x->claimed_by_date ? $x->claimed_by_date : '---'}}</a>
+					</td>
 					<td>{{ $x->sellable->name }}</td>
 					<td>{{ $x->claimed_by_id ? $x->claimed_by->display_name() : '---'}}</td>
 					<td>{{ $x->treated_by_id ? $x->treated_by->display_name() : '---'}}</td>

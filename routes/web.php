@@ -107,6 +107,8 @@ Route::post('/branches/{branch}/activate', 'BranchController@activate')->middlew
 Route::get('/employees/{employee}/deactivate', 'EmployeeController@deactivate')->middleware('role:management');
 Route::get('/employees/{employee}/activate', 'EmployeeController@activate')->middleware('role:management');
 
+Route::get('/claims/{claim}', 'ClientClaimController@show')->middleware('role:management');
+
 Route::get('/clients/{client}/claim', 'ClientController@claim')->middleware('role:sales');
 Route::post('/clients/{client}/claim', 'ClientController@claimPost')->middleware('role:sales');
 Route::get('/clients/{client}/deactivate', 'ClientController@deactivate')->middleware('role:management');
