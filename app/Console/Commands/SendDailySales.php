@@ -11,7 +11,7 @@ class SendDailySales extends Command
      *
      * @var string
      */
-    protected $signature = 'report:daily_sales';
+    protected $signature = 'report:daily_sales {date}';
 
     /**
      * The console command description.
@@ -37,6 +37,7 @@ class SendDailySales extends Command
      */
     public function handle()
     {
-        \Notification::send(\App\SkinProSlack::find(1) , new \App\Notifications\DailySalesNotification);
+        $date = $this->argument('date');
+        \Notification::send(\App\SkinProSlack::find(1) , new \App\Notifications\DailySalesNotification($date));
     }
 }

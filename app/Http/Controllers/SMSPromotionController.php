@@ -20,7 +20,11 @@ class SMSPromotionController extends Controller
     {
         $sms_promotions = SMSPromotion::all();
 
-        return view('sms_promotions.index', compact('sms_promotions'));
+        $client_numbers_available = Client::whereRaw('LENGTH(mobile_number) = 12')->count();
+        $no_number_clients = Client::whereNull('mobile_number')->count();
+        $total_clients = Client::all()->count();
+
+        return view('sms_promotions.index', compact('sms_promotions','client_numbers_available','total_clients','no_number_clients'));
     }
 
     public function create()

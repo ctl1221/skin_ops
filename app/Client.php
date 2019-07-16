@@ -137,4 +137,5 @@ class Client extends Model
         }
         return $payables - $sales_payments - $client_payments;
     }
+
 }

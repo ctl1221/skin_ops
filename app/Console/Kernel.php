@@ -27,9 +27,9 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
 
+        $date = \Carbon\Carbon::now()->toDateString();
         $schedule->command('membership:check')->everyMinute();   
-        $schedule->command('report:daily_sales')->dailyAt('22:30'); 
-
+        $schedule->command('report:daily_sales ' . $date)->dailyAt('22:30');
     }
 
     /**

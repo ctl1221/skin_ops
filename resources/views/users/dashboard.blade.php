@@ -6,7 +6,6 @@ My Dashboard
 
 @endsection
 
-
 @section ('contents')
 
 <div class="row">
@@ -19,7 +18,7 @@ My Dashboard
         Base - {{ number_format($current * $quota) }} / {{ number_format($quota) }}
         <div class="progress mb-2" style="height: 30px;">
           <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $current * 100 }}%" aria-valuenow="{{ $current * 100 }}" aria-valuemin="0" aria-valuemax="100">
-              {{ number_format($current * 100 > 100 ? 100 : $current * 100) }}%
+            {{ number_format($current * 100 > 100 ? 100 : $current * 100) }}%
           </div>
         </div>
         Over - {{ number_format($over * $quota) }}
@@ -31,56 +30,56 @@ My Dashboard
         <br/>
       </div>
     </div>
-  </div>
-  <div class="col-4">
 
-    <div class="card">
+    <div class="card mt-3">
       <div class="card-header">
-        Appointments for Today
+        Availment Counts - {{ \Carbon\Carbon::now()->format('F Y') }}
       </div>
-      <ul class="list-group list-group-flush">
-        @if(! count($appointments))
-          <li class="list-group-item text-center">None</li>
-        @endif
-        @foreach($appointments as $x)
-          <li class="list-group-item text-center">
-            {{ $x->title }}<br/>
-            {{ \Carbon\Carbon::parse($x->start)->format('h:i') }} -
-            {{ \Carbon\Carbon::parse($x->end)->format('h:i A') }}<br/>
-            {{ $x->content }}
-          </li>
+       @foreach($items as $key => $value)
+         <li class="list-group-item text-center">
+          {{ $key }} - {{ $value }}
+        </li>
         @endforeach
-      </ul>
-    </div>
-
-    {{-- <table class="table table-bordered table-fullwidth table-striped">
-
-      <tr>
-        <th class="text-center">Appointments for Today</th>
-      </tr>
-      @if(! count($appointments))
-      <tr>
-        <td class="text-center">
-          None
-        </td>
-      </tr>
-      @endif
-
-      @foreach($appointments as $x)
-      <tr>
-        <td class="text-center">
-          {{ $x->title }}<br/>
-          {{ \Carbon\Carbon::parse($x->start)->format('h:i') }} -
-          {{ \Carbon\Carbon::parse($x->end)->format('h:i A') }}<br/>
-          {{ $x->content }}
-        </td>
-      </tr>
-      @endforeach
-
-    </table> --}}
-
   </div>
 </div>
 
+<div class="col-4">
+  <div class="card">
+    <div class="card-header">
+      Appointments for Today
+    </div>
+    <ul class="list-group list-group-flush">
+      @if(! count($appointments))
+      <li class="list-group-item text-center">None</li>
+      @endif
+      @foreach($appointments as $x)
+      <li class="list-group-item text-center">
+        {{ $x->title }}<br/>
+        {{ \Carbon\Carbon::parse($x->start)->format('h:i') }} -
+        {{ \Carbon\Carbon::parse($x->end)->format('h:i A') }}<br/>
+        {{ $x->content }}
+      </li>
+      @endforeach
+    </ul>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-header">
+      Claims - {{ \Carbon\Carbon::now()->format('F Y') }}
+      Under Construction
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item text-center">
+
+      </li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+
+
+</div>
 
 @endsection

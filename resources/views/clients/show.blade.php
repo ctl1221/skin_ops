@@ -39,9 +39,8 @@
 					class="btn btn-outline-success">Activate</a> 
 			@endif
 		@endRole
-
 	</div>
-	
+
 @endsection
 
 @section('contents')

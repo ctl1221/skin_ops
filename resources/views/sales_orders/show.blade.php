@@ -73,7 +73,7 @@
 			<div class="row mb-3">
 				<div class="form-group col">
 					<label for="branch">Branch:</label>
-					<input type="text" class="form-control" id="branch" name="branch" value="{{ Auth::user()->branch->name }}" disabled>
+					<input type="text" class="form-control" id="branch" name="branch" value="{{ $sales_order->branch->name }}" disabled>
 				</div>
 
 				<div class="form-group col">

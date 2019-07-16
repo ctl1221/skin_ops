@@ -13,8 +13,12 @@ List of SMS Promotions Sent
 
 @section('contents')
 
+*******<br/>
+{{ $client_numbers_available }}/{{ $total_clients}} Clients to send sms blast to...<br/> 
+{{ $no_number_clients}} Clients have no recorded mobile number<br/>
+{{ $total_clients - $client_numbers_available - $no_number_clients }} Clients have wrong formatted mobile number<br/>
+*******<br/>
 <table class="table table-striped table-bordered table-sm text-center" id="user_list">
-
 	<thead>
 		<tr>
 			<th>Date</th> 

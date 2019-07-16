@@ -102,4 +102,27 @@ class SalesOrder extends Model
         return $total;
     }
 
+    public function quota_included()
+    {
+        $total = 0;
+        $not_included_quota_amount = 0;
+        foreach($this->sales_order_lines as $x)
+        {
+            if($x->sellable_type == 'App\\Service' && ($x->sellable->name == 'Skin Consultation' || $x->sellable->name == 'Dental Consultation') && $x->sales_order->is_posted)
+            {
+                $not_included_quota_amount += $x->price;
+            }
+        }
+
+        foreach($this->payments as $x)
+        {
+            if($x->payment_type->is_direct && $x->parent->is_posted)
+            {
+                $total += $x->amount;
+            }
+        }
+
+        return $total - $not_included_quota_amount;
+    }
+
 }

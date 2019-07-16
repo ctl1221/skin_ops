@@ -122,6 +122,7 @@ class APIController extends Controller
 	public function sales_orders(Request $request)
 	{
 
+		$branch_id = \Auth::user()->branch_id;
 		if($request->sort){
 			list($sortCol, $sortDir) = explode('|', $request->sort);
 			$sales_orders = \App\SalesOrder::with('client')->orderBy($sortCol, $sortDir);
@@ -132,14 +133,17 @@ class APIController extends Controller
 
 		if($request->filter)
 		{
-			$sales_orders->where('so_number','like','%' . $request->filter . '%')
+			$sales_orders
+				->where(function ($query) use ($request) {
+	                $query->where('so_number','like','%' . $request->filter . '%')
 					->orWhere('date','like','%' . $request->filter . '%')
-					->orWhereHas('client', function ($query) use ($request) {
-						$query->where('first_name','like','%' . $request->filter . '%');
+					->orWhereHas('client', function ($q) use ($request) {
+						$q->where('first_name','like','%' . $request->filter . '%');
 					})
-					->orWhereHas('client', function ($query) use ($request) {
-						$query->where('last_name','like','%' . $request->filter . '%');
+					->orWhereHas('client', function ($q) use ($request) {
+						$q->where('last_name','like','%' . $request->filter . '%');
 					});
+	            });
 		}
 
 		$per_page = $request->per_page ? (int) $request->per_page : null;
@@ -161,12 +165,15 @@ class APIController extends Controller
 
 		if($request->filter)
 		{
-			$payments->where('py_number','like','%' . $request->filter . '%')
-					->orWhere('date','like','%' . $request->filter . '%')
-					->orWhere('amount','like','%' . $request->filter . '%')
-					->orWhereHas('payment_type', function ($query) use ($request) {
-						$query->where('name','like','%' . $request->filter . '%');
-					});
+			$payments
+				->where(function ($query) use ($request) {
+					$query->where('py_number','like','%' . $request->filter . '%')
+						->orWhere('date','like','%' . $request->filter . '%')
+						->orWhere('amount','like','%' . $request->filter . '%')
+						->orWhereHas('payment_type', function ($q) use ($request) {
+							$q->where('name','like','%' . $request->filter . '%');
+						});
+				});
 		}
 
 		$per_page = $request->per_page ? (int) $request->per_page : null;
@@ -183,6 +190,7 @@ class APIController extends Controller
 		{
 			$clients = \App\Client::where('last_name', 'like', '%' . $last_name . '%')
 				->where('first_name', 'like', '%' . $first_name . '%')
+				->where('is_active',1)
 				->get();
 		}
 
