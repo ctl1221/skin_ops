@@ -9,12 +9,26 @@ use App\ClientClaim;
 use App\History;
 use App\PackageBreakdown;
 use App\Service;
+use App\Branch;
+use App\Employee;
 
 class ClientClaimController extends Controller
 {
-    public function show(ClientClaim $claim)
+    public function edit(ClientClaim $claim)
     {
-    	return view('client_claims.show', compact('claim'));
+    	$branches = Branch::where('is_active',1)->get();
+        $employees = Employee::all();
+        $services = Service::where('is_active',1)->get();
+
+        return view('client_claims.edit', compact('claim', 'branches', 'employees', 'services'));
+    }
+
+    public function update(ClientClaim $claim)
+    {
+        // ClientClaim::update([
+                
+
+        // ]);
     }
 
     public function unclaim(ClientClaim $claim)

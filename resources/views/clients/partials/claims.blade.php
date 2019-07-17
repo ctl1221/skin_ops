@@ -22,11 +22,15 @@
 					</td>
 					<td>
 						@role('management')
-							<a href="/claims/{{$x->id}}">
+							@if( $x->claimed_by_date)
+								<a href="/claims/{{$x->id}}">
+							@endif
 						@endRole
 								{{ $x->claimed_by_date ? $x->claimed_by_date : '---'}}
 						@role('management')
-							</a>
+							@if( $x->claimed_by_date)
+								</a>
+							@endif
 						@endRole
 					</td>
 					<td>{{ $x->sellable->name }}</td>

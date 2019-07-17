@@ -41,7 +41,7 @@
 
 				<div class="form-group">
 					<label for="amount">Amount:</label>
-					<input ref="amount" type="number" class="form-control" id="amount" name="amount" required autofocus>
+					<input ref="amount" type="number" step="0.01" class="form-control" id="amount" name="amount" required autofocus>
 				</div>
 
 				<div class="form-group">
