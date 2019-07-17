@@ -11,30 +11,22 @@
 
   <div class="form-group">
     <label for="so_number">SO Number</label>
-    <input type="text" class="form-control" id="so_number" value="{{ $claim->parent->so_number }}" disabled>
+    <input type="text" class="form-control" id="so_number" name="so_number" value="{{ $claim->parent->so_number }}" disabled>
+  </div>
+
+  <div class="form-group">
+    <label for="service">Service</label>
+    <input type="text" class="form-control" id="service" name="service" value="{{ $claim->sellable->name }}" disabled>
   </div>
 
   <div class="form-group">
     <label for="claimed_by_id">Claimed By</label>
-    <input type="text" class="form-control" id="claimed_by_id" value="{{ $claim->claimed_by->display_name() }}" disabled>
+    <input type="text" class="form-control" id="claimed_by_id" name="claimed_by_id" value="{{ $claim->claimed_by->display_name() }}" disabled>
   </div>
 
   <div class="form-group">
     <label for="claimed_by_date">Current Claim Date: <b>{{ Carbon\Carbon::parse($claim->claimed_by_date)->toFormattedDateString() }}</b> </label>
-    <input type="date" class="form-control" id="claimed_by_date" value="{{ $claim->claimed_by_date }}">
-  </div>
-
-  <div class="form-group">
-    <label for="sellable_id">Current Service: <b>{{ $claim->sellable->name }}</b></label>
-    <select class="form-control" id="service" name="service" required >
-      @foreach ($services as $x)
-        <option value={{ $x->id }} 
-          @if($x->id == $claim->sellable->id)
-            {{ "selected = 'selected'" }} 
-          @endif> 
-        {{ $x->name }} </option>
-      @endforeach
-    </select>
+    <input type="date" class="form-control" id="claimed_by_date" name="claimed_by_date" value="{{ $claim->claimed_by_date }}">
   </div>
 
   <div class="form-group">
@@ -63,7 +55,12 @@
     </select>
   </div>
 
-  {{-- <a href="/claims/{{ $claim->id }}/delete"><button type="button" class="btn btn-danger">Delete</button> --}}
+  <div class="form-group">
+    <label for="notes">Notes</label>
+    <textarea class="form-control" id="notes" name="notes">{{ $claim->notes }}</textarea>
+  </div>
+
+  <input type="submit" value="Update" class="btn btn-primary">
   <a href="/clients/{{ $claim->parent->client->id }}"><button type="button" class="btn btn-warning">Cancel</button>
 
 </form>

@@ -23,7 +23,7 @@
 					<td>
 						@role('management')
 							@if( $x->claimed_by_date)
-								<a href="/claims/{{$x->id}}">
+								<a href="/claims/{{$x->id}}/edit">
 							@endif
 						@endRole
 								{{ $x->claimed_by_date ? $x->claimed_by_date : '---'}}
