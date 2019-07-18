@@ -25,12 +25,23 @@ class ClientClaimController extends Controller
 
     public function update(Request $request, ClientClaim $claim)
     {
-        $claim->claimed_by_date = $request->claimed_by_date;
-        $claim->treated_by_id = $request->treated_by_id;
-        $claim->branch_id = $request->branch_id;
-        $claim->notes = $request->notes;
+        DB::transaction(function () use ($claim, $request) {
 
-        $claim->save();
+            $history = History::where('parent_type','App\\ClientClaim')
+                ->where('parent_id', $claim->id)
+                ->first();
+
+            $history->date = $request->claimed_by_date;
+            $history->save();
+
+            $claim->claimed_by_date = $request->claimed_by_date;
+            $claim->treated_by_id = $request->treated_by_id;
+            $claim->branch_id = $request->branch_id;
+            $claim->notes = $request->notes;
+
+            $claim->save();
+
+        });
 
         return redirect('/clients/' . $claim->parent->client->id )->with(['message' => 'Client Claim Updated', 'message_type' => 'success']);;
     }
