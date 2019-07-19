@@ -132,7 +132,6 @@ class PaymentController extends Controller
 
         });
 
-
         return redirect('/clients/' . $request->client_id)->with(['message' => 'Payment Deleted', 'message_type' => 'danger']);
     }
 

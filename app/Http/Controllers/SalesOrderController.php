@@ -271,4 +271,58 @@ class SalesOrderController extends Controller
     
     return redirect('/sales_orders');
   }
+
+  public function delete(SalesOrder $sales_order)
+  {
+      $client_id = $sales_order->client_id;
+
+      DB::transaction(function () use ($sales_order) {
+        foreach($sales_order->sales_order_lines as $x)
+        {
+          if($x->sellable_type == 'App\\Membership')
+          {
+            $membership = ClientMembership::where('client_id', $sales_order->client->id)
+                            ->where('membership_id', $x->sellable_id)
+                            ->where('date_start', $sales_order->date)
+                            ->first();
+
+            if($membership->is_expired == 0)
+            {
+              $client = Client::findOrFail($membership->client_id);
+              $client->pricelist_id = 1;
+              $client->save();
+            }
+
+            $membership->delete();
+          }      
+        }
+
+        $claim_ids = ClientClaim::where('parent_type', 'App\SalesOrder')
+                   ->where('parent_id', $sales_order->id)
+                   ->pluck('id');
+
+        ClientClaim::where('parent_type', 'App\SalesOrder')
+                   ->where('parent_id', $sales_order->id)
+                   ->delete();
+
+        History::where('parent_type', 'App\SalesOrder')
+                   ->where('parent_id', $sales_order->id)
+                   ->delete();
+
+        History::where('parent_type', 'App\ClientClaim')
+           ->whereIn('parent_id', $claim_ids)
+           ->delete();
+
+        Payment::where('parent_type', 'App\SalesOrder')
+                   ->where('parent_id', $sales_order->id)
+                   ->delete();
+
+        $sales_order->delete();
+
+      });
+
+    return redirect('/clients/' . $client_id )->with(['message' => 'Sales Order Deleted', 'message_type' => 'error']);;
+  
+  }
+
 }

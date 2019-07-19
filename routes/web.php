@@ -137,6 +137,7 @@ Route::get('/sales_orders/{sales_order}', 'SalesOrderController@show')->middlewa
 Route::post('/sales_orders', 'SalesOrderController@store')->middleware('role:sales');
 Route::post('/sales_orders/{sales_order}/post', 'SalesOrderController@post')->middleware('role:sales');
 Route::post('/sales_orders/{sales_order}/delete', 'SalesOrderController@destroy')->middleware('role:sales');
+Route::post('/sales_orders/{sales_order}/destroy', 'SalesOrderController@delete')->middleware('role:management');
 
 Route::get('/payments', 'PaymentController@index')->middleware('role:sales');
 Route::get('/payments/{payment}', 'PaymentController@show')->middleware('role:sales');
