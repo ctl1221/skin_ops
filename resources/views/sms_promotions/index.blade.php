@@ -40,5 +40,4 @@ List of SMS Promotions Sent
 
 	</table>
 
-
-	@endsection
+@endsection

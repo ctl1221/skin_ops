@@ -15,7 +15,19 @@ class Branch extends Model
     {
     	$total = 0;
 
-    	$date_from = new Carbon('first day of this month');
+    	$date_from = $date_to->year . '-';
+        if($date_to->month >= 10)
+        {
+            $date_from .= $date_to->month;
+        }
+        else
+        {
+            $date_from .= '0';
+            $date_from .= $date_to->month;
+        }
+        $date_from .= '-01';
+
+        $date_from = new Carbon($date_from);
 
     	$sales_orders = SalesOrder::where('branch_id', $this->id)
 							->where('date','>=',$date_from->toDateString())

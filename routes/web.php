@@ -173,6 +173,9 @@ Route::post('/appointments', 'AppointmentController@store')->middleware('role:sa
 Route::post('/appointments/{appointment}/edit', 'AppointmentController@edit')->middleware('role:sales');
 Route::post('/appointments/{appointment}/delete', 'AppointmentController@delete')->middleware('role:sales');
 
+Route::get('/slacks', 'SkinProSlackController@index')->middleware('role:management');
+Route::post('/slacks/daily_sales', 'SkinProSlackController@daily_sales')->middleware('role:management');
+
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
