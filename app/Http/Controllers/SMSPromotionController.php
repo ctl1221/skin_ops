@@ -24,7 +24,9 @@ class SMSPromotionController extends Controller
         $no_number_clients = Client::whereNull('mobile_number')->count();
         $total_clients = Client::all()->count();
 
-        return view('sms_promotions.index', compact('sms_promotions','client_numbers_available','total_clients','no_number_clients'));
+        $client_w_wrong_no = Client::whereRaw('LENGTH(mobile_number) <> 12')->orderBy('last_name')->get();
+
+        return view('sms_promotions.index', compact('sms_promotions','client_numbers_available','total_clients','no_number_clients', 'client_w_wrong_no'));
     }
 
     public function create()
