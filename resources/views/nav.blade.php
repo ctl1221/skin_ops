@@ -54,6 +54,7 @@
           <a class="dropdown-item" href="/employees">Employees</a>
           <a class="dropdown-item" href="/pricelists">Pricelists</a>
           <a class="dropdown-item" href="/branches">Branches</a>
+          <a class="dropdown-item" href="/categories">Categories</a>
         </div>
      </li>
      @endRole

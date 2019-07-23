@@ -74,6 +74,13 @@ Route::post('/branches','BranchController@store')->middleware('role:management')
 Route::get('/branches/{branch}/edit','BranchController@edit')->middleware('role:management');
 Route::post('/branches/{branch}','BranchController@update')->middleware('role:management');
 
+Route::get('/categories','CategoryController@index')->middleware('role:management');
+Route::post('/categories','CategoryController@store')->middleware('role:management');
+Route::get('/categories/create','CategoryController@create')->middleware('role:management');
+Route::get('/categories/{category}','CategoryController@show')->middleware('role:management');
+Route::post('/categories/{category}/add_service','CategoryController@add_service')->middleware('role:management');
+Route::get('/categories/{category}/delete_service/{service}','CategoryController@delete_service')->middleware('role:management');
+
 Route::get('/pricelists','PricelistController@index')->middleware('role:management');
 Route::get('/pricelists/create','PricelistController@create')->middleware('role:management');
 Route::post('/pricelists','PricelistController@store')->middleware('role:management');

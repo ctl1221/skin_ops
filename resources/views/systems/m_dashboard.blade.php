@@ -22,6 +22,10 @@ Manager's Dashboard
           Quota: 
         </my-vue-circle>
       </div>
+      @foreach ($dates as $date)
+        <daily-card date="{{ $date }}">
+        </daily-card>
+      @endforeach
     </div> 
 
   @endforeach

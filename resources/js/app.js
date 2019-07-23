@@ -23,6 +23,7 @@ Vue.component('my-vuetable', require('./components/MyVuetable.vue').default);
 Vue.component('client-search', require('./components/ClientSearch.vue').default);
 Vue.component('my-calendar', require('./components/MyCalendar.vue').default);
 Vue.component('my-vue-circle', require('./components/MyVueCircle.vue').default);
+Vue.component('daily-card', require('./components/DailyUpdateComponent.vue').default);
 Vue.component('color-picker', Slider);
 
 Vue.filter('currencyFormat', function (value) {
