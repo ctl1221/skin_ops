@@ -49,7 +49,7 @@ class DailySalesNotification extends Notification
 
                 foreach($sales_order->payments as $y)
                 {
-                    if($y->name == 'Booky Cash' || $y->name == 'Booky Card')
+                    if($y->payment_type->name == 'Booky Cash' || $y->payment_type->name == 'Booky Card')
                     {
                         $total -= $y->amount;
                     }
