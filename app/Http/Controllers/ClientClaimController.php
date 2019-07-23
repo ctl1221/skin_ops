@@ -14,6 +14,11 @@ use App\Employee;
 
 class ClientClaimController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function edit(ClientClaim $claim)
     {
     	$branches = Branch::where('is_active',1)->get();

@@ -31,6 +31,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/m_dashboard">Manager's Dashboard</a>
+          <a class="dropdown-item" href="/slacks">Slack Messages</a>
           <a class="dropdown-item" href="/reports">Reports</a>
           <a class="dropdown-item" href="/sms_promotions">SMS Promotions</a>
           <a class="dropdown-item" href="/memberships">Memberships</a>

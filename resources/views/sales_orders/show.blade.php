@@ -239,7 +239,24 @@
 
 		</div>
 	</div>
+
+	<br>
+
+	@role('management')
+		<form method="post" action="/sales_orders/{{ $sales_order->id }}/destroy">
+
+			@csrf
+
+			<input type="submit" value="Delete" class="btn btn-outline-danger btn-block">
+
+		</form>
+	@endRole
+
 </div>
+
+
+
+
 
 @endsection
 
