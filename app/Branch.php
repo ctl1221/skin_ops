@@ -43,6 +43,14 @@ class Branch extends Model
 		foreach($sales_orders as $sales_order)
 		{
 			$total += $sales_order->quota_included();
+
+            foreach($sales_order->payments as $y)
+            {
+                if($y->payment_type->name == 'Booky Cash' || $y->payment_type->name == 'Booky Card')
+                {
+                    $total -= $y->amount;
+                }
+            }
 		}
 
         foreach($payments as $payment)
