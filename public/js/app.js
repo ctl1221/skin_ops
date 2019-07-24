@@ -2425,18 +2425,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['date'],
+  props: ['date_string', 'date'],
   data: function data() {
     return {
-      total_sales: ''
+      skin_consultation_sales: '',
+      dental_consultation_sales: ''
     };
+  },
+  computed: {
+    total_sales: function total_sales() {
+      var total = 0;
+      total += this.skin_consultation_sales;
+      total += this.dental_consultation_sales;
+      return total;
+    }
   },
   created: function created() {
     var _this = this;
 
     axios.post('/api/daily/total_sales').then(function (response) {
       _this.total_sales = response.data;
+    }); //Skin 
+
+    axios.post('/api/daily/skin_consultation', {
+      date: this.date
+    }).then(function (response) {
+      _this.skin_consultation_sales = response.data;
+    });
+    axios.post('/api/daily/dental_consultation', {
+      date: this.date
+    }).then(function (response) {
+      _this.dental_consultation_sales = response.data;
     });
   }
 });
@@ -49094,25 +49115,43 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card mt-3" }, [
+    _c("div", { staticClass: "card-header" }, [
+      _vm._v(
+        "\n        " +
+          _vm._s(_vm.date_string) +
+          " - " +
+          _vm._s(_vm._f("currencyFormat")(_vm.total_sales)) +
+          "\n    "
+      )
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
-      _c("table", [
-        _c("tr", [
-          _c("th", { attrs: { colspan: "2" } }, [_vm._v(_vm._s(_vm.date))])
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("td", [_vm._v("Total Sales")]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.total_sales))])
-        ]),
-        _vm._v(" "),
+      _c("table", { staticClass: "table table-sm table-bordered" }, [
         _vm._m(0),
         _vm._v(" "),
         _vm._m(1),
         _vm._v(" "),
         _vm._m(2),
         _vm._v(" "),
-        _vm._m(3)
+        _c("tr", [
+          _c("td", [_vm._v("Skin Consultation")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "text-right" }, [
+            _vm._v(
+              _vm._s(_vm._f("currencyFormat")(_vm.skin_consultation_sales))
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", [_vm._v("Dental Consultation")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "text-right" }, [
+            _vm._v(
+              _vm._s(_vm._f("currencyFormat")(_vm.dental_consultation_sales))
+            )
+          ])
+        ])
       ])
     ])
   ])
@@ -49135,12 +49174,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [_c("td", [_vm._v("Dental Sales")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [_c("td", [_vm._v("Consultation")])])
   }
 ]
 render._withStripped = true

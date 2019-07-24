@@ -37,7 +37,7 @@
 
       <div class="card"> 
         <my-vue-circle
-          prog="{{ $prog }}"
+          :prog="{{ $prog }}"
           fill="{{ $branch->color }}"
           >
           Current: {{ $current }}<br/>
@@ -47,9 +47,8 @@
       </div>
       @foreach ($dates as $date)
         <daily-card 
-          date="{{ $date }}
-
-          ">
+          date_string="{{ Carbon\Carbon::parse($date)->toFormattedDateString() }}"
+          date="{{ $date }}">
         </daily-card>
       @endforeach
     </div> 

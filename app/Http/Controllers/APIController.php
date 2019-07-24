@@ -211,4 +211,50 @@ class APIController extends Controller
 	{
 		return "success";
 	}
+
+	public function daily_skin_consultation(Request $request)
+	{
+		$total = 0;
+
+		$sales_orders = \App\SalesOrder::with('sales_order_lines')
+							->where('date', $request->date)
+							->where('is_posted',1)
+							->get();
+
+		foreach($sales_orders as $x)
+		{
+			foreach($x->sales_order_lines as $y)
+			{
+				if($y->sellable->name == 'Skin Consultation')
+				{
+					$total += $y->price;
+				}
+			}	
+		}
+
+		return $total;
+	}
+
+	public function daily_dental_consultation(Request $request)
+	{
+		$total = 0;
+
+		$sales_orders = \App\SalesOrder::with('sales_order_lines')
+							->where('date', $request->date)
+							->where('is_posted',1)
+							->get();
+
+		foreach($sales_orders as $x)
+		{
+			foreach($x->sales_order_lines as $y)
+			{
+				if($y->sellable->name == 'Dental Consultation')
+				{
+					$total += $y->price;
+				}
+			}	
+		}
+
+		return $total;
+	}
 }

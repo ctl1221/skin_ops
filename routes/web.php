@@ -176,6 +176,8 @@ Route::post('/api/clients/search', 'APIController@client_search')->middleware('r
 Route::post('/api/appointments', 'APIController@appointments')->middleware('role:sales');
 
 Route::post('/api/daily/total_sales', 'APIController@daily_total_sales')->middleware('role:management');
+Route::post('/api/daily/skin_consultation', 'APIController@daily_skin_consultation')->middleware('role:management');
+Route::post('/api/daily/dental_consultation', 'APIController@daily_dental_consultation')->middleware('role:management');
 
 Route::get('/appointments', 'AppointmentController@index')->middleware('role:sales');
 Route::post('/appointments', 'AppointmentController@store')->middleware('role:sales');

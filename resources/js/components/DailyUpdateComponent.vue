@@ -1,14 +1,10 @@
 <template>
     <div class="card mt-3">
+        <div class="card-header">
+            {{ date_string }} - {{ total_sales | currencyFormat }}
+        </div>
         <div class="card-body">
-            <table>
-                <tr>
-                    <th colspan="2">{{ date }}</th>
-                </tr>
-                <tr>
-                    <td>Total Sales</td>
-                    <td>{{ total_sales }}</td>
-                </tr>
+            <table class="table table-sm table-bordered">
                 <tr>
                     <td>Products</td>
                 </tr>
@@ -19,7 +15,12 @@
                     <td>Dental Sales</td>
                 </tr>
                 <tr>
-                    <td>Consultation</td>
+                    <td>Skin Consultation</td>
+                    <td class="text-right">{{ skin_consultation_sales | currencyFormat }}</td>
+                </tr>
+                <tr>
+                    <td>Dental Consultation</td>
+                    <td class="text-right">{{ dental_consultation_sales | currencyFormat}}</td>
                 </tr>
             </table>
         </div>
@@ -28,15 +29,38 @@
 
 <script>
     export default {
-        props: ['date'],
+        props: ['date_string','date'],
         data(){
             return {
-                total_sales:'',
+                skin_consultation_sales:'',
+                dental_consultation_sales:'',
             }
+        },
+        computed: {
+            total_sales: function()
+            {
+                var total = 0;
+                total += this.skin_consultation_sales;
+                total += this.dental_consultation_sales;
+                return total;
+            },
         },
         created() {
             axios.post('/api/daily/total_sales').then(  response=>{
                 this.total_sales = response.data;
+            });
+
+            //Skin 
+            axios.post('/api/daily/skin_consultation', {
+                date: this.date,
+            }).then(  response=>{
+                this.skin_consultation_sales = response.data;
+            });
+
+            axios.post('/api/daily/dental_consultation', {
+                date: this.date,
+            }).then(  response=>{
+                this.dental_consultation_sales = response.data;
             });
         }
     }
