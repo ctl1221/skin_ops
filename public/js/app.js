@@ -2847,6 +2847,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -49234,6 +49241,16 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("tr", [
+          _c("td", [_vm._v("Booky Sales")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "text-right" }, [
+            _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.booky_sales)))
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "bg-light" })
+        ]),
+        _vm._v(" "),
+        _c("tr", [
           _c("td", [_vm._v("Skin Consultation")]),
           _vm._v(" "),
           _c("td", { staticClass: "text-right" }, [
@@ -49246,17 +49263,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("tr", [
-          _c("td", [_vm._v("Booky Sales")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "text-right" }, [
-            _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.booky_sales)))
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "bg-light" })
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("td", [_vm._v("Dental Sales")]),
+          _c("td", [_vm._v("Dental Consultation")]),
           _vm._v(" "),
           _c("td", { staticClass: "text-right" }, [
             _vm._v(
@@ -49272,7 +49279,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("tr", [
-          _c("td", [_vm._v("Dental Consultation")]),
+          _c("td", [_vm._v("Dental Sales")]),
           _vm._v(" "),
           _c("td", { staticClass: "text-right" }, [
             _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.dental_sales)))
@@ -49776,30 +49783,36 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "vue-circle",
-    {
-      attrs: {
-        progress: _vm.prog,
-        size: 100,
-        reverse: false,
-        "line-cap": "butt",
-        fill: _vm.fill,
-        "empty-fill": "rgba(0, 0, 0, .1)",
-        "animation-start-value": 0.0,
-        "start-angle": -Math.PI / 2,
-        "insert-mode": "append",
-        thickness: 25,
-        "show-percent": true
-      },
-      on: {
-        "vue-circle-progress": _vm.progress,
-        "vue-circle-end": _vm.progress_end
-      }
-    },
-    [_vm._t("default")],
-    2
-  )
+  return _c("div", { staticClass: "row px-4" }, [
+    _c(
+      "div",
+      { staticClass: "col-4" },
+      [
+        _c("vue-circle", {
+          attrs: {
+            progress: _vm.prog,
+            size: 100,
+            reverse: false,
+            "line-cap": "butt",
+            fill: _vm.fill,
+            "empty-fill": "rgba(0, 0, 0, .1)",
+            "animation-start-value": 0.0,
+            "start-angle": -Math.PI / 2,
+            "insert-mode": "append",
+            thickness: 25,
+            "show-percent": true
+          },
+          on: {
+            "vue-circle-progress": _vm.progress,
+            "vue-circle-end": _vm.progress_end
+          }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "col" }, [_vm._t("default")], 2)
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -20,23 +20,23 @@
                     <td class="text-right">{{ probeauty_sales | currencyFormat }}</td>
                 </tr>
                 <tr>
-                    <td>Skin Consultation</td>
-                    <td class="text-right">{{ skin_consultation_sales | currencyFormat }}</td>
-                    <td class="bg-light"></td>
-                </tr>
-                <tr>
                     <td>Booky Sales</td>
                     <td class="text-right">{{ booky_sales | currencyFormat }}</td>
                     <td class="bg-light"></td>
                 </tr>
+
+                <tr>
+                    <td>Skin Consultation</td>
+                    <td class="text-right">{{ skin_consultation_sales | currencyFormat }}</td>
+                    <td class="bg-light"></td>
+                </tr>
                  <tr>
-                    <td>Dental Sales</td>
+                    <td>Dental Consultation</td>
                     <td class="text-right">{{ dental_consultation_sales | currencyFormat}}</td>
                     <td class="text-right align-middle" rowspan=2>{{ total_dental_sales | currencyFormat}}</td>
-
                 </tr>
                 <tr>
-                    <td>Dental Consultation</td>
+                    <td>Dental Sales</td>
                     <td class="text-right">{{ dental_sales | currencyFormat}}</td>
                 </tr>
             </table>

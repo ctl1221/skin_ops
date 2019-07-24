@@ -5,19 +5,30 @@
   Manager's Dashboard 
 
   <span class="float-right">
-  @if($period_to_show == 'current')
-    <a href="/m_dashboard?period=previous" class="btn btn-outline-secondary">
-      {{ \Carbon\Carbon::now()->format('F Y') }}</a>
-  @else
-    <a href="/m_dashboard?period=current" class="btn btn-outline-secondary">
-      {{ \Carbon\Carbon::parse('last month')->format('F Y') }}
-    </a>
-  @endif
-</span>
+    <span class="badge badge-secondary"></span>
+    @if($period_to_show == 'current')
+      <a href="/m_dashboard?period=previous" class="btn btn-outline-secondary">
+        {{ \Carbon\Carbon::now()->format('F Y') }}</a>
+    @else
+      <a href="/m_dashboard?period=current" class="btn btn-outline-secondary">
+        {{ \Carbon\Carbon::parse('last month')->format('F Y') }}
+      </a>
+    @endif
+  </span>
 
 @endsection
 
 @section ('contents')
+
+{{-- <div class="row">
+  <div class="col">
+    <div class="card mb-3 bg-warning">
+      <h3 class="text-center pt-2">
+        ---
+      </h3>
+    </div>
+  </div>
+</div> --}}
 
 <div class="row">
   @foreach($branches as $branch)
@@ -35,13 +46,44 @@
         $prog = number_format($current/$quota*100,0);
       @endphp
 
-      <div class="card"> 
+      <div class="card py-3"> 
         <my-vue-circle
           :prog="{{ $prog }}"
           fill="{{ $branch->color }}"
           >
-          Current: {{ $current }}<br/>
-          Quota: {{ $quota }}
+          <h5>
+            <table>
+              <tr>
+                <td>Quota:</td>
+                <td class="text-right">{{ number_format($quota,2) }}</td>
+              </tr>
+
+              <tr>
+                <td>Current:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="text-right">{{ number_format($current,2) }}</td>
+              </tr>
+              <tr>
+                <td colspan="2" bgcolor="{{ $branch->color }}"></td>
+              </tr>
+              <tr>
+                <td>Remain:</td>
+                <td class="text-right">{{ number_format($quota - $current,2) }}</td>
+              </tr>
+              <tr>
+                <td colspan="2" bgcolor="{{ $branch->color }}"></td>
+              </tr>
+              <tr>
+                <td colspan="2"></td>
+              </tr>
+              <tr>
+                <td colspan="2" bgcolor="{{ $branch->color }}"></td>
+              </tr>
+              <tr>
+                <td>Overall:</td>
+                <td class="text-right">{{ number_format($quota - $current,2) }}</td>
+              </tr>
+            </table>
+          </h5>
         </my-vue-circle>
 
       </div>
