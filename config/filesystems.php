@@ -74,7 +74,7 @@ return [
             'port'     => 21,
             'root'     => '/System Backups',
             'passive'  => true,
-            // 'ssl'      => true,
+            'ssl'      => false,
             // 'timeout'  => 30,
         ],
 
