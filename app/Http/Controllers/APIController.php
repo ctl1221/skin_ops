@@ -227,8 +227,6 @@ class APIController extends Controller
 
 	public function daily_booky(Request $request)
 	{
-		$ids = \App\Category::where('name','Booky')->first()->items->pluck('sellable_id')->toArray();
-
 		$total = 0;
 
 		$sales_orders = \App\SalesOrder::with('sales_order_lines')
@@ -404,6 +402,6 @@ class APIController extends Controller
 			}	
 		}
 
-		return 5;
+		return 5.0;
 	}
 }
