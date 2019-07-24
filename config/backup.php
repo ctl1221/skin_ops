@@ -97,6 +97,7 @@ return [
              */
             'disks' => [
                 'local',
+                'ftp'
             ],
         ],
 
