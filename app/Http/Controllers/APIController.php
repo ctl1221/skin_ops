@@ -207,9 +207,48 @@ class APIController extends Controller
 				->orderBy('start','asc')->get();
 	}
 
-	public function daily_total_sales()
+	public function daily_total_sales(Request $request)
 	{
-		return "success";
+		$total = 0;
+
+		$sales_orders = \App\SalesOrder::with('sales_order_lines')
+							->where('branch_id', $request->branch_id)
+							->where('date', $request->date)
+							->where('is_posted',1)
+							->get();
+
+		foreach($sales_orders as $x)
+		{
+			$total += $x->total_pay();
+		}
+
+		return $total;
+	}
+
+	public function daily_booky(Request $request)
+	{
+		$ids = \App\Category::where('name','Booky')->first()->items->pluck('sellable_id')->toArray();
+
+		$total = 0;
+
+		$sales_orders = \App\SalesOrder::with('sales_order_lines')
+							->where('branch_id', $request->branch_id)
+							->where('date', $request->date)
+							->where('is_posted',1)
+							->get();
+
+		foreach($sales_orders as $x)
+		{
+			foreach($x->payments as $y)
+	        {
+	            if($y->payment_type->name == 'Booky Cash' || $y->payment_type->name == 'Booky Card')
+	            {
+	                $total += $y->amount;
+	            }
+	        }		
+		}
+
+		return $total;
 	}
 
 	public function daily_skin_consultation(Request $request)
@@ -217,6 +256,7 @@ class APIController extends Controller
 		$total = 0;
 
 		$sales_orders = \App\SalesOrder::with('sales_order_lines')
+							->where('branch_id', $request->branch_id)
 							->where('date', $request->date)
 							->where('is_posted',1)
 							->get();
@@ -240,6 +280,7 @@ class APIController extends Controller
 		$total = 0;
 
 		$sales_orders = \App\SalesOrder::with('sales_order_lines')
+							->where('branch_id', $request->branch_id)
 							->where('date', $request->date)
 							->where('is_posted',1)
 							->get();
@@ -256,5 +297,113 @@ class APIController extends Controller
 		}
 
 		return $total;
+	}
+
+	public function daily_services(Request $request)
+	{
+		$total = 0;
+
+		$sales_orders = \App\SalesOrder::with('sales_order_lines')
+							->where('branch_id', $request->branch_id)
+							->where('date', $request->date)
+							->where('is_posted',1)
+							->get();
+
+		foreach($sales_orders as $x)
+		{
+			foreach($x->sales_order_lines as $y)
+			{
+				if($y->sellable_type == "App\Service" || $y->sellable_type == "App\Package")
+				{
+					$total += $y->price;
+				}
+			}
+
+			foreach($x->payments as $y)
+	        {
+	            if($y->payment_type->is_subtractable)
+	            {
+	                $total -= $y->amount;
+	            }
+	        }	
+		}
+
+		return $total;
+	}
+
+	public function daily_products(Request $request)
+	{
+		$total = 0;
+
+		$sales_orders = \App\SalesOrder::with('sales_order_lines')
+							->where('branch_id', $request->branch_id)
+							->where('date', $request->date)
+							->where('is_posted',1)
+							->get();
+
+		foreach($sales_orders as $x)
+		{
+			foreach($x->sales_order_lines as $y)
+			{
+				if($y->sellable_type == "App\Product")
+				{
+					$total += $y->price;
+				}
+			}	
+		}
+
+		return $total;
+	}
+
+	public function daily_probeauty(Request $request)
+	{
+		$ids = \App\Category::where('name','ProBeauty')->first()->items->pluck('sellable_id')->toArray();
+
+		$total = 0;
+
+		$sales_orders = \App\SalesOrder::with('sales_order_lines')
+							->where('branch_id', $request->branch_id)
+							->where('date', $request->date)
+							->where('is_posted',1)
+							->get();
+
+		foreach($sales_orders as $x)
+		{
+			foreach($x->sales_order_lines as $y)
+			{
+				if($y->sellable_type == "App\Product" && in_array($y->sellable_id, $ids))
+				{
+					$total += $y->price;
+				}
+			}	
+		}
+
+		return $total;
+	}
+
+	public function daily_dental(Request $request)
+	{
+		$ids = \App\Category::where('name','ProBeauty')->first()->items->pluck('sellable_id')->toArray();
+
+		$total = 0;
+
+		$sales_orders = \App\SalesOrder::with('sales_order_lines')
+							->where('branch_id', $request->branch_id)
+							->where('date', $request->date)
+							->where('is_posted',1)
+							->get();
+
+		foreach($sales_orders as $x)
+		{
+			foreach($x->sales_order_lines as $y)
+			{
+				if($y->sellable_type == "App\Product" && in_array($y->sellable_id, $ids))
+				{
+					$total += $y->price;
+				}
+			}	
+		}
+
+		return 5;
 	}
 }

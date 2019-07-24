@@ -48,7 +48,8 @@
       @foreach ($dates as $date)
         <daily-card 
           date_string="{{ Carbon\Carbon::parse($date)->toFormattedDateString() }}"
-          date="{{ $date }}">
+          date="{{ $date }}"
+          branch_id={{ $branch->id }}>
         </daily-card>
       @endforeach
     </div> 

@@ -2426,38 +2426,117 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['date_string', 'date'],
+  props: ['date_string', 'date', 'branch_id'],
   data: function data() {
     return {
+      total_services_sales: '',
+      total_products_sales: '',
+      probeauty_sales: '',
+      booky_sales: '',
+      dental_sales: '',
       skin_consultation_sales: '',
       dental_consultation_sales: ''
     };
   },
   computed: {
+    service_sales: function service_sales() {
+      var remain = this.total_services_sales;
+      remain -= this.skin_consultation_sales;
+      remain -= this.dental_consultation_sales;
+      remain -= this.booky_sales;
+      return remain;
+    },
+    product_sales: function product_sales() {
+      return this.total_products_sales - this.probeauty_sales;
+    },
+    branch_sales: function branch_sales() {
+      var total = 0;
+      total += this.service_sales;
+      total += this.product_sales;
+      total += this.probeauty_sales;
+      return total;
+    },
+    total_dental_sales: function total_dental_sales() {
+      var total = 0;
+      total += this.dental_sales;
+      total += this.dental_consultation_sales;
+      return total;
+    },
     total_sales: function total_sales() {
       var total = 0;
+      total += this.service_sales;
+      total += this.product_sales;
+      total += this.probeauty_sales;
+      total += this.booky_sales;
       total += this.skin_consultation_sales;
       total += this.dental_consultation_sales;
+      total += this.dental_sales;
       return total;
     }
   },
   created: function created() {
     var _this = this;
 
-    axios.post('/api/daily/total_sales').then(function (response) {
-      _this.total_sales = response.data;
+    axios.post('/api/daily/services', {
+      date: this.date,
+      branch_id: this.branch_id
+    }).then(function (response) {
+      _this.total_services_sales = response.data;
+    });
+    axios.post('/api/daily/products', {
+      date: this.date,
+      branch_id: this.branch_id
+    }).then(function (response) {
+      _this.total_products_sales = response.data;
+    });
+    axios.post('/api/daily/probeauty', {
+      date: this.date,
+      branch_id: this.branch_id
+    }).then(function (response) {
+      _this.probeauty_sales = response.data;
+    });
+    axios.post('/api/daily/booky_sales', {
+      date: this.date,
+      branch_id: this.branch_id
+    }).then(function (response) {
+      _this.booky_sales = response.data;
     }); //Skin 
 
     axios.post('/api/daily/skin_consultation', {
-      date: this.date
+      date: this.date,
+      branch_id: this.branch_id
     }).then(function (response) {
       _this.skin_consultation_sales = response.data;
     });
     axios.post('/api/daily/dental_consultation', {
-      date: this.date
+      date: this.date,
+      branch_id: this.branch_id
     }).then(function (response) {
       _this.dental_consultation_sales = response.data;
+    });
+    axios.post('/api/daily/dental_sales', {
+      date: this.date,
+      branch_id: this.branch_id
+    }).then(function (response) {
+      _this.dental_sales = response.data;
     });
   }
 });
@@ -49116,22 +49195,43 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card mt-3" }, [
     _c("div", { staticClass: "card-header" }, [
-      _vm._v(
-        "\n        " +
-          _vm._s(_vm.date_string) +
-          " - " +
-          _vm._s(_vm._f("currencyFormat")(_vm.total_sales)) +
-          "\n    "
-      )
+      _vm._v("\n        " + _vm._s(_vm.date_string) + " \n        "),
+      _c("span", { staticClass: "float-right" }, [
+        _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.total_sales)))
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _c("table", { staticClass: "table table-sm table-bordered" }, [
-        _vm._m(0),
+        _c("tr", [
+          _c("td", [_vm._v("Services")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "text-right" }, [
+            _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.service_sales)))
+          ]),
+          _vm._v(" "),
+          _c(
+            "td",
+            { staticClass: "text-right align-middle", attrs: { rowspan: "3" } },
+            [_vm._v(_vm._s(_vm._f("currencyFormat")(_vm.branch_sales)))]
+          )
+        ]),
         _vm._v(" "),
-        _vm._m(1),
+        _c("tr", [
+          _c("td", [_vm._v("Products")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "text-right" }, [
+            _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.product_sales)))
+          ])
+        ]),
         _vm._v(" "),
-        _vm._m(2),
+        _c("tr", [
+          _c("td", [_vm._v("Probeauty Sales")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "text-right" }, [
+            _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.probeauty_sales)))
+          ])
+        ]),
         _vm._v(" "),
         _c("tr", [
           _c("td", [_vm._v("Skin Consultation")]),
@@ -49140,42 +49240,49 @@ var render = function() {
             _vm._v(
               _vm._s(_vm._f("currencyFormat")(_vm.skin_consultation_sales))
             )
-          ])
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "bg-light" })
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", [_vm._v("Booky Sales")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "text-right" }, [
+            _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.booky_sales)))
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "bg-light" })
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", [_vm._v("Dental Sales")]),
+          _vm._v(" "),
+          _c("td", { staticClass: "text-right" }, [
+            _vm._v(
+              _vm._s(_vm._f("currencyFormat")(_vm.dental_consultation_sales))
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "td",
+            { staticClass: "text-right align-middle", attrs: { rowspan: "2" } },
+            [_vm._v(_vm._s(_vm._f("currencyFormat")(_vm.total_dental_sales)))]
+          )
         ]),
         _vm._v(" "),
         _c("tr", [
           _c("td", [_vm._v("Dental Consultation")]),
           _vm._v(" "),
           _c("td", { staticClass: "text-right" }, [
-            _vm._v(
-              _vm._s(_vm._f("currencyFormat")(_vm.dental_consultation_sales))
-            )
+            _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.dental_sales)))
           ])
         ])
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [_c("td", [_vm._v("Products")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [_c("td", [_vm._v("Services")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [_c("td", [_vm._v("Dental Sales")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
