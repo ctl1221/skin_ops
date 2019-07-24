@@ -3,10 +3,11 @@
         <div class="card-body">
             <table>
                 <tr>
-                    <th>{{ date }}</th>
+                    <th colspan="2">{{ date }}</th>
                 </tr>
                 <tr>
                     <td>Total Sales</td>
+                    <td>{{ total_sales }}</td>
                 </tr>
                 <tr>
                     <td>Products</td>
@@ -28,8 +29,15 @@
 <script>
     export default {
         props: ['date'],
-        mounted() {
-            console.log('Component mounted.')
+        data(){
+            return {
+                total_sales:'',
+            }
+        },
+        created() {
+            axios.post('/api/daily/total_sales').then(  response=>{
+                this.total_sales = response.data;
+            });
         }
     }
 </script>

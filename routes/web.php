@@ -7,7 +7,7 @@ Route::post('/settings','UserController@postSettings');
 Route::post('/userpass','UserController@updatePassword');
 Route::post('/userroles','UserController@updateRoles');
 
-Route::get('/m_dashboard','SystemController@m_dashboard')->middleware('role:management');;
+Route::get('/m_dashboard','SystemController@m_dashboard')->middleware('role:management');
 Route::get('/system_settings','UserController@systemSettings')->middleware('role:management');
 Route::post('/system_settings','UserController@postSystemSettings')->middleware('role:management');
 
@@ -174,6 +174,8 @@ Route::get('/api/sales_orders', 'APIController@sales_orders')->middleware('role:
 Route::get('/api/payments', 'APIController@payments')->middleware('role:sales');
 Route::post('/api/clients/search', 'APIController@client_search')->middleware('role:sales');
 Route::post('/api/appointments', 'APIController@appointments')->middleware('role:sales');
+
+Route::post('/api/daily/total_sales', 'APIController@daily_total_sales')->middleware('role:management');
 
 Route::get('/appointments', 'AppointmentController@index')->middleware('role:sales');
 Route::post('/appointments', 'AppointmentController@store')->middleware('role:sales');

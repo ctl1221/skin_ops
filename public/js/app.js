@@ -2424,10 +2424,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['date'],
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  data: function data() {
+    return {
+      total_sales: ''
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.post('/api/daily/total_sales').then(function (response) {
+      _this.total_sales = response.data;
+    });
   }
 });
 
@@ -2736,17 +2746,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     VueCircle: vue2_circle_progress__WEBPACK_IMPORTED_MODULE_0___default.a
   },
+  props: ['prog', 'fill'],
   data: function data() {
-    return {
-      fill: {
-        gradient: ["red", "green", "blue"]
-      }
-    };
+    return {};
   },
   methods: {
     progress: function progress(event, _progress, stepValue) {
@@ -18784,7 +18792,7 @@ return jQuery;
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
  * @license
  * Lodash <https://lodash.com/>
- * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
+ * Copyright JS Foundation and other contributors <https://js.foundation/>
  * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -18795,7 +18803,7 @@ return jQuery;
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.15';
+  var VERSION = '4.17.11';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -21454,10 +21462,16 @@ return jQuery;
         value.forEach(function(subValue) {
           result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
         });
-      } else if (isMap(value)) {
+
+        return result;
+      }
+
+      if (isMap(value)) {
         value.forEach(function(subValue, key) {
           result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
         });
+
+        return result;
       }
 
       var keysFunc = isFull
@@ -22381,8 +22395,8 @@ return jQuery;
         return;
       }
       baseFor(source, function(srcValue, key) {
-        stack || (stack = new Stack);
         if (isObject(srcValue)) {
+          stack || (stack = new Stack);
           baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
         }
         else {
@@ -24199,7 +24213,7 @@ return jQuery;
       return function(number, precision) {
         number = toNumber(number);
         precision = precision == null ? 0 : nativeMin(toInteger(precision), 292);
-        if (precision && nativeIsFinite(number)) {
+        if (precision) {
           // Shift with exponential notation to avoid floating-point issues.
           // See [MDN](https://mdn.io/round#Examples) for more details.
           var pair = (toString(number) + 'e').split('e'),
@@ -25382,7 +25396,7 @@ return jQuery;
     }
 
     /**
-     * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
+     * Gets the value at `key`, unless `key` is "__proto__".
      *
      * @private
      * @param {Object} object The object to query.
@@ -25390,10 +25404,6 @@ return jQuery;
      * @returns {*} Returns the property value.
      */
     function safeGet(object, key) {
-      if (key === 'constructor' && typeof object[key] === 'function') {
-        return;
-      }
-
       if (key == '__proto__') {
         return;
       }
@@ -29194,7 +29204,6 @@ return jQuery;
           }
           if (maxing) {
             // Handle invocations in a tight loop.
-            clearTimeout(timerId);
             timerId = setTimeout(timerExpired, wait);
             return invokeFunc(lastCallTime);
           }
@@ -33581,12 +33590,9 @@ return jQuery;
       , 'g');
 
       // Use a sourceURL for easier debugging.
-      // The sourceURL gets injected into the source that's eval-ed, so be careful
-      // with lookup (in case of e.g. prototype pollution), and strip newlines if any.
-      // A newline wouldn't be a valid sourceURL anyway, and it'd enable code injection.
       var sourceURL = '//# sourceURL=' +
-        (hasOwnProperty.call(options, 'sourceURL')
-          ? (options.sourceURL + '').replace(/[\r\n]/g, ' ')
+        ('sourceURL' in options
+          ? options.sourceURL
           : ('lodash.templateSources[' + (++templateCounter) + ']')
         ) + '\n';
 
@@ -33619,9 +33625,7 @@ return jQuery;
 
       // If `variable` is not specified wrap a with-statement around the generated
       // code to add the data object to the top of the scope chain.
-      // Like with sourceURL, we take care to not check the option's prototype,
-      // as this configuration is a code injection vector.
-      var variable = hasOwnProperty.call(options, 'variable') && options.variable;
+      var variable = options.variable;
       if (!variable) {
         source = 'with (obj) {\n' + source + '\n}\n';
       }
@@ -35826,11 +35830,10 @@ return jQuery;
     baseForOwn(LazyWrapper.prototype, function(func, methodName) {
       var lodashFunc = lodash[methodName];
       if (lodashFunc) {
-        var key = lodashFunc.name + '';
-        if (!hasOwnProperty.call(realNames, key)) {
-          realNames[key] = [];
-        }
-        realNames[key].push({ 'name': methodName, 'func': lodashFunc });
+        var key = (lodashFunc.name + ''),
+            names = realNames[key] || (realNames[key] = []);
+
+        names.push({ 'name': methodName, 'func': lodashFunc });
       }
     });
 
@@ -49093,7 +49096,15 @@ var render = function() {
   return _c("div", { staticClass: "card mt-3" }, [
     _c("div", { staticClass: "card-body" }, [
       _c("table", [
-        _c("tr", [_c("th", [_vm._v(_vm._s(_vm.date))])]),
+        _c("tr", [
+          _c("th", { attrs: { colspan: "2" } }, [_vm._v(_vm._s(_vm.date))])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", [_vm._v("Total Sales")]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(_vm.total_sales))])
+        ]),
         _vm._v(" "),
         _vm._m(0),
         _vm._v(" "),
@@ -49101,20 +49112,12 @@ var render = function() {
         _vm._v(" "),
         _vm._m(2),
         _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _vm._m(4)
+        _vm._m(3)
       ])
     ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [_c("td", [_vm._v("Total Sales")])])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -49637,10 +49640,11 @@ var render = function() {
     "vue-circle",
     {
       attrs: {
-        progress: 70,
+        progress: _vm.prog,
         size: 100,
         reverse: false,
         "line-cap": "butt",
+        fill: _vm.fill,
         "empty-fill": "rgba(0, 0, 0, .1)",
         "animation-start-value": 0.0,
         "start-angle": -Math.PI / 2,
@@ -66096,8 +66100,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/nlicup/Desktop/Coding/skin_pro/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/nlicup/Desktop/Coding/skin_pro/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/charleslicup/Desktop/Coding/skin_ops/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/charleslicup/Desktop/Coding/skin_ops/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

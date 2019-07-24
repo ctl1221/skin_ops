@@ -206,4 +206,9 @@ class APIController extends Controller
 				->where('start', '>=', $start)
 				->orderBy('start','asc')->get();
 	}
+
+	public function daily_total_sales()
+	{
+		return "success";
+	}
 }
