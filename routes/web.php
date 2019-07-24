@@ -78,8 +78,15 @@ Route::get('/categories','CategoryController@index')->middleware('role:managemen
 Route::post('/categories','CategoryController@store')->middleware('role:management');
 Route::get('/categories/create','CategoryController@create')->middleware('role:management');
 Route::get('/categories/{category}','CategoryController@show')->middleware('role:management');
+
 Route::post('/categories/{category}/add_service','CategoryController@add_service')->middleware('role:management');
 Route::get('/categories/{category}/delete_service/{service}','CategoryController@delete_service')->middleware('role:management');
+
+Route::post('/categories/{category}/add_product','CategoryController@add_product')->middleware('role:management');
+Route::get('/categories/{category}/delete_product/{product}','CategoryController@delete_product')->middleware('role:management');
+
+Route::post('/categories/{category}/add_package','CategoryController@add_package')->middleware('role:management');
+Route::get('/categories/{category}/delete_package/{package}','CategoryController@delete_package')->middleware('role:management');
 
 Route::get('/pricelists','PricelistController@index')->middleware('role:management');
 Route::get('/pricelists/create','PricelistController@create')->middleware('role:management');
