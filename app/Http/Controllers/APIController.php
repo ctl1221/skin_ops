@@ -345,6 +345,11 @@ class APIController extends Controller
 	            {
 	                $total -= $y->amount;
 	            }
+
+	            if($y->payment_type->name == 'Deal Grocer Payment')
+	            {
+	            	$total -= $y->amount;
+	            }
 	        }
 
 	        $total -= $x->payableamount;
