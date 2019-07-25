@@ -23,7 +23,8 @@
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
 				    <li class="breadcrumb-item"><a href="/sales_orders">Sales Orders</a></li>
-				    <li class="breadcrumb-item active" aria-current="page">SO{{ $sales_order->so_number }}</li>
+				    <li class="breadcrumb-item" aria-current="page"><a href="/sales_orders/{{ $sales_order->id }}">SO{{ $sales_order->so_number }}</a></li>
+				    <li class="breadcrumb-item active" aria-current="page">Edit</li>
 			 	</ol>
 			</nav> 
 		@endif
@@ -242,7 +243,7 @@
 		</div>
 	</div>
 
-	<input type="submit" value="Submit" class="btn btn-outline-success btn-block">
+	<input type="submit" value="Submit Change" class="btn btn-outline-success btn-block">
 
 </div>
 
