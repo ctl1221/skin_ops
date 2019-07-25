@@ -422,22 +422,22 @@ class APIController extends Controller
 				{
 					$total += $y->price;
 				}
-			}
 
-			if($y->sellable_type == "App\Package")
-			{
-				foreach($y->sellable->breakdowns as $z)
+				if($y->sellable_type == "App\Package")
 				{
-					if($z->sellable_type == "App\Product" && in_array($z->sellable_id, $ids))
+					foreach($y->sellable->breakdowns as $z)
 					{
-						$total += \App\PricelistSellable::where('sellable_type',"App\Product")
-								->where('pricelist_id',3)
-								->where('sellable_id',$z->sellable_id)
-								->first()
-								->price;
+						if($z->sellable_type == "App\Product" && in_array($z->sellable_id, $ids))
+						{
+							$total += \App\PricelistSellable::where('sellable_type',"App\Product")
+									->where('pricelist_id',3)
+									->where('sellable_id',$z->sellable_id)
+									->first()
+									->price;
+						}
 					}
-				}
-			}	
+				}	
+			}
 		}
 
 		return $total;
