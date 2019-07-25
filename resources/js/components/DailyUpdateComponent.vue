@@ -7,7 +7,7 @@
         <div class="card-body">
             <table class="table table-sm table-bordered">
                 <tr>
-                    <td>Services</td>
+                    <td>Non-Products</td>
                     <td class="text-right">{{ service_sales | currencyFormat }}</td>
                     <td class="text-right align-middle" rowspan=3>{{ branch_sales | currencyFormat }}</td>
                 </tr>
@@ -63,7 +63,7 @@
             service_sales: function()
             {
                 var remain = this.total_services_sales;
-                
+
                 remain -= this.skin_consultation_sales;
                 remain -= this.dental_consultation_sales;
                 remain -= this.booky_sales;
