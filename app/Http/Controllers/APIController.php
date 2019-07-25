@@ -329,6 +329,7 @@ class APIController extends Controller
 						if($z->sellable_type == "App\Product" && in_array($z->sellable_id, $probeauty_ids))
 						{
 							$total -= \App\PricelistSellable::where('sellable_type','App\Product')
+									->where('pricelist_id',3)
 									->where('sellable_id',$z->sellable_id)
 									->first()
 									->price;
@@ -388,6 +389,7 @@ class APIController extends Controller
 						if($z->sellable_type == "App\Product" && in_array($z->sellable_id, $ids))
 						{
 							$total += \App\PricelistSellable::where('sellable_type','App\Product')
+									->where('pricelist_id',3)
 									->where('sellable_id',$z->sellable_id)
 									->first()
 									->price;
@@ -429,6 +431,7 @@ class APIController extends Controller
 					if($z->sellable_type == "App\Product" && in_array($z->sellable_id, $ids))
 					{
 						$total += \App\PricelistSellable::where('sellable_type','App\Product')
+								->where('pricelist_id',3)
 								->where('sellable_id',$z->sellable_id)
 								->first()
 								->price;

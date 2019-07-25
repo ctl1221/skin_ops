@@ -22,7 +22,7 @@ Edit Product: {{ $product->name }}
 		@foreach($product->pricelists as $x)
 		<div class="form-group">
 			<label for="{{ $x->pricelist->name }}">{{ $x->pricelist->name }} Price:</label>
-			<input type="number" class="form-control" id="{{ $x->pricelist->name }}" name="{{ $x->pricelist->name }}" value="{{ $x->price }}" min="0" required>
+			<input type="number" class="form-control" id="{{ $x->pricelist->name }}" name="{{ $x->pricelist->name }}" value="{{ $x->price }}" min="0" step="0.01" required>
 		</div>
 		@endforeach
 
