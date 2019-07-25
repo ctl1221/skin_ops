@@ -38,6 +38,8 @@
 
 <div class="container">
 
+	<form method="post" action="/sales_orders/{{ $sales_order->id }}/update">
+		@csrf
 	<div class="card">
 		<div class="card-body">
 			
@@ -61,7 +63,7 @@
 				<div class="form-group col">
 					<label for="date">Date:</label>
 					<input type="date" class="form-control" 
-					id="date" name="date" value="{{ $sales_order->date }}" disabled="">
+					id="date" name="date" value="{{ $sales_order->date }}">
 				</div>
 
 				<div class="form-group col">
@@ -240,62 +242,11 @@
 		</div>
 	</div>
 
-	<br>
-
-
-	@role('management')
-		<a href="/sales_orders/{{ $sales_order->id }}/edit" class="btn btn-outline-warning btn-block">Edit</a>
-		<form method="post" action="/sales_orders/{{ $sales_order->id }}/destroy">
-			@csrf
-
-			<input type="submit" value="Delete" class="btn btn-outline-danger btn-block">
-
-		</form>
-	@endRole
+	<input type="submit" value="Submit" class="btn btn-outline-success btn-block">
 
 </div>
 
-
-
-
+</form>
 
 @endsection
 
-@section('scripts')
-
-<script type="text/javascript">
-
-	var app = new Vue({
-
-		el: '#app',
-		data: {
-			flash_message: "{{ session('message') }}",
-			message_type: "{{ session('message_type') }}"
-		},
-		methods: {
-			deleteSalesOrder: function(url, id) {
-				axios.post(url)
-					.then(response =>
-					{
-						window.location.href = "/sales_orders";
-					}
-				);
-			},
-		},
-		created: function () {
-
-			if(this.flash_message)
-			{
-				Vue.toasted.show(this.flash_message, {
-						type: this.message_type,
-						duration: 3000,
-			            position: 'bottom-right',
-			            theme: 'outline',
-					});
-			}
-		},
-	});
-
-</script>
-
-@endsection

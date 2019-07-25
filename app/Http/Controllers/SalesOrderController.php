@@ -172,6 +172,11 @@ class SalesOrderController extends Controller
     return view('sales_orders.show', compact('sales_order'));
   }
 
+  public function edit(SalesOrder $sales_order)
+  {
+    return view('sales_orders.edit', compact('sales_order'));
+  }
+
   public function post(SalesOrder $sales_order)
   {
 
@@ -256,6 +261,11 @@ class SalesOrderController extends Controller
     }
 
     return back()->with(['message' => 'Sales Order Posted', 'message_type' => 'success']);;
+  }
+
+  public function update(SalesOrder $sales_order, Request $request)
+  {
+    return $request->date;
   }
 
   public function destroy(SalesOrder $sales_order)

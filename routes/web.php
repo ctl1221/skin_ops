@@ -148,9 +148,11 @@ Route::get('/bugs/{bug}/delete', 'BugController@delete')->middleware('role:admin
 Route::get('/sales_orders', 'SalesOrderController@index')->middleware('role:sales');
 Route::get('/sales_orders/create/client/{client}', 'SalesOrderController@create')->middleware('role:sales');
 Route::get('/sales_orders/{sales_order}', 'SalesOrderController@show')->middleware('role:sales');
+Route::get('/sales_orders/{sales_order}/edit', 'SalesOrderController@edit')->middleware('role:management');
 Route::post('/sales_orders', 'SalesOrderController@store')->middleware('role:sales');
 Route::post('/sales_orders/{sales_order}/post', 'SalesOrderController@post')->middleware('role:sales');
 Route::post('/sales_orders/{sales_order}/delete', 'SalesOrderController@destroy')->middleware('role:sales');
+Route::post('/sales_orders/{sales_order}/update', 'SalesOrderController@update')->middleware('role:management');
 Route::post('/sales_orders/{sales_order}/destroy', 'SalesOrderController@delete')->middleware('role:management');
 
 Route::get('/payments', 'PaymentController@index')->middleware('role:sales');
