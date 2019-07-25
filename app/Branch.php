@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use App\SalesOrder;
 use App\Payment;
+use App\ClientClaim;
 use Illuminate\Database\Eloquent\Model;
 
 class Branch extends Model
@@ -104,6 +105,33 @@ class Branch extends Model
         }
 
         return $total;
+    }
+
+    public function monthlyClaimsCount()
+    {
+
+        $array = [];
+
+        $date_from = new Carbon('first day of this month');
+        $date_to = new Carbon('last day of this month');
+
+        $client_claims = ClientClaim::with('sellable')
+                            ->where('branch_id', $this->id)
+                            ->where('claimed_by_date','>=',$date_from->toDateString())
+                            ->where('claimed_by_date','<=',$date_to->toDateString())
+                            ->get();
+
+        foreach($client_claims as $x)
+        {
+            if(!array_key_exists($x->sellable->name, $array))
+            {
+                $array[$x->sellable->name] = 0;
+            }
+            $array[$x->sellable->name] += 1;
+        }
+        arsort($array);
+
+        return $array;
     }
 
     public function monthlyItemSalesCount()

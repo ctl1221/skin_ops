@@ -70,8 +70,9 @@ class UserController extends Controller
         $over = $current > 1 ? ($current - 1) : 0;
 
         $items =  $branch->monthlyItemSalesCount();
+        $claims = $branch->monthlyClaimsCount();
 
-        return view('users.dashboard', compact('appointments','quota', 'current','over','items'));
+        return view('users.dashboard', compact('appointments','quota', 'current','over','items','claims'));
     }
 
     public function settings()

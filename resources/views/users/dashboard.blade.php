@@ -68,12 +68,11 @@ My Dashboard
       Claims - {{ \Carbon\Carbon::now()->format('F Y') }}
       Under Construction
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item text-center">
-
+    @foreach($claims as $key => $value)
+     <li class="list-group-item text-center">
+      {{ $key }} - {{ $value }}
       </li>
-    </ul>
-  </div>
+    @endforeach
 </div>
 
 </div>
