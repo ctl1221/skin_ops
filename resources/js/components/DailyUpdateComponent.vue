@@ -63,9 +63,11 @@
             service_sales: function()
             {
                 var remain = this.total_services_sales;
+                
                 remain -= this.skin_consultation_sales;
                 remain -= this.dental_consultation_sales;
                 remain -= this.booky_sales;
+                remain -= this.dental_sales;
 
                 return remain;
             },
