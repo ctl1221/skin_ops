@@ -316,7 +316,7 @@ class APIController extends Controller
 		{
 			foreach($x->sales_order_lines as $y)
 			{
-				if($y->sellable_type == "App\Service" || $y->sellable_type == "App\Package" || $y->sellable_type = "App\Membership")
+				if($y->sellable_type == "App\Service" || $y->sellable_type == "App\Package" || $y->sellable_type == "App\Membership")
 				{
 					$total += $y->price;
 				}
