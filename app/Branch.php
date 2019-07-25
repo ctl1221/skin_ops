@@ -165,9 +165,22 @@ class Branch extends Model
                     ->where('date','<=',$date_to->toDateString())
                     ->get();
 
-        foreach($sales_orders as $sales_order)
+        foreach($sales_orders as $x)
         {
-            $total += $sales_order->total_pay();
+            $total += $x->sum('price');
+
+            foreach($x->payments as $y)
+            {
+                if($y->payment_type->is_subtractable)
+                {
+                    $total -= $y->amount;
+                }
+
+                if($y->payment_type->name == 'Deal Grocer Payment')
+                {
+                    $total -= $y->amount;
+                }
+            }
         }
 
         foreach($payments as $payment)
