@@ -265,7 +265,10 @@ class SalesOrderController extends Controller
 
   public function update(SalesOrder $sales_order, Request $request)
   {
-    return $request->date;
+    $sales_order->date = $request->date;
+    $sales_order->save();
+    
+    return redirect('/sales_orders/' . $sales_order->id);
   }
 
   public function destroy(SalesOrder $sales_order)

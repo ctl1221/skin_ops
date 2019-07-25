@@ -245,6 +245,7 @@
 
 	@role('management')
 		<a href="/sales_orders/{{ $sales_order->id }}/edit" class="btn btn-outline-warning btn-block">Edit</a>
+		<br/>
 		<form method="post" action="/sales_orders/{{ $sales_order->id }}/destroy">
 			@csrf
 
