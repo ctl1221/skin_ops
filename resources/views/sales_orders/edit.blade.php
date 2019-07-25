@@ -243,11 +243,17 @@
 		</div>
 	</div>
 
+	<br/>
+
 	<input type="submit" value="Submit Change" class="btn btn-outline-success btn-block">
 
 </div>
 
 </form>
+
+<br/>
+
+<a href="/sales_orders/{{ $sales_order->id }}" class="btn btn-outline-danger btn-block">Cancel</a>
 
 @endsection
 
