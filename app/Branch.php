@@ -167,7 +167,7 @@ class Branch extends Model
 
         foreach($sales_orders as $x)
         {
-            $total += $x->sum('price');
+            $total += $x->sales_order_lines->sum('price');
 
             foreach($x->payments as $y)
             {
