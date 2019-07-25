@@ -299,6 +299,7 @@ class APIController extends Controller
 
 	public function daily_services(Request $request)
 	{
+		$probeauty_ids = \App\Category::where('name','ProBeauty')->first()->items->pluck('sellable_id')->toArray();
 		$total = 0;
 
 		$sales_orders = \App\SalesOrder::with('sales_order_lines')
@@ -319,6 +320,21 @@ class APIController extends Controller
 				if($y->sellable_type == "App\Service" || $y->sellable_type == "App\Package" || $y->sellable_type == "App\Membership")
 				{
 					$total += $y->price;
+				}
+
+				if($y->sellable_type == "App\Package")
+				{
+					foreach($y->sellable->breakdowns as $z)
+					{
+						if($z->sellable_type == "App\Product" && in_array($z->sellable_id, $probeauty_ids))
+						{
+							$total -= \App\PricelistSellable::where('sellable_type','App\Product')
+									->where('sellable_id',$z->sellable_id)
+									->first()
+									->price;
+						}
+					}
+
 				}
 			}
 
@@ -388,7 +404,21 @@ class APIController extends Controller
 				{
 					$total += $y->price;
 				}
-			}	
+			}
+
+			// if($y->sellable_type == "App\Package")
+			// {
+			// 	foreach($y->sellable->breakdowns as $z)
+			// 	{
+			// 		if($z->sellable_type == "App\Product" && in_array($z->sellable_id, $ids))
+			// 		{
+			// 			$total += \App\PricelistSellable::where('sellable_type','App\Product')
+			// 					->where('sellable_id',$z->sellable_id)
+			// 					->first()
+			// 					->price;
+			// 		}
+			// 	}
+			// }	
 		}
 
 		return $total;
