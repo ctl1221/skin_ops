@@ -104,6 +104,12 @@ class SalesOrder extends Model
 
     public function quota_included()
     {
+        $service_ids = \App\Category::where('name','Dental')->first()->items
+                        ->where('sellable_type','App\Service')->pluck('sellable_id')->toArray();
+
+        $package_ids = \App\Category::where('name','Dental')->first()->items
+                ->where('sellable_type','App\Package')->pluck('sellable_id')->toArray();
+
         $total = 0;
         $not_included_quota_amount = 0;
         foreach($this->sales_order_lines as $x)
@@ -112,6 +118,17 @@ class SalesOrder extends Model
             {
                 $not_included_quota_amount += $x->price;
             }
+
+            if($x->sellable_type == 'App\\Service' && in_array($x->sellable_id, $service_ids))
+            {
+                $not_included_quota_amount += $x->price;
+            }
+
+            if($x->sellable_type == 'App\\Package' && in_array($x->sellable_id, $package_ids))
+            {
+                $not_included_quota_amount += $x->price;
+            }
+
         }
 
         foreach($this->payments as $x)
