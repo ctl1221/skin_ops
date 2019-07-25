@@ -307,6 +307,11 @@ class APIController extends Controller
 							->where('is_posted',1)
 							->get();
 
+		$payments = \App\Payment::where('branch_id', $request->branch_id)
+                ->where('parent_type', 'App\\Client')
+                ->where('date', $request->date)
+                ->get();
+
 		foreach($sales_orders as $x)
 		{
 			foreach($x->sales_order_lines as $y)
@@ -323,8 +328,18 @@ class APIController extends Controller
 	            {
 	                $total -= $y->amount;
 	            }
-	        }	
+	        }
+
+	        $total -= $x->payableamount;
 		}
+
+		foreach($payments as $payment)
+        {
+            if($payment->payment_type->is_direct)
+            {
+                $total += $payment->amount;
+            }
+        }
 
 		return $total;
 	}
@@ -381,7 +396,7 @@ class APIController extends Controller
 
 	public function daily_dental(Request $request)
 	{
-		$ids = \App\Category::where('name','ProBeauty')->first()->items->pluck('sellable_id')->toArray();
+		$ids = \App\Category::where('name','Dental')->first()->items->pluck('sellable_id')->toArray();
 
 		$total = 0;
 
@@ -393,15 +408,15 @@ class APIController extends Controller
 
 		foreach($sales_orders as $x)
 		{
-			foreach($x->sales_order_lines as $y)
+			foreach($x->sales_order_lines as $y) 
 			{
-				if($y->sellable_type == "App\Product" && in_array($y->sellable_id, $ids))
+				if($y->sellable_type == "App\Service" && in_array($y->sellable_id, $ids))
 				{
 					$total += $y->price;
 				}
 			}	
 		}
 
-		return 5.0;
+		return $total;
 	}
 }
