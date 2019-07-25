@@ -44,6 +44,7 @@
         $current = $branch->currentMonthlySales(Carbon\Carbon::parse($dates[0]));
         $quota = $branch->quota;
         $prog = number_format($current/$quota*100,0);
+        $overall = $branch->currentOverallSales(Carbon\Carbon::parse($dates[0]));
       @endphp
 
       <div class="card py-3"> 
@@ -80,7 +81,7 @@
               </tr>
               <tr>
                 <td>Overall:</td>
-                <td class="text-right">{{ number_format($quota - $current,2) }}</td>
+                <td class="text-right">{{ number_format($overall,2) }}</td>
               </tr>
             </table>
           </h5>

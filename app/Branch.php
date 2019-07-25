@@ -134,4 +134,51 @@ class Branch extends Model
 
         return $array;
     }
+
+    public function currentOverallSales($date_to)
+    {
+        $total = 0;
+
+        $date_from = $date_to->year . '-';
+        if($date_to->month >= 10)
+        {
+            $date_from .= $date_to->month;
+        }
+        else
+        {
+            $date_from .= '0';
+            $date_from .= $date_to->month;
+        }
+        $date_from .= '-01';
+
+        $date_from = new Carbon($date_from);
+
+        $sales_orders = SalesOrder::where('branch_id', $this->id)
+                            ->where('date','>=',$date_from->toDateString())
+                            ->where('date','<=',$date_to->toDateString())
+                            ->where('is_posted',1)
+                            ->get();
+
+        $payments = Payment::where('branch_id', $this->id)
+                    ->where('parent_type', 'App\\Client')
+                    ->where('date','>=',$date_from->toDateString())
+                    ->where('date','<=',$date_to->toDateString())
+                    ->get();
+
+        foreach($sales_orders as $sales_order)
+        {
+            $total += $sales_order->total_pay();
+        }
+
+        foreach($payments as $payment)
+        {
+            if($payment->payment_type->is_direct)
+            {
+                $total += $payment->amount;
+            }
+        }
+
+        return $total;
+    }
 }
+
