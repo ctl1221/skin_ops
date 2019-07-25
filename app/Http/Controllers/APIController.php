@@ -364,6 +364,8 @@ class APIController extends Controller
 	{
 		$total = 0;
 
+		$ids = \App\Category::where('name','ProBeauty')->first()->items->pluck('sellable_id')->toArray();
+
 		$sales_orders = \App\SalesOrder::with('sales_order_lines')
 							->where('branch_id', $request->branch_id)
 							->where('date', $request->date)
@@ -377,6 +379,20 @@ class APIController extends Controller
 				if($y->sellable_type == "App\Product")
 				{
 					$total += $y->price;
+				}
+
+				if($y->sellable_type == "App\Package")
+				{
+					foreach($y->sellable->breakdowns as $z)
+					{
+						if($z->sellable_type == "App\Product" && in_array($z->sellable_id, $ids))
+						{
+							$total += \App\PricelistSellable::where('sellable_type','App\Product')
+									->where('sellable_id',$z->sellable_id)
+									->first()
+									->price;
+						}
+					}
 				}
 			}	
 		}
