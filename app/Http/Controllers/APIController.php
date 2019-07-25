@@ -445,7 +445,11 @@ class APIController extends Controller
 
 	public function daily_dental(Request $request)
 	{
-		$ids = \App\Category::where('name','Dental')->first()->items->pluck('sellable_id')->toArray();
+		$service_ids = \App\Category::where('name','Dental')->first()->items
+						->where('sellable_type','App\Service')->pluck('sellable_id')->toArray();
+
+		$package_ids = \App\Category::where('name','Dental')->first()->items
+				->where('sellable_type','App\Package')->pluck('sellable_id')->toArray();
 
 		$total = 0;
 
@@ -459,7 +463,12 @@ class APIController extends Controller
 		{
 			foreach($x->sales_order_lines as $y) 
 			{
-				if($y->sellable_type == "App\Service" && in_array($y->sellable_id, $ids))
+				if($y->sellable_type == "App\Service" && in_array($y->sellable_id, $service_ids))
+				{
+					$total += $y->price;
+				}
+
+				if($y->sellable_type == "App\Package" && in_array($y->sellable_id, $package_ids))
 				{
 					$total += $y->price;
 				}
