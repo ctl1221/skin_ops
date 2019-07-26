@@ -66,7 +66,6 @@ My Dashboard
   <div class="card mt-3">
     <div class="card-header">
       Claims - {{ \Carbon\Carbon::now()->format('F Y') }}
-      Under Construction
     </div>
     @foreach($claims as $key => $value)
      <li class="list-group-item text-center">
