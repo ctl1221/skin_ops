@@ -33,6 +33,7 @@ class Branch extends Model
     	$sales_orders = SalesOrder::where('branch_id', $this->id)
 							->where('date','>=',$date_from->toDateString())
 							->where('date','<=',$date_to->toDateString())
+                            ->where('is_posted', 1)
 							->get();
 
         $payments = Payment::where('branch_id', $this->id)
@@ -65,6 +66,61 @@ class Branch extends Model
     	return $total;
     }
 
+    public function currentProBeautySales($date_to)
+    {
+        $total = 0;
+
+        $date_from = $date_to->year . '-';
+        if($date_to->month >= 10)
+        {
+            $date_from .= $date_to->month;
+        }
+        else
+        {
+            $date_from .= '0';
+            $date_from .= $date_to->month;
+        }
+        $date_from .= '-01';
+
+        $date_from = new Carbon($date_from);
+
+        $ids = \App\Category::where('name','ProBeauty')->first()->items->pluck('sellable_id')->toArray();
+
+        $sales_orders = SalesOrder::where('branch_id', $this->id)
+                            ->where('date','>=',$date_from->toDateString())
+                            ->where('date','<=',$date_to->toDateString())
+                            ->where('is_posted',1)
+                            ->get();
+
+        foreach($sales_orders as $x)
+        {
+            foreach($x->sales_order_lines as $y)
+            {
+                if($y->sellable_type == "App\Product" && in_array($y->sellable_id, $ids))
+                {
+                    $total += $y->price;
+                }
+
+                if($y->sellable_type == "App\Package")
+                {
+                    foreach($y->sellable->breakdowns as $z)
+                    {
+                        if($z->sellable_type == "App\Product" && in_array($z->sellable_id, $ids))
+                        {
+                            $total += \App\PricelistSellable::where('sellable_type',"App\Product")
+                                    ->where('pricelist_id',3)
+                                    ->where('sellable_id',$z->sellable_id)
+                                    ->first()
+                                    ->price;
+                        }
+                    }
+                }   
+            }
+        }
+
+        return $total;
+    }
+
     public function currentBranchQuota($date_to)
     {
         $total = 0;
@@ -74,6 +130,7 @@ class Branch extends Model
         $sales_orders = SalesOrder::where('branch_id', $this->id)
                             ->where('date','>=',$date_from->toDateString())
                             ->where('date','<=',$date_to->toDateString())
+                            ->where('is_posted', 1)
                             ->get();
 
         $payments = Payment::where('branch_id', $this->id)
@@ -145,6 +202,7 @@ class Branch extends Model
         $sales_orders = SalesOrder::where('branch_id', $this->id)
                             ->where('date','>=',$date_from->toDateString())
                             ->where('date','<=',$date_to->toDateString())
+                            ->where('is_posted', 1)
                             ->get();
 
         foreach($sales_orders as $x)

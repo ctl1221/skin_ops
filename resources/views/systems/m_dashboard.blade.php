@@ -45,6 +45,7 @@
         $quota = $branch->quota;
         $prog = number_format($current/$quota*100,0);
         $overall = $branch->currentOverallSales(Carbon\Carbon::parse($dates[0]));
+        $probeauty_sales = $branch->currentProBeautySales(Carbon\Carbon::parse($dates[0]));
       @endphp
 
       <div class="card py-3"> 
@@ -52,7 +53,6 @@
           :prog="{{ $prog }}"
           fill="{{ $branch->color }}"
           >
-          <h5>
             <table>
               <tr>
                 <td>Quota:</td>
@@ -60,16 +60,27 @@
               </tr>
 
               <tr>
-                <td>Current:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>Current:</td>
                 <td class="text-right">{{ number_format($current,2) }}</td>
               </tr>
               <tr>
                 <td colspan="2" bgcolor="{{ $branch->color }}"></td>
               </tr>
               <tr>
-                <td>Remain:</td>
-                <td class="text-right">{{ number_format($quota - $current,2) }}</td>
+                <td>Probeauty Sales:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="text-right">{{ number_format($probeauty_sales,2) }}</td>
               </tr>
+              @if($quota >= $current)
+                <tr>
+                  <td>Remain:</td>
+                  <td class="text-right">{{ number_format($quota - $current,2) }}</td>
+                </tr>
+              @else
+                <tr>
+                  <td>Over:</td>
+                  <td class="text-right">{{ number_format(($quota - $current) * -1 ,2) }}</td>
+                </tr>
+              @endif
               <tr>
                 <td colspan="2" bgcolor="{{ $branch->color }}"></td>
               </tr>
@@ -83,8 +94,8 @@
                 <td>Overall:</td>
                 <td class="text-right">{{ number_format($overall,2) }}</td>
               </tr>
+              
             </table>
-          </h5>
         </my-vue-circle>
 
       </div>
