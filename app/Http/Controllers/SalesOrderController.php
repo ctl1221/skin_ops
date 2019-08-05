@@ -129,6 +129,8 @@ class SalesOrderController extends Controller
         'branch_id' => $request->branch_id,
         'receptionist_id' => $request->receptionist_id,
         'notes' => $request->notes,
+        'or_number' => $request->or_number ? $request->or_number : '',
+        'cif_number' => $request->cif_number ? $request->cif_number : '',
       ]);
 
       foreach($sales_order_lines as $x)
