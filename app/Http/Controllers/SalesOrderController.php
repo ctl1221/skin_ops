@@ -129,8 +129,8 @@ class SalesOrderController extends Controller
         'branch_id' => $request->branch_id,
         'receptionist_id' => $request->receptionist_id,
         'notes' => $request->notes,
-        'or_number' => $request->or_number ? $request->or_number : '',
-        'cif_number' => $request->cif_number ? $request->cif_number : '',
+        'or_number' => $request->or_number ? $request->or_number : null,
+        'cif_number' => $request->cif_number ? $request->cif_number : null,
       ]);
 
       foreach($sales_order_lines as $x)
@@ -268,6 +268,8 @@ class SalesOrderController extends Controller
   public function update(SalesOrder $sales_order, Request $request)
   {
     $sales_order->date = $request->date;
+    $sales_order->or_number = $request->or_number;
+    $sales_order->cif_number = $request->cif_number;
     $sales_order->save();
     
     return redirect('/sales_orders/' . $sales_order->id);
