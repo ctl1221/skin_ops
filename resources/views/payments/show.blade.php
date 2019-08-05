@@ -51,12 +51,12 @@
 
 			<div class="form-group">
 				<label for="or_number">OR Number:</label>
-				<input type="text" class="form-control" id="or_number" name="or_number" value="{{ $sales_order->or_number }}" disabled>
+				<input type="text" class="form-control" id="or_number" name="or_number" value="{{ $payment->or_number }}" disabled>
 			</div>
 
 			<div class="form-group">
 				<label for="cif_number">CIF Number:</label>
-				<input type="text" class="form-control" id="cif_number" name="cif_number" value="{{ $sales_order->cif_number }}" disabled>
+				<input type="text" class="form-control" id="cif_number" name="cif_number" value="{{ $payment->cif_number }}" disabled>
 			</div>
 
 			<div class="form-group">
