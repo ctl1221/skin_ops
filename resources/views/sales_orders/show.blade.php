@@ -70,13 +70,25 @@
 				</div>
 			</div>
 
-			<div class="row mb-3">
+			<div class="row">
 				<div class="form-group col">
 					<label for="branch">Branch:</label>
 					<input type="text" class="form-control" id="branch" name="branch" value="{{ $sales_order->branch->name }}" disabled>
 				</div>
 
 				<div class="form-group col">
+				</div>
+			</div>
+
+			<div class="row mb-3">
+				<div class="form-group col">
+					<label for="or_number">OR Number:</label>
+					<input type="text" class="form-control" id="or_number" name="or_number" value="{{ $sales_order->or_number }}">
+				</div>
+
+				<div class="form-group col">
+					<label for="cif_number">CIF Number:</label>
+					<input type="text" class="form-control" id="cif_number" name="cif_number" value="{{ $sales_order->cif_number }}">
 				</div>
 			</div>
 
