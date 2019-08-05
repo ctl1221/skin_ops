@@ -106,6 +106,8 @@ class PaymentController extends Controller
                'branch_id' => $request->branch_id,
                'py_number' => $current_py_number,
                'receptionist_id' => $request->receptionist_id,
+               'or_number' => $request->or_number ? $request->or_number : null,
+               'cif_number' => $request->cif_number ? $request->cif_number : null,
            ]); 
 
             History::create([
