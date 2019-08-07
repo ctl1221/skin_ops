@@ -11,6 +11,9 @@ use App\Report;
 use App\Sequence;
 use App\Branch;
 
+use App\Exports\DoctorExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class ReportController extends Controller
 {
     public function __construct()
@@ -61,9 +64,9 @@ class ReportController extends Controller
             }
         }
 
-        elseif($request->report_type == '2')
+        elseif($request->report_type == "Doctor's Sales")
         {
-
+            return Excel::download(new DoctorExport($request->from, $request->to), 'test.xlsx');
         }
         else
         {
@@ -100,6 +103,11 @@ class ReportController extends Controller
             $report->is_generated = 1;
             $report->save();
         });
+    }
+
+    public function export()
+    {
+        return Excel::download(new DoctorSalesSheet, 'test.xlsx');
     }
 
     function InsertReportToDB($request, $rt_number)

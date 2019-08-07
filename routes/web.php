@@ -1,5 +1,7 @@
 <?php
 
+Route::get('/test', 'ReportController@export');
+
 Route::get('/','UserController@home');
 Route::get('/dashboard','UserController@dashboard');
 Route::get('/settings','UserController@settings');

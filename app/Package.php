@@ -17,4 +17,9 @@ class Package extends Model
 	{
 		return $this->morphMany(PricelistSellable::class, 'sellable');
 	}
+
+	public function divisor()
+	{
+		return $this->breakdowns->sum('quantity');
+	}
 }

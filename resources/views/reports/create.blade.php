@@ -30,7 +30,7 @@ Generate New Report
 		<div class="form-group">
 		    <label for="type">Report Type</label>
 		    <select class="form-control" id="type" name="report_type">
-		      <option>Under Construction</option>
+		      <option>Doctor's Sales</option>
 		    </select>
 		</div>
 
