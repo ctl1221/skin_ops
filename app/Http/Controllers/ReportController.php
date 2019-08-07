@@ -55,7 +55,7 @@ class ReportController extends Controller
             if($request->branch == 'All Branches')
             {
                 $this->All_Branches_Sales($request->from, $request->to, $file_name, $rt_number->text_value);
-                $this->InsertReportToDB($request, $rt_number);
+                $this->InsertReportToDB($request, $rt_number, $file_name);
             }
 
             else
@@ -66,7 +66,9 @@ class ReportController extends Controller
 
         elseif($request->report_type == "Doctor's Sales")
         {
-            return Excel::download(new DoctorExport($request->from, $request->to), 'test.xlsx');
+            $file_name = $rt_number->text_value . '.xlsx';
+            $this->All_Doctors_Report($request->from, $request->to, $file_name, $rt_number->text_value);
+            $this->InsertReportToDB($request, $rt_number, $file_name);
         }
         else
         {
@@ -78,13 +80,13 @@ class ReportController extends Controller
 
     public function download(Request $request)
     {
-    	return Storage::download('reports/' . $request->file_name . '.pdf');
+    	return Storage::download('reports/' . $request->file_name);
     }
 
     public function delete($rt_number)
     {
         Report::where('rt_number', $rt_number)->delete();
-        $file_name = 'reports/' . $rt_number . '.pdf';
+        $file_name = 'reports/' . $rt_number;
         Storage::delete($file_name);
 
         return redirect('/reports');
@@ -105,14 +107,20 @@ class ReportController extends Controller
         });
     }
 
-    public function export()
+    function All_Doctors_Report($from, $to, $file_name, $rt_number)
     {
-        return Excel::download(new DoctorSalesSheet, 'test.xlsx');
+        dispatch(function () use ($from, $to, $file_name, $rt_number) {
+            Excel::store(new DoctorExport($from, $to), 'reports/' . $file_name);
+
+            $report = Report::where('rt_number', $rt_number)->first();
+            $report->is_generated = 1;
+            $report->save();
+        });
     }
 
-    function InsertReportToDB($request, $rt_number)
+    function InsertReportToDB($request, $rt_number, $filename)
     {
-        DB::transaction(function () use ($request, $rt_number) {
+        DB::transaction(function () use ($request, $rt_number, $filename) {
 
           $current_rt_number = $rt_number->text_value;
           $rt_number->integer_value++;
@@ -128,7 +136,8 @@ class ReportController extends Controller
                 'type' => $request->report_type,
                 'rt_number' => $current_rt_number,
                 'branch' => $request->branch,
-                'user_id' => \Auth::id()
+                'user_id' => \Auth::id(),
+                'filename' => $filename,
             ]);
         });
     }

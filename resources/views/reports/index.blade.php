@@ -45,7 +45,7 @@
 						<span class="form-inline justify-content-center">
 							<form method="post" action="/reports/download">
 								@csrf
-								<input type="hidden" name="file_name" value="{{$x->rt_number}}">
+								<input type="hidden" name="file_name" value="{{$x->filename}}">
 								<button type="submit" class="btn btn-link">Download</button>	
 							</form>
 
