@@ -271,7 +271,7 @@ class SalesOrderController extends Controller
     $sales_order->date = $request->date;
     $sales_order->or_number = $request->or_number;
     $sales_order->cif_number = $request->cif_number;
-    $sales_order->si_number = $request->cif_number;
+    $sales_order->si_number = $request->si_number;
     $sales_order->save();
     
     return redirect('/sales_orders/' . $sales_order->id);
