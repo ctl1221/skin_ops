@@ -107,6 +107,7 @@ class PaymentController extends Controller
                'py_number' => $current_py_number,
                'receptionist_id' => $request->receptionist_id,
                'or_number' => $request->or_number ? $request->or_number : null,
+               'si_number' => $request->si_number ? $request->si_number : null,
                'cif_number' => $request->cif_number ? $request->cif_number : null,
            ]); 
 

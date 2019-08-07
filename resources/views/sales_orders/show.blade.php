@@ -77,6 +77,8 @@
 				</div>
 
 				<div class="form-group col">
+					<label for="cif_number">CIF Number:</label>
+					<input type="text" class="form-control" id="cif_number" name="cif_number" value="{{ $sales_order->cif_number }}" disabled>
 				</div>
 			</div>
 
@@ -87,8 +89,8 @@
 				</div>
 
 				<div class="form-group col">
-					<label for="cif_number">CIF Number:</label>
-					<input type="text" class="form-control" id="cif_number" name="cif_number" value="{{ $sales_order->cif_number }}" disabled>
+					<label for="si_number">SI Number:</label>
+					<input type="text" class="form-control" id="si_number" name="si_number" value="{{ $sales_order->si_number }}" disabled>
 				</div>
 			</div>
 

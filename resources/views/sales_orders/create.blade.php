@@ -54,6 +54,11 @@ Create Transaction - <a href="/clients/{{ $client->id }}">{{ $client->display_na
 					</div>
 
 					<div class="form-group col">
+						<label for="si_number">SI Number:</label>
+						<input type="text" class="form-control" id="si_number" name="si_number">
+					</div>
+
+					<div class="form-group col">
 						<label for="cif_number">CIF Number:</label>
 						<input type="text" class="form-control" id="cif_number" name="cif_number">
 					</div>

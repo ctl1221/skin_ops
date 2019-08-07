@@ -28,6 +28,11 @@ class DoctorSheet implements FromView, WithTitle, ShouldAutoSize, WithEvents
 
     private $services_count;
     private $packages_count;
+    private $memberships_count;
+    private $sold_products_count;
+    private $sold_services_count;
+    private $sold_packages_count;
+    private $sold_memberships_count;
 
     public function __construct($doctor_id, $doctor_name, $date_start, $date_end)
     {
@@ -129,7 +134,138 @@ class DoctorSheet implements FromView, WithTitle, ShouldAutoSize, WithEvents
             $divisor_array[$x->id] = $x->divisor();
         }
 
-        return view('excels.doctors', compact('doc_name','sol_service','date_start','date_end','package_claims','package_price_array','divisor_array'));
+
+        $membership_claims = DB::table('client_claims as cc')
+                            ->select('cc.id')
+                            ->addSelect('cc.category_id')
+                            ->addSelect('cc.parent_id')
+                            ->addSelect('so.so_number')
+                            ->addSelect('c.last_name')
+                            ->addSelect('c.first_name')
+                            ->addSelect('s.name as service_name')
+                            ->addSelect('m.name as membership_name')
+                            ->addSelect('cc.claimed_by_date')
+                            ->addSelect('so.or_number')
+                            ->addSelect('so.cif_number')
+                            ->addSelect(DB::raw('CONCAT(e.last_name, ", ", e.first_name) as assistant '))
+                            ->addSelect('so.notes')
+                            ->addSelect('b.name as branch_name')
+                            ->join('sales_orders as so','so.id','=','cc.parent_id')
+                            ->join('services as s','s.id','=','cc.sellable_id')
+                            ->join('memberships as m','m.id','=','cc.category_id')
+                            ->join('clients as c','c.id','=','cc.claimed_by_id')
+                            ->leftJoin('employees as e','e.id','cc.assisted_by_id')
+                            ->join('branches as b','b.id','=','cc.branch_id')
+                            ->where('category_type','App\\Membership')
+                            ->where('cc.treated_by_id', $doc_id)
+                            ->where('cc.claimed_by_date','>=', $date_start)
+                            ->where('cc.claimed_by_date','<=', $date_end)
+                            ->orderBy('cc.branch_id')
+                            ->orderBy('cc.claimed_by_date')
+                            ->get();
+
+        $this->memberships_count = count($membership_claims);
+
+        $sold_products = DB::table('sales_order_lines as sol')
+                            ->select('so.so_number')
+                            ->addSelect('c.last_name')
+                            ->addSelect('c.first_name')
+                            ->addSelect('p.name')
+                            ->addSelect('so.date')
+                            ->addSelect('so.si_number')
+                            ->addSelect('sol.price')
+                            ->addSelect('so.notes')
+                            ->addSelect('b.name as branch_name')
+                            ->join('sales_orders as so','so.id','=','sol.sales_order_id')
+                            ->join('products as p','p.id','=','sol.sellable_id')
+                            ->join('clients as c','c.id','=','so.client_id')
+                            ->join('branches as b','b.id','=','so.branch_id')
+                            ->where('sellable_type','App\\Product')
+                            ->where('sol.sold_by_id', $doc_id)
+                            ->where('so.date','>=', $date_start)
+                            ->where('so.date','<=', $date_end)
+                            ->orderBy('so.branch_id')
+                            ->orderBy('so.date')
+                            ->get();
+
+        $this->sold_products_count = count($sold_products);
+
+        $sold_services = DB::table('sales_order_lines as sol')
+                            ->select('so.so_number')
+                            ->addSelect('c.last_name')
+                            ->addSelect('c.first_name')
+                            ->addSelect('s.name')
+                            ->addSelect('so.date')
+                            ->addSelect('so.or_number')
+                            ->addSelect('so.cif_number')
+                            ->addSelect('sol.price')
+                            ->addSelect('so.notes')
+                            ->addSelect('b.name as branch_name')
+                            ->join('sales_orders as so','so.id','=','sol.sales_order_id')
+                            ->join('services as s','s.id','=','sol.sellable_id')
+                            ->join('clients as c','c.id','=','so.client_id')
+                            ->join('branches as b','b.id','=','so.branch_id')
+                            ->where('sellable_type','App\\Service')
+                            ->where('sol.sold_by_id', $doc_id)
+                            ->where('so.date','>=', $date_start)
+                            ->where('so.date','<=', $date_end)
+                            ->orderBy('so.branch_id')
+                            ->orderBy('so.date')
+                            ->get();
+
+        $this->sold_services_count = count($sold_services);
+
+        $sold_packages = DB::table('sales_order_lines as sol')
+                            ->select('so.so_number')
+                            ->addSelect('c.last_name')
+                            ->addSelect('c.first_name')
+                            ->addSelect('p.name')
+                            ->addSelect('so.date')
+                            ->addSelect('so.or_number')
+                            ->addSelect('so.cif_number')
+                            ->addSelect('sol.price')
+                            ->addSelect('so.notes')
+                            ->addSelect('b.name as branch_name')
+                            ->join('sales_orders as so','so.id','=','sol.sales_order_id')
+                            ->join('packages as p','p.id','=','sol.sellable_id')
+                            ->join('clients as c','c.id','=','so.client_id')
+                            ->join('branches as b','b.id','=','so.branch_id')
+                            ->where('sellable_type','App\\Package')
+                            ->where('sol.sold_by_id', $doc_id)
+                            ->where('so.date','>=', $date_start)
+                            ->where('so.date','<=', $date_end)
+                            ->orderBy('so.branch_id')
+                            ->orderBy('so.date')
+                            ->get();
+
+        $this->sold_packages_count = count($sold_packages);
+
+        $sold_memberships = DB::table('sales_order_lines as sol')
+                            ->select('so.so_number')
+                            ->addSelect('c.last_name')
+                            ->addSelect('c.first_name')
+                            ->addSelect('m.name')
+                            ->addSelect('so.date')
+                            ->addSelect('so.or_number')
+                            ->addSelect('so.cif_number')
+                            ->addSelect('sol.price')
+                            ->addSelect('so.notes')
+                            ->addSelect('b.name as branch_name')
+                            ->join('sales_orders as so','so.id','=','sol.sales_order_id')
+                            ->join('memberships as m','m.id','=','sol.sellable_id')
+                            ->join('clients as c','c.id','=','so.client_id')
+                            ->join('branches as b','b.id','=','so.branch_id')
+                            ->where('sellable_type','App\\Membership')
+                            ->where('sol.sold_by_id', $doc_id)
+                            ->where('so.date','>=', $date_start)
+                            ->where('so.date','<=', $date_end)
+                            ->orderBy('so.branch_id')
+                            ->orderBy('so.date')
+                            ->get();
+
+        $this->sold_memberships_count = count($sold_memberships);
+
+        return view('excels.doctors', compact('doc_name','sol_service','date_start','date_end','package_claims','package_price_array','divisor_array','membership_claims','sold_products','sold_services','sold_packages','sold_memberships'));
     }
 
     public function registerEvents(): array
@@ -208,8 +344,8 @@ class DoctorSheet implements FromView, WithTitle, ShouldAutoSize, WithEvents
                     }
                 }
 
-                $previous = array_pop($num) + 3;
                 //Treatments - Packages
+                $previous = array_pop($num) + 3;
                 $event->sheet->styleCells(
                     'A' . $previous . ':J' . $previous,
                     [
@@ -228,7 +364,145 @@ class DoctorSheet implements FromView, WithTitle, ShouldAutoSize, WithEvents
                 $letters = ['A','B','C','D','E','F','G','H','I','J'];
                 $num = [$previous + 1];
 
-                for($i = 1; $i <= $this->packages_count ; $i ++)
+                for($i = 1; $i <= $this->packages_count + $this->memberships_count ; $i ++)
+                {
+                    array_push($num, $i + $num[0]);
+                }
+
+                foreach($letters as $x)
+                {
+                    foreach($num as $y)
+                    {
+                        $event->sheet->styleCells(
+                            $x . $y,
+                            [
+                                'alignment' => [
+                                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                                ],
+                                'borders' => [
+                                    'outline' => [
+                                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                        'color' => ['argb' => 'FF000000'],
+                                    ],
+                                ]
+                            ]
+                        );
+                    }
+                }
+
+                //Sold - Products
+                $previous = array_pop($num) + 3;
+                $event->sheet->styleCells(
+                    'A' . $previous . ':H' . $previous,
+                    [
+                        'alignment' => [
+                            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                        ],
+                        'borders' => [
+                            'outline' => [
+                                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                'color' => ['argb' => 'FF000000'],
+                            ],
+                        ]
+                    ]
+                );
+
+                $letters = ['A','B','C','D','E','F','G','H'];
+                $num = [$previous + 1];
+
+                for($i = 1; $i <= $this->sold_products_count ; $i ++)
+                {
+                    array_push($num, $i + $num[0]);
+                }
+
+                foreach($letters as $x)
+                {
+                    foreach($num as $y)
+                    {
+                        $event->sheet->styleCells(
+                            $x . $y,
+                            [
+                                'alignment' => [
+                                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                                ],
+                                'borders' => [
+                                    'outline' => [
+                                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                        'color' => ['argb' => 'FF000000'],
+                                    ],
+                                ]
+                            ]
+                        );
+                    }
+                }
+
+                //Sold - Services
+                $previous = array_pop($num) + 3;
+                $event->sheet->styleCells(
+                    'A' . $previous . ':H' . $previous,
+                    [
+                        'alignment' => [
+                            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                        ],
+                        'borders' => [
+                            'outline' => [
+                                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                'color' => ['argb' => 'FF000000'],
+                            ],
+                        ]
+                    ]
+                );
+
+                $letters = ['A','B','C','D','E','F','G','H'];
+                $num = [$previous + 1];
+
+                for($i = 1; $i <= $this->sold_services_count ; $i ++)
+                {
+                    array_push($num, $i + $num[0]);
+                }
+
+                foreach($letters as $x)
+                {
+                    foreach($num as $y)
+                    {
+                        $event->sheet->styleCells(
+                            $x . $y,
+                            [
+                                'alignment' => [
+                                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                                ],
+                                'borders' => [
+                                    'outline' => [
+                                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                        'color' => ['argb' => 'FF000000'],
+                                    ],
+                                ]
+                            ]
+                        );
+                    }
+                }
+
+                //Sold - Packages
+                $previous = array_pop($num) + 3;
+                $event->sheet->styleCells(
+                    'A' . $previous . ':H' . $previous,
+                    [
+                        'alignment' => [
+                            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                        ],
+                        'borders' => [
+                            'outline' => [
+                                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                'color' => ['argb' => 'FF000000'],
+                            ],
+                        ]
+                    ]
+                );
+
+                $letters = ['A','B','C','D','E','F','G','H'];
+                $num = [$previous + 1];
+
+                for($i = 1; $i <= $this->sold_packages_count + $this->sold_memberships_count; $i ++)
                 {
                     array_push($num, $i + $num[0]);
                 }
