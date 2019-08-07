@@ -66,9 +66,10 @@ class ReportController extends Controller
 
         elseif($request->report_type == "Doctor's Sales")
         {
-            $file_name = $rt_number->text_value . '.xlsx';
-            $this->All_Doctors_Report($request->from, $request->to, $file_name, $rt_number->text_value);
-            $this->InsertReportToDB($request, $rt_number, $file_name);
+            return Excel::download(new DoctorExport($request->from, $request->to), 'test.xlsx');
+            //$file_name = $rt_number->text_value . '.xlsx';
+            //$this->All_Doctors_Report($request->from, $request->to, $file_name, $rt_number->text_value);
+            //$this->InsertReportToDB($request, $rt_number, $file_name);
         }
         else
         {

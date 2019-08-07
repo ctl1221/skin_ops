@@ -1,6 +1,10 @@
 <?php
 
-Route::get('/test', 'ReportController@export');
+Route::get('/test', function(){
+
+	return "Success";
+
+});
 
 Route::get('/','UserController@home');
 Route::get('/dashboard','UserController@dashboard');

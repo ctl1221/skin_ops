@@ -2,6 +2,9 @@
 
 namespace App\Exports;
 
+use App\Package;
+use App\SalesOrderLine;
+
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Contracts\View\View;
@@ -22,6 +25,9 @@ class DoctorSheet implements FromView, WithTitle, ShouldAutoSize, WithEvents
     private $doctor_id;
     private $date_start;
     private $date_end;
+
+    private $services_count;
+    private $packages_count;
 
     public function __construct($doctor_id, $doctor_name, $date_start, $date_end)
     {
@@ -54,20 +60,76 @@ class DoctorSheet implements FromView, WithTitle, ShouldAutoSize, WithEvents
                             ->addSelect('sol.price')
                             ->addSelect(DB::raw('CONCAT(e.last_name, ", ", e.first_name) as assistant '))
                             ->addSelect('so.notes')
+                            ->addSelect('b.name as branch_name')
                             ->join('sales_orders as so','so.id','=','sol.sales_order_id')
                             ->join('services as s','s.id','=','sol.sellable_id')
                             ->join('clients as c','c.id','=','so.client_id')
+                            ->join('branches as b','b.id','=','so.branch_id')
                             ->leftJoin('employees as e','e.id','sol.assisted_by_id')
                             ->where('sellable_type','App\\Service')
                             ->where(function ($query) use ($doc_id) {
                                 $query
-                                    ->where('sold_by_id', $doc_id)
-                                    ->orWhere('treated_by_id', $doc_id);
+                                    ->where('sol.sold_by_id', $doc_id)
+                                    ->orWhere('sol.treated_by_id', $doc_id);
                             })
                             ->where('so.date','>=', $date_start)
                             ->where('so.date','<=', $date_end)
+                            ->orderBy('so.branch_id')
+                            ->orderBy('so.date')
                             ->get();
-        return view('excels.doctors', compact('doc_name','sol_service','date_start','date_end'));
+
+        $this->services_count = count($sol_service);
+
+        $package_claims = DB::table('client_claims as cc')
+                            ->select('cc.id')
+                            ->addSelect('cc.category_id')
+                            ->addSelect('cc.parent_id')
+                            ->addSelect('so.so_number')
+                            ->addSelect('c.last_name')
+                            ->addSelect('c.first_name')
+                            ->addSelect('s.name as service_name')
+                            ->addSelect('p.name as package_name')
+                            ->addSelect('cc.claimed_by_date')
+                            ->addSelect('so.or_number')
+                            ->addSelect('so.cif_number')
+                            ->addSelect(DB::raw('CONCAT(e.last_name, ", ", e.first_name) as assistant '))
+                            ->addSelect('so.notes')
+                            ->addSelect('b.name as branch_name')
+                            ->join('sales_orders as so','so.id','=','cc.parent_id')
+                            ->join('services as s','s.id','=','cc.sellable_id')
+                            ->join('packages as p','p.id','=','cc.category_id')
+                            ->join('clients as c','c.id','=','cc.claimed_by_id')
+                            ->leftJoin('employees as e','e.id','cc.assisted_by_id')
+                            ->join('branches as b','b.id','=','cc.branch_id')
+                            ->where('category_type','App\\Package')
+                            ->where('cc.treated_by_id', $doc_id)
+                            ->where('cc.claimed_by_date','>=', $date_start)
+                            ->where('cc.claimed_by_date','<=', $date_end)
+                            ->orderBy('cc.branch_id')
+                            ->orderBy('cc.claimed_by_date')
+                            ->get();
+
+        $this->packages_count = count($package_claims);
+
+        $package_price_array = [];
+
+        foreach($package_claims as $x)
+        {
+            $package_price_array[$x->id] = SalesOrderLine::where('sellable_type','App\\Package')
+                ->where('sales_order_id',$x->parent_id)
+                ->where('sellable_id',$x->category_id)
+                ->first()
+                ->price;
+        }
+
+        $packages = Package::all();
+        $divisor_array = [];
+        foreach($packages as $x)
+        {
+            $divisor_array[$x->id] = $x->divisor();
+        }
+
+        return view('excels.doctors', compact('doc_name','sol_service','date_start','date_end','package_claims','package_price_array','divisor_array'));
     }
 
     public function registerEvents(): array
@@ -79,8 +141,31 @@ class DoctorSheet implements FromView, WithTitle, ShouldAutoSize, WithEvents
             AfterSheet::class    => function(AfterSheet $event) {
                 $event->sheet->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
 
+                //Headers
+                $letters = ['A','B'];
+                $num = [1,2,3];
+
+                foreach($letters as $x)
+                {
+                    foreach($num as $y)
+                    {
+                        $event->sheet->styleCells(
+                            $x . $y,
+                            [
+                                'borders' => [
+                                    'outline' => [
+                                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                        'color' => ['argb' => 'FF000000'],
+                                    ],
+                                ]
+                            ]
+                        );
+                    }
+                }
+
+                //Treatments - Services
                 $event->sheet->styleCells(
-                    'A5:I5',
+                    'A5:J5',
                     [
                         'alignment' => [
                             'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -93,6 +178,81 @@ class DoctorSheet implements FromView, WithTitle, ShouldAutoSize, WithEvents
                         ]
                     ]
                 );
+
+                $letters = ['A','B','C','D','E','F','G','H','I','J'];
+                $num = [6];
+
+                for($i = 1; $i <= $this->services_count ; $i ++)
+                {
+                    array_push($num, $i + $num[0]);
+                }
+
+                foreach($letters as $x)
+                {
+                    foreach($num as $y)
+                    {
+                        $event->sheet->styleCells(
+                            $x . $y,
+                            [
+                                'alignment' => [
+                                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                                ],
+                                'borders' => [
+                                    'outline' => [
+                                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                        'color' => ['argb' => 'FF000000'],
+                                    ],
+                                ]
+                            ]
+                        );
+                    }
+                }
+
+                $previous = array_pop($num) + 3;
+                //Treatments - Packages
+                $event->sheet->styleCells(
+                    'A' . $previous . ':J' . $previous,
+                    [
+                        'alignment' => [
+                            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                        ],
+                        'borders' => [
+                            'outline' => [
+                                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                'color' => ['argb' => 'FF000000'],
+                            ],
+                        ]
+                    ]
+                );
+
+                $letters = ['A','B','C','D','E','F','G','H','I','J'];
+                $num = [$previous + 1];
+
+                for($i = 1; $i <= $this->packages_count ; $i ++)
+                {
+                    array_push($num, $i + $num[0]);
+                }
+
+                foreach($letters as $x)
+                {
+                    foreach($num as $y)
+                    {
+                        $event->sheet->styleCells(
+                            $x . $y,
+                            [
+                                'alignment' => [
+                                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                                ],
+                                'borders' => [
+                                    'outline' => [
+                                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                        'color' => ['argb' => 'FF000000'],
+                                    ],
+                                ]
+                            ]
+                        );
+                    }
+                }
             },
         ];
     }   
