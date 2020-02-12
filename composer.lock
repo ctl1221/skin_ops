@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da9bfd395937508c48e930530c0e5e4d",
+    "content-hash": "94bbb142b8f44b6bef70e56d8dbec438",
     "packages": [
         {
             "name": "barryvdh/laravel-snappy",
@@ -3763,31 +3763,31 @@
         },
         {
             "name": "yajra/laravel-acl",
-            "version": "v3.6.1",
+            "version": "v4.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-acl.git",
-                "reference": "8ec89ae0e3a4c41d96a764854e8602df0b6d828d"
+                "reference": "9fbd7a0c841da5ed6f92f1d1c96d37c3620de19c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-acl/zipball/8ec89ae0e3a4c41d96a764854e8602df0b6d828d",
-                "reference": "8ec89ae0e3a4c41d96a764854e8602df0b6d828d",
+                "url": "https://api.github.com/repos/yajra/laravel-acl/zipball/9fbd7a0c841da5ed6f92f1d1c96d37c3620de19c",
+                "reference": "9fbd7a0c841da5ed6f92f1d1c96d37c3620de19c",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "^5.3",
-                "illuminate/support": "^5.3",
-                "php": ">=7.0.0"
+                "illuminate/database": "^5.8|^6.0",
+                "illuminate/support": "^5.8|^6.0",
+                "php": "^7.1.3"
             },
             "require-dev": {
-                "orchestra/testbench": "^3.5",
-                "phpunit/phpunit": "^6.0"
+                "orchestra/testbench": "^3.8",
+                "phpunit/phpunit": "^7.5|^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "4.0-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -3822,7 +3822,7 @@
                 "user",
                 "yajra"
             ],
-            "time": "2019-01-08T02:51:43+00:00"
+            "time": "2019-09-28T06:01:04+00:00"
         }
     ],
     "packages-dev": [
