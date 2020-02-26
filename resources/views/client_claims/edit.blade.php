@@ -30,7 +30,7 @@
   </div>
 
   <div class="form-group">
-    <label for="treated_by_id">Current Treated By: <b>{{ $claim->treated_by->display_name() }}</b></label>
+    <label for="treated_by_id">Current Treated By: <b>{{ $claim->treated_by ? $claim->treated_by->display_name() : "----" }}</b></label>
     <select class="form-control" id="treated_by_id" name="treated_by_id" required >
       @foreach ($employees as $x)
         <option value={{ $x->id }} 
